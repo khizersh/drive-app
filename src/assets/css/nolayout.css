@@ -1,0 +1,26 @@
+.noLayout {
+  background-color: #ffffff;
+  background-image: url("../images/layout-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.login-btn {
+  cursor: pointer;
+  background-color: #ffc72c;
+  border: 1px solid #ffc72c !important;
+  color: #2d2926;
+  -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+}
+
+.border-bottom-3 {
+  border-bottom: 1px solid black !important;
+}
+
+.login-header {
+  font-size: 18px;
+  font-weight: bold !important;
+}

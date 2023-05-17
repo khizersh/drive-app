@@ -6,7 +6,8 @@ const drawer = (props) => {
 <>
 <input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
    <label for="drawer-toggle" id="drawer-toggle-label"></label>
-   <header>Header</header>
+   <header>yaha navbar aega</header>
+   <header>yaha navbar aega</header>
    <nav id="drawer">
       <ul>
          <li><a href="#">Menu Item</a></li>

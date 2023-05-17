@@ -102,11 +102,11 @@
     
     /* checked styles (menu open state) */ 
     
-    #drawer-toggle:checked ~ #drawer-toggle-label { 
+    /* #drawer-toggle:checked ~ #drawer-toggle-label { 
     height: 100%; 
     width: calc(100% - 300px); 
     background: rgba(255,255,255,.8); 
-    } 
+    }  */
     
     #drawer-toggle:checked ~ #drawer-toggle-label, 
     #drawer-toggle:checked ~ header { 

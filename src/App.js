@@ -31,7 +31,7 @@ function App() {
       if (page != null) {
         setNoLayout(true);
       } else {
-        setDashboard(true);
+        setDashboard(false);
       }
     }
   }, [window.location.href]);
@@ -40,14 +40,35 @@ function App() {
     <>
       <BrowserRouter>
         <Switch>
-          {dashboard == true? (
-            <DashbboardLayout>
-              <Route path="/admin/user" render={(props) => <User />} />
+          {/* <Route
+            path="/"
+            exact
+            render={(props) =>  <Weblayout {...props} ><Homepage /></Weblayout>}
+            />
+            <Route
+            path="/admin/user"
+            exact
+            render={(props) =>  <DashbboardLayout {...props} ><User /></DashbboardLayout>}
+            />
+            <Route
+            path="/login"
+            exact
+            render={(props) =>  <NoLayout {...props} ><Login /></NoLayout>}
+            />
+            <Route
+            path="/register"
+            exact
+            render={(props) =>  <NoLayout {...props} ><Register /></NoLayout>}
+            /> */}
+
+          {dashboard === true ? (
+            <DashbboardLayout> 
+              <Route path="/admin/user"  render={(props) => <User />} />
             </DashbboardLayout>
-          ) : noLayoutPage == true ? (
+          ) : noLayoutPage === true ? (
             <NoLayout>
-              <Route path="/login" render={(props) => <Login />} />
-              <Route path="/register" render={(props) => <Register />} />
+              <Route path="/login"  render={(props) => <Login />} />
+              <Route path="/register"  render={(props) => <Register />} />
             </NoLayout>
           ) : (
             <Weblayout>

@@ -95,7 +95,7 @@
     width: 100%; 
     height: calc(100% - 50px); 
     overflow-x:hidden; 
-    overflow-y:scroll; 
+    /* overflow-y:scroll;  */
     -webkit-overflow-scrolling: touch; 
     padding: 20px; 
     }

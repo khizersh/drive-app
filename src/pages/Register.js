@@ -48,7 +48,7 @@ const Register = () => {
                       value=""
                     />
                   </div>
-                  <div className="col-12 col-lg-12">
+                  <div className="col-12 col-lg-6">
                     <input
                       name="firstname"
                       maxlength="50"
@@ -56,6 +56,17 @@ const Register = () => {
                       id="firstname"
                       placeholder="Email *"
                       type="text"
+                      value=""
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <input
+                      name="firstname"
+                      maxlength="50"
+                      required="required"
+                      id="firstname"
+                      placeholder="Password *"
+                      type="password"
                       value=""
                     />
                   </div>

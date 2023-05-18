@@ -1,5 +1,6 @@
 import React from "react";
 import "../assets/css/drawer.css";
+import { Link } from "react-router-dom";
 
 const DashbboardLayout = (props) => {
   return (
@@ -10,16 +11,10 @@ const DashbboardLayout = (props) => {
       <nav id="drawer">
         <ul>
           <li>
-            <a href="#">Menu Item</a>
+            <Link to="/admin/user">User</Link>
           </li>
           <li>
-            <a href="#">Menu Item</a>
-          </li>
-          <li>
-            <a href="#">Menu Item</a>
-          </li>
-          <li>
-            <a href="#">Menu Item</a>
+            <a href="/">Home</a>
           </li>
         </ul>
       </nav>

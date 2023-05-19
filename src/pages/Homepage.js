@@ -6,7 +6,6 @@ const Homepage = () => {
   const router = useHistory();
   return (
     <div>
-      <h1 onClick={() => router.push("/login")}>Home12</h1>
 
 
 
@@ -15,7 +14,7 @@ const Homepage = () => {
         <div className="brand-theme">
         <div className="container">
         <div className="row links-row">
-          <div className="col-md-3 col-sm-6">
+          <div className="col-md-3 col-sm-6 lr-col">
             <a className="lr-link active" href="#" target="_parent">
               <span className="lr-title">Brand Assets</span> 
               <span className="img-holder"> 
@@ -115,6 +114,14 @@ const Homepage = () => {
             </a>
           </div>
 
+          <div className="col-md-3 col-sm-6 lr-col">
+            <a className="lr-link active" href="#" target="_parent">
+              <span className="lr-title">Reference Documents &amp; Forms</span> 
+              <span className="img-holder"> 
+                <img alt="" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/iconfinder_11_Agreement_report_form_layout_paper_4308068.png"  />
+              </span> 
+            </a>
+          </div>
           <div className="col-md-3 col-sm-6 lr-col">
             <a className="lr-link active" href="#" target="_parent">
               <span className="lr-title">Reference Documents &amp; Forms</span> 

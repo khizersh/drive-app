@@ -1752,10 +1752,8 @@
   height: auto;
   margin: auto;
 }
-</style>
-    <div class="row custompageviewcontent" data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"><ul class="search"><li><div class="searchTitle title"><div class="searchContainer"><div class="titleContainer">Welcome to the CKE Digital Library
-  </div></div>
-<style>.custompageviewcontent[data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"] .titleContainer {
+
+.custompageviewcontent[data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"] .titleContainer {
   color: #000000 !important;
   font-size: 48px !important;
   font-family: "Stawix - SansBeamHead-Heavy", Arial !important;
@@ -1793,4 +1791,155 @@
 .custompageviewcontent[data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"] .searchPageIcon:hover {
   color: #2D2926 !important;
   background-color: #FFC72C !important;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .searchInput input {
+      width:73% !important;
+      margin-left: 10% !important
+  }
+}
+
+.custompageviewcontent ul.search {
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.custompageviewcontent ul.search li {
+  border-top: 1px solid transparent !important;
+}
+
+.custompageviewcontent ul.search li .searchTitle:after {
+  content: initial !important
+}
+
+.custompageviewcontent ul.search li.active .searchTitle>div {
+  background-color: #ffc72c
+}
+
+.custompageviewcontent ul.search li.active .searchTitle>div>div>div:nth-child(2)::after {
+  border-color: transparent transparent #4a4a4a transparent;
+  margin-top: -2px
+}
+
+.custompageviewcontent ul.search li .searchTitle,.custompageviewcontent ul.search li .searchContent {
+  border-left: none;
+  border-right: none
+}
+
+.custompageviewcontent ul.search li .searchInput {
+  background-color: #ffc72c;
+  padding-top: 0px;
+  height: 90px;
+  margin: auto
+}
+
+.custompageviewcontent ul.search li .searchInput>input {
+  width: 35%;
+  margin-left: 30.5%;
+  margin-top: 2%;
+  float: left;
+  height: 38px;
+  color: #ffc72c
+}
+
+.custompageviewcontent ul.search li .searchInput>input:focus {
+  border: 1px solid #ccc;
+  background-color: white
+}
+
+.custompageviewcontent ul.search li .searchInput>span {
+  width: 35px;
+  float: left;
+  margin-top: 2%;
+  height: 38px;
+  font-size: 17px;
+  color: #ffc72c;
+  border-left: white;
+  border-left-style: none;
+  background-color: white
+}
+
+.custompageviewcontent ul.search li .searchInput>span:hover {
+  color: #c8102e
+}
+
+.custompageviewcontent ul.search li .searchInput>span:before {
+  margin-top: 4px !important
+}
+
+.custompageviewcontent ul.search li .searchTitle {
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: center
+}
+
+.custompageviewcontent ul.search li .searchTitle::after {
+  border-color: transparent
+}
+
+.custompageviewcontent ul.search li .searchTitle>div {
+  display: inline-block;
+  background-color: #ffc72c;
+  text-align: center;
+  width: 100%
+}
+
+.custompageviewcontent ul.search li .searchTitle>div::before {
+  content: "";
+  vertical-align: middle;
+  display: inline-block;
+  height: 100%
+}
+
+.custompageviewcontent ul.search li .searchTitle>div>div:first-child {
+  font-family: "Helvetica","Arial","sans-serif";
+  font-size: 120%;
+  font-weight: bold;
+  padding-top: 30px;
+  display: inline-block;
+  color: white;
+  text-align: left;
+  word-wrap: break-word;
+  vertical-align: middle
+}
+
+.custompageviewcontent ul.search li .searchTitle>div>div:first-child::before {
+  content: "";
+  vertical-align: middle;
+  display: inline-block;
+  height: 100%
+}
+
+.custompageviewcontent ul.search li .searchTitle>div>div:nth-child(2) {
+  font-family: "Helvetica","Arial","sans-serif";
+  padding: 10px;
+  display: inline-block;
+  width: 70%;
+  text-align: left;
+  word-wrap: break-word;
+  vertical-align: middle
+}
+
+.custompageviewcontent ul.search li .searchTitle>div>div:nth-child(2)::after {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #4a4a4a transparent transparent transparent;
+  border-image: none;
+  border-style: solid;
+  border-width: 8px;
+  content: "";
+  display: inline-block;
+  height: 0;
+  width: 0;
+  float: right;
+  margin-top: 6px
+}
+
+.custompageviewcontent ul.search li ul.accordionSortable {
+  margin-left: 0
 }

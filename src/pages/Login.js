@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { postRequest } from "../service/commonService";
+import { BASE_URL, LOGIN_USER, SUCCESS } from "../service/constants";
+import swal from "sweetalert";
 
 const Login = () => {
   const router = useHistory();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onClickLogin = async (e) => {
+    const data = await postRequest(BASE_URL + LOGIN_USER, user);
+    if (data != null) {
+      if (data.status == SUCCESS) {
+        localStorage.setItem("user", JSON.stringify(data.data));
+        swal({ icon: "success", title: data.message }).then((r) =>
+          router.push("/")
+        );
+      } else {
+        swal({ icon: "error", title: data.message });
+      }
+    }
+  };
+
+  const onChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="container login-modal ">
       <div className="row">
@@ -20,11 +46,17 @@ const Login = () => {
               <input
                 type="text"
                 className="w-100"
+                value={user.email}
+                onChange={(e) => onChange(e)}
+                name="email"
                 placeholder="Enter email.."
               />
               <input
                 type="password"
                 className="w-100 mt-2 "
+                value={user.password}
+                onChange={(e) => onChange(e)}
+                name="password"
                 placeholder="Enter password.."
               />
               <div className="mt-2">
@@ -32,7 +64,10 @@ const Login = () => {
                   Forgot your password?
                 </div>{" "}
                 <div className="d-inline-block float-right">
-                  <button className="p-1 text-right login-btn weight-600 font-14 px-3 ">
+                  <button
+                    className="p-1 text-right login-btn weight-600 font-14 px-3 "
+                    onClick={onClickLogin}
+                  >
                     LOGIN
                   </button>
                 </div>

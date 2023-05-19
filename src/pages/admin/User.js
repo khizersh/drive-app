@@ -1,64 +1,79 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
+import {
+  getRequest,
+  postRequest,
+  showError,
+  showSuccess,
+} from "../../service/commonService";
+import {
+  BASE_URL,
+  DELETE_USER,
+  NOT_VERIFIED_USER,
+  SUCCESS,
+  APPROVE_USER,
+} from "../../service/constants";
+import swal from "sweetalert";
+// import Button from "react-bootstrap/Button";
 
 const User = () => {
-  const [users, setUsers] = useState([
-    {
-      firstName: "Muhammad",
-      lastName: "Khizer",
-      email: "khizer@gmail.com",
-      company: "popshop",
-      jobTitle: "vela",
-      contact: "21321321",
-    },
-    {
-      firstName: "Muhammad",
-      lastName: "Khizer",
-      email: "khizer@gmail.com",
-      company: "popshop",
-      jobTitle: "vela",
-      contact: "21321321",
-    },
-    {
-      firstName: "Muhammad",
-      lastName: "Khizer",
-      email: "khizer@gmail.com",
-      company: "popshop",
-      jobTitle: "vela",
-      contact: "21321321",
-    },
-    {
-      firstName: "Muhammad",
-      lastName: "Khizer",
-      email: "khizer@gmail.com",
-      company: "popshop",
-      jobTitle: "vela",
-      contact: "21321321",
-    },
-    {
-      firstName: "Muhammad",
-      lastName: "Khizer",
-      email: "khizer@gmail.com",
-      company: "popshop",
-      jobTitle: "vela",
-      contact: "21321321",
-    },
-    {
-      firstName: "Muhammad",
-      lastName: "Khizer",
-      email: "khizer@gmail.com",
-      company: "popshop",
-      jobTitle: "vela",
-      contact: "21321321",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getUSers();
+  }, []);
+
+  const getUSers = async () => {
+    try {
+      const data = await getRequest(BASE_URL + NOT_VERIFIED_USER);
+      if (data != null) {
+        if (data.status == SUCCESS) {
+          setUsers(data.data);
+        }
+      }
+    } catch (error) {
+      showError();
+    }
+  };
+  const verifyUser = async (email) => {
+    try {
+      const data = await postRequest(BASE_URL + APPROVE_USER, { email });
+      if (data) {
+        if (data.status == SUCCESS) {
+          showSuccess(data);
+        } else {
+          showError(data);
+        }
+      }
+    } catch (error) {
+      showError();
+    }
+  };
+
+  const onDelete = async (email) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        let body = { email };
+        const data = await postRequest(BASE_URL + DELETE_USER, body);
+        if (data != null) {
+          if (data.status == SUCCESS) {
+            swal({ title: data.message, icon: "success" });
+          }
+        }
+      }
+    });
+  };
 
   return (
     <>
@@ -81,18 +96,28 @@ const User = () => {
                 </thead>
                 <tbody>
                   {users.length
-                    ? users.map((m) => (
+                    ? users.map((m, ind) => (
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>@mdo</td>
-                          <td>@mdo</td>
-                          <td>@mdo</td>
+                          <th scope="row">{ind + 1}</th>
+                          <td>{m.firstName}</td>
+                          <td>{m.lastName}</td>
+                          <td>{m.email}</td>
+                          <td>{m.company}</td>
+                          <td>{m.jobTitle}</td>
+                          <td>{m.contact}</td>
                           <td>
-                            <span className="mx-1" onClick={handleShow}>Detail  | </span>
-                            <span>Approve</span>
+                            <Button
+                              variant="danger"
+                              onClick={() => onDelete(m.email)}
+                            >
+                              Delete
+                            </Button>
+                            <Button
+                              variant="success"
+                              onClick={() => verifyUser(m.email)}
+                            >
+                              Approve
+                            </Button>
                           </td>
                         </tr>
                       ))
@@ -104,10 +129,9 @@ const User = () => {
         </div>
       </div>
 
-   
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>User Detail</Modal.Title>
         </Modal.Header>
         <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
         <Modal.Footer>
@@ -118,7 +142,7 @@ const User = () => {
             Save Changes
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

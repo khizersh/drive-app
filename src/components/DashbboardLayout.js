@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/drawer.css";
 import { Link } from "react-router-dom";
+import { checkAdmin, checkUser } from "../service/commonService";
+import { useHistory } from "react-router-dom";
 
 const DashbboardLayout = (props) => {
+  const router = useHistory();
+  useEffect(() => {
+    let user = checkAdmin();
+    if (!user) {
+      router.push("/login");
+    }
+
+    console.log("safasfa : ", user);
+  }, []);
+
   return (
     <>
       <input type="checkbox" id="drawer-toggle" name="drawer-toggle" />

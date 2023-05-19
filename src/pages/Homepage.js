@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import "../assets/css/homepage.css";
+import {withRouter} from 'react-router';
 
 const Homepage = () => {
   const router = useHistory();
@@ -11,4 +12,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default withRouter(Homepage);

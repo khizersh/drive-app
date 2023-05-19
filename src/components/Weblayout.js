@@ -1,12 +1,16 @@
 import React from 'react'
-import Drawer from "../components/drawer";
+// import Drawer from "../components/drawer";
+import Navbar from '../components/navbar'
 
 const Weblayout = (props) => {
   return (
     <>
-    <Drawer >
+    {/* <Drawer >
       {props.children}
-    </Drawer>
+    </Drawer> */}
+       <Navbar >
+      {props.children}
+    </Navbar>
     </>
   )
 }

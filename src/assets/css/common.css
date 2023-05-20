@@ -72,3 +72,10 @@ input {
 .cursor-pointer:hover {
   cursor: pointer;
 }
+
+
+/* font */
+
+.font-light{
+  font-weight: lighter;
+}

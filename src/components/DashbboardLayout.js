@@ -9,7 +9,8 @@ const DashbboardLayout = (props) => {
   useEffect(() => {
     let user = checkAdmin();
     if (!user) {
-      router.push("/login");
+      window.location.href = "/login"
+      // router.push("/login");
     }
 
     console.log("safasfa : ", user);

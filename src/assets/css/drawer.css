@@ -19,7 +19,7 @@
     
     html,body { 
     height: 100%; 
-    overflow: hidden; 
+    /* overflow: scroll;  */
     } 
     
     /* gets the actual input out of the way; 
@@ -93,8 +93,8 @@
     /* margin-top: 50px;  */
     margin-bottom: 50px;
     width: 100%; 
-    height: calc(100% - 50px); 
-    overflow-x:hidden; 
+    /* height: calc(100% - 50px);  */
+    /* overflow-x:hidden;  */
     /* overflow-y:scroll;  */
     -webkit-overflow-scrolling: touch; 
     padding: 20px; 

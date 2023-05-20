@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Drawer from "../components/drawer";
 import { checkUser } from "../service/commonService";
 import { useHistory } from "react-router-dom";
+import Navbar from "./navbar";
 
 const Weblayout = (props) => {
   const router = useHistory();
@@ -11,12 +12,14 @@ const Weblayout = (props) => {
       router.push("/login");
     }
 
-    console.log("safasfa : ", user);
   }, []);
 
   return (
     <>
-      <Drawer>{props.children}</Drawer>
+      {props.children}
+      {/* <Drawer >
+    </Drawer> */}
+      {/* <Navbar>{props.children}</Navbar> */}
     </>
   );
 };

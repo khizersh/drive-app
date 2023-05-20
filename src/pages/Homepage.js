@@ -10,6 +10,26 @@ const Homepage = () => {
 
 
 
+    <div class="row custompageviewcontent" data-uuid="d0d2f0949d26d15db6f852c0c1cf9594">
+      <ul class="search">
+        <li>
+          <div class="searchTitle title">
+            <div class="searchContainer">
+              <div class="titleContainer">
+                Welcome to the CKE Digital Library
+              </div>
+            </div>
+          </div>
+        <div class="searchInput">
+          <input type="text" class="queryPage" id="queryPage" />
+            <span id="searchPageIcon" class="postfix ib-icon icon-button entypo-regular icon-search searchPageIcon" title="Search"></span>
+        </div>
+         <div class="searchModuleContent" style={{display:"none"}}>
+          </div>
+      </li>
+    </ul>
+  </div>
+
 
       <div className="row custompageviewcontent htmlpagecontent" >
         <div className="brand-theme">

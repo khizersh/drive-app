@@ -5,8 +5,8 @@ const navbar = (props) => {
   return (
     <>
       <div class="small-logo-nav">
-        <nav id="mainTopBar" class="top-bar">
-          <ul>
+        <nav id="mainTopBar" class="top-bar d-flex">
+          <ul class="p-0">
             <li class="name">
               <a href="#">
                 <img
@@ -23,7 +23,7 @@ const navbar = (props) => {
           </ul>
 
           <section
-            class="top-bar-section"
+            class="top-bar-section w-100"
             style={{ zIndex: 12, background: "#FFFFFF" }}
           >
             <ul class="left">
@@ -40,17 +40,8 @@ const navbar = (props) => {
                 >
                   ASSETS LIBRARY
                 </a>
-                <ul
-                  class="dropdown"
-                  id="controlledID"
-                  style={{
-                    position: "fixed",
-                    left: "202.px",
-                    minWidth: "154.5px",
-                    widows: "251px",
-                  }}
-                >
-                  <li class="title back js-generated" >
+                <ul class="dropdown" id="controlledID">
+                  <li class="title back js-generated">
                     <h5>
                       <a href="#">ASSETS LIBRARY</a>
                     </h5>
@@ -173,77 +164,10 @@ const navbar = (props) => {
                 </a>{" "}
               </li>
               <li class="divider"></li>
-              <li class="menu-item ">
-                <a
-                  id="menu-7017d3891e828cd05554c91935345d29"
-                  class="customUrl"
-                  target="_blank"
-                  href="https://www.ckelibrary.com/resource/folder/index/f45669b3173aeebe2b299054f35ffc62"
-                >
-                  TUTORIAL VIDEOS
-                </a>{" "}
-              </li>
             </ul>
             <ul class="right">
               <li class="divider"></li>
-              <li class="has-dropdown menu-item ">
-                <a
-                  id="menu-help"
-                  class="deadMenu"
-                  href="#"
-                  style={{marginLeft : '-3px'}}
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-label="Help"
-                  title="Help"
-                  aria-expanded="false"
-                  aria-controls="controlledID"
-                >
-                  <span
-                    aria-hidden="true"
-                    class="entypo-regular icon-help-circled"
-                    style={{ fontSize: "20px" }}
-                  ></span>
-                </a>{" "}
-                <ul
-                  class="dropdown"
-                  id="controlledID"
-                >
-                  <li class="title back js-generated">
-                    <h5>
-                      <a href="#">
-                        <span
-                          aria-hidden="true"
-                          class="entypo-regular icon-help-circled"
-                          style={{fontSize :  '20px'}}
-                        ></span>
-                      </a>
-                    </h5>
-                  </li>
-                  <li class="divider"></li>
-                  <li class="menu-item ">
-                    <a
-                      id="menu-contactAdmin"
-                      class="customUrl"
-                      target="_blank"
-                      href="mailto:Mlove@ckr.com;sgehri@ckr.com;plee@ckr.com;arperez@ckr.com"
-                    >
-                      CONTACT ADMINISTRATOR
-                    </a>{" "}
-                  </li>
-                  <li class="menu-item ">
-                    <a
-                      id="menu-helpdesk"
-                      class="customUrl"
-                      target="_blank"
-                      href="http://help.intelligencebank.com"
-                    >
-                      HELPDESK
-                    </a>{" "}
-                  </li>{" "}
-                </ul>
-              </li>
+
               <li class="divider"></li>
               <li class="has-dropdown menu-item ">
                 <a id="menu-userDetail" class="deadMenu" href="#">

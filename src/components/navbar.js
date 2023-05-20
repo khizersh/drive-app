@@ -185,7 +185,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-ae34edb4646d9cd70a3b65abb3e34823"
-                      href="/core/myaccount/update/05c70ac99787f78da80048c52cf23ee7"
+                      href="my-account"
                     >
                       MY ACCOUNT
                     </a>{" "}

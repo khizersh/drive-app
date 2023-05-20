@@ -126,9 +126,12 @@ const User = () => {
     const data = await postRequest(BASE_URL + UPDATE_USER, user);
     if (data != null) {
       if (data.status == SUCCESS) {
-        swal({ icon: "success", title: data.message });
+        swal({ icon: "success", title: data.message }).then(m => {
+          setShow(false);
+          window.location.reload();
+        })
       } else {
-        swal({ icon: "error", title: data.message });
+        showError(data)
       }
     }
   };

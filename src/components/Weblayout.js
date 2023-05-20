@@ -16,10 +16,10 @@ const Weblayout = (props) => {
 
   return (
     <>
-      {props.children}
+      {/* {props.children} */}
       {/* <Drawer >
     </Drawer> */}
-      {/* <Navbar>{props.children}</Navbar> */}
+      <Navbar>{props.children}</Navbar>
     </>
   );
 };

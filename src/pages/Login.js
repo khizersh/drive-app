@@ -16,8 +16,8 @@ const Login = () => {
     if (data != null) {
       if (data.status == SUCCESS) {
         localStorage.setItem("user", JSON.stringify(data.data));
-        swal({ icon: "success", title: data.message }).then((r) =>
-          router.push("/")
+        swal({ icon: "success", title: data.message }).then(
+          (r) => (window.location.href = "/")
         );
       } else {
         swal({ icon: "error", title: data.message });

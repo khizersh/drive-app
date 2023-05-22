@@ -2,6 +2,10 @@ import React from "react";
 import "../assets/css/navbar.css";
 
 const navbar = (props) => {
+  const onClickLogout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  };
   return (
     <>
       <div class="small-logo-nav">
@@ -191,7 +195,9 @@ const navbar = (props) => {
                     </a>{" "}
                   </li>
                   <li class="menu-item ">
-                    <a href="/logout/">LOGOUT</a>{" "}
+                    <a href="/logout/" onClick={onClickLogout}>
+                      LOGOUT
+                    </a>{" "}
                   </li>{" "}
                 </ul>
               </li>

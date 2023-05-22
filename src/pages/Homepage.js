@@ -5,7 +5,6 @@ import { withRouter } from "react-router";
 
 const Homepage = () => {
   const router = useHistory();
-
   const onCLickFolder = () => {
     router.push("/folder")
   }

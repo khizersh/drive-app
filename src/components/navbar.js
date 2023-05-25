@@ -5,8 +5,8 @@ const navbar = (props) => {
   return (
     <>
       <div class="small-logo-nav">
-        <nav id="mainTopBar" class="top-bar d-flex">
-          <ul class="p-0">
+        <nav id="mainTopBar" class="top-bar d-flex mb-0">
+          <ul class="p-0 mb-1">
             <li class="name">
               <a href="#">
                 <img
@@ -202,7 +202,7 @@ const navbar = (props) => {
         <div class="horizontalDivider"> </div>
       </div>
 
-      <div id="page-content">{props.children}</div>
+      <div id="page-content p-0">{props.children}</div>
     </>
   );
 };

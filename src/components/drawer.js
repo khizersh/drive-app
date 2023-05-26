@@ -15,7 +15,7 @@ const drawer = (props) => {
          <li><a href="#">Menu Item</a></li>
       </ul>
    </nav>
-   <div id="page-content">
+   <div>
       {props.children}
    </div></>
   )

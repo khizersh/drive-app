@@ -5,15 +5,12 @@ import "../assets/css/layout.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import ArrowRight from '@mui/icons-material/ArrowRight'
-import Camera from '@mui/icons-material/Camera';
-import Menu from '@mui/icons-material/Menu';
-import Tune from '@mui/icons-material/Tune';
-import Public from '@mui/icons-material/Public';
-import Accordion from 'react-bootstrap/Accordion';
-
-
-
+import ArrowRight from "@mui/icons-material/ArrowRight";
+import Camera from "@mui/icons-material/Camera";
+import Menu from "@mui/icons-material/Menu";
+import Tune from "@mui/icons-material/Tune";
+import Public from "@mui/icons-material/Public";
+import Accordion from "react-bootstrap/Accordion";
 
 class FolderLayout extends React.Component {
   constructor(props) {
@@ -41,611 +38,1014 @@ class FolderLayout extends React.Component {
                    &equiv;
               </div> */}
           <div className={`sidebar ${leftOpen}`}>
-            <div className="header">
-           
-            </div>
+            <div className="header"></div>
             <div className="content">
-    
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
-                  <div class="_row_raku75">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                    <div class="_row_raku75">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
                           </div>
-                        </button>
-                      </a>
+                        </div>
+                      </div>
+
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
                   </Accordion.Header>
                   <Accordion.Body>
-                  <div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
+                        </div>
+                      </div>
 
-
-
-
-<div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-
-
-</div>
-
-<div class="_row_raku75SubMenuChild">
-    <Accordion>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>
-        <div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
-        </Accordion.Header>
-        <Accordion.Body>
-        <div class="_row_raku75SubMenu childmenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
                           </div>
-                        </button>
-                      </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
 
-
-<div class="_row_raku75SubMenu childmenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
+                        </div>
+                      </div>
 
-<div class="_row_raku75SubMenu childmenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
-        </Accordion.Body>
-      </Accordion.Item>
-      
-    </Accordion>
-
-    </div>
-
-<div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
-
-<div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
                           </div>
-                        </button>
-                      </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
+
+                    <div class="_row_raku75SubMenuChild">
+                      <Accordion>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div class="_row_raku75SubMenu">
+                              <div class="_thumbColumn_1iasqch">
+                                <div class="_thumbnailContainer_1dic54o">
+                                  <div class="_thumbnailContainer_1dic54op">
+                                    <img
+                                      class="_thumbnail_2i8afq"
+                                      src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="_detailColumn_1slhs1j">
+                                <div
+                                  style={{
+                                    marginBottom: "auto",
+                                    marginTop: "auto",
+                                    maxWidth: "230px",
+                                  }}
+                                >
+                                  <div
+                                    class="_title_k7qvdu"
+                                    style={{
+                                      fontWeight: "bold",
+                                      color: "rgb(200, 16, 46)",
+                                    }}
+                                  >
+                                    <a
+                                      class="_title_k7qvdu"
+                                      target="_blank"
+                                      href="#"
+                                      style={{
+                                        fontWeight: "bold",
+                                        color: "rgb(200, 16, 46)",
+                                      }}
+                                    >
+                                      <div>
+                                        <div class="_truncate_ww5d6d">
+                                          <span>Brand Assets</span>
+                                        </div>
+                                      </div>
+                                    </a>
+                                  </div>
+                                  <div class="_countContainer_13ovesk">
+                                    <div class="_truncateMulti_3ywtd5">
+                                      <span>
+                                        <i>15 Sub-Folders</i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="_indicatorRow_5kaapu">
+                                    <div class="_indicatorRow_5kaapuss">
+                                      <div class="_container_1892uua ">
+                                        <a class="_linkColours_11bsm43">
+                                          <button
+                                            class="_iconButton_ht0taf"
+                                            tabindex="0"
+                                            type="button"
+                                          >
+                                            <div>
+                                              <span
+                                                class="material-icons _icon_1v098ov"
+                                                color="#4a4a4a"
+                                              >
+                                                <Public />{" "}
+                                              </span>
+                                            </div>
+                                          </button>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div class="_row_raku75SubMenu childmenu">
+                              <div class="_thumbColumn_1iasqch">
+                                <div class="_thumbnailContainer_1dic54o">
+                                  <div class="_thumbnailContainer_1dic54op">
+                                    <img
+                                      class="_thumbnail_2i8afq"
+                                      src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="_detailColumn_1slhs1j">
+                                <div
+                                  style={{
+                                    marginBottom: "auto",
+                                    marginTop: "auto",
+                                    maxWidth: "230px",
+                                  }}
+                                >
+                                  <div
+                                    class="_title_k7qvdu"
+                                    style={{
+                                      fontWeight: "bold",
+                                      color: "rgb(200, 16, 46)",
+                                    }}
+                                  >
+                                    <a
+                                      class="_title_k7qvdu"
+                                      target="_blank"
+                                      href="#"
+                                      style={{
+                                        fontWeight: "bold",
+                                        color: "rgb(200, 16, 46)",
+                                      }}
+                                    >
+                                      <div>
+                                        <div class="_truncate_ww5d6d">
+                                          <span>Brand Assets</span>
+                                        </div>
+                                      </div>
+                                    </a>
+                                  </div>
+                                  <div class="_countContainer_13ovesk">
+                                    <div class="_truncateMulti_3ywtd5">
+                                      <span>
+                                        <i>15 Sub-Folders</i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="_indicatorRow_5kaapu">
+                                    <div class="_indicatorRow_5kaapuss">
+                                      <div class="_container_1892uua ">
+                                        <a class="_linkColours_11bsm43">
+                                          <button
+                                            class="_iconButton_ht0taf"
+                                            tabindex="0"
+                                            type="button"
+                                          >
+                                            <div>
+                                              <span
+                                                class="material-icons _icon_1v098ov"
+                                                color="#4a4a4a"
+                                              >
+                                                <Public />{" "}
+                                              </span>
+                                            </div>
+                                          </button>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="_row_raku75SubMenu childmenu">
+                              <div class="_thumbColumn_1iasqch">
+                                <div class="_thumbnailContainer_1dic54o">
+                                  <div class="_thumbnailContainer_1dic54op">
+                                    <img
+                                      class="_thumbnail_2i8afq"
+                                      src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="_detailColumn_1slhs1j">
+                                <div
+                                  style={{
+                                    marginBottom: "auto",
+                                    marginTop: "auto",
+                                    maxWidth: "230px",
+                                  }}
+                                >
+                                  <div
+                                    class="_title_k7qvdu"
+                                    style={{
+                                      fontWeight: "bold",
+                                      color: "rgb(200, 16, 46)",
+                                    }}
+                                  >
+                                    <a
+                                      class="_title_k7qvdu"
+                                      target="_blank"
+                                      href="#"
+                                      style={{
+                                        fontWeight: "bold",
+                                        color: "rgb(200, 16, 46)",
+                                      }}
+                                    >
+                                      <div>
+                                        <div class="_truncate_ww5d6d">
+                                          <span>Brand Assets</span>
+                                        </div>
+                                      </div>
+                                    </a>
+                                  </div>
+                                  <div class="_countContainer_13ovesk">
+                                    <div class="_truncateMulti_3ywtd5">
+                                      <span>
+                                        <i>15 Sub-Folders</i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="_indicatorRow_5kaapu">
+                                    <div class="_indicatorRow_5kaapuss">
+                                      <div class="_container_1892uua ">
+                                        <a class="_linkColours_11bsm43">
+                                          <button
+                                            class="_iconButton_ht0taf"
+                                            tabindex="0"
+                                            type="button"
+                                          >
+                                            <div>
+                                              <span
+                                                class="material-icons _icon_1v098ov"
+                                                color="#4a4a4a"
+                                              >
+                                                <Public />{" "}
+                                              </span>
+                                            </div>
+                                          </button>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="_row_raku75SubMenu childmenu">
+                              <div class="_thumbColumn_1iasqch">
+                                <div class="_thumbnailContainer_1dic54o">
+                                  <div class="_thumbnailContainer_1dic54op">
+                                    <img
+                                      class="_thumbnail_2i8afq"
+                                      src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="_detailColumn_1slhs1j">
+                                <div
+                                  style={{
+                                    marginBottom: "auto",
+                                    marginTop: "auto",
+                                    maxWidth: "230px",
+                                  }}
+                                >
+                                  <div
+                                    class="_title_k7qvdu"
+                                    style={{
+                                      fontWeight: "bold",
+                                      color: "rgb(200, 16, 46)",
+                                    }}
+                                  >
+                                    <a
+                                      class="_title_k7qvdu"
+                                      target="_blank"
+                                      href="#"
+                                      style={{
+                                        fontWeight: "bold",
+                                        color: "rgb(200, 16, 46)",
+                                      }}
+                                    >
+                                      <div>
+                                        <div class="_truncate_ww5d6d">
+                                          <span>Brand Assets</span>
+                                        </div>
+                                      </div>
+                                    </a>
+                                  </div>
+                                  <div class="_countContainer_13ovesk">
+                                    <div class="_truncateMulti_3ywtd5">
+                                      <span>
+                                        <i>15 Sub-Folders</i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="_indicatorRow_5kaapu">
+                                    <div class="_indicatorRow_5kaapuss">
+                                      <div class="_container_1892uua ">
+                                        <a class="_linkColours_11bsm43">
+                                          <button
+                                            class="_iconButton_ht0taf"
+                                            tabindex="0"
+                                            type="button"
+                                          >
+                                            <div>
+                                              <span
+                                                class="material-icons _icon_1v098ov"
+                                                color="#4a4a4a"
+                                              >
+                                                <Public />{" "}
+                                              </span>
+                                            </div>
+                                          </button>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
                   <Accordion.Header>
-                  <div class="_row_raku75">
-                <div class="_thumbColumn_1iasqch">
-                  <div class="_thumbnailContainer_1dic54o">
-                    <div class="_thumbnailContainer_1dic54op">
-                      <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-                    </div>
-                  </div>
-                </div>
-        
-
-                  <div class="_detailColumn_1slhs1j">
-                    <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-                      <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-                        <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-                          <div>
-                            <div class="_truncate_ww5d6d">
-                              <span>Brand Assets</span>
-                            </div>
+                    <div class="_row_raku75">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
                           </div>
-                        </a>
+                        </div>
                       </div>
-                              <div class="_countContainer_13ovesk">
-                                <div class="_truncateMulti_3ywtd5">
-                                  <span><i>15 Sub-Folders</i></span>
+
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
                                 </div>
                               </div>
-                                  <div>
-                                    <div class="_indicatorRow_5kaapu">
-                                      <div class="_indicatorRow_5kaapuss">
-                                        <div class="_container_1892uua ">
-                                          <a class="_linkColours_11bsm43">
-                                            <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                                              <div>
-                                                <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
-                                              </div>
-                                            </button>
-                                          </a>
-                                        </div>
+                            </a>
+                          </div>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="_indicatorRow_5kaapu">
+                              <div class="_indicatorRow_5kaapuss">
+                                <div class="_container_1892uua ">
+                                  <a class="_linkColours_11bsm43">
+                                    <button
+                                      class="_iconButton_ht0taf"
+                                      tabindex="0"
+                                      type="button"
+                                    >
+                                      <div>
+                                        <span
+                                          class="material-icons _icon_1v098ov"
+                                          color="#4a4a4a"
+                                        >
+                                          <Public />{" "}
+                                        </span>
                                       </div>
-                                    </div>
-                                  </div>
+                                    </button>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  </div>
                   </Accordion.Header>
                   <Accordion.Body>
-                
-<div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
+                        </div>
+                      </div>
 
-
-<div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
                           </div>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
-
-
-<div class="_row_raku75SubMenu">
-  <div class="_thumbColumn_1iasqch">
-    <div class="_thumbnailContainer_1dic54o">
-      <div class="_thumbnailContainer_1dic54op">
-        <img class="_thumbnail_2i8afq" src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-      </div>
-    </div>
-  </div>
-
-
-    <div class="_detailColumn_1slhs1j">
-      <div style={{marginBottom: "auto", marginTop: "auto", maxWidth: "230px"}}>
-        <div class="_title_k7qvdu" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-          <a class="_title_k7qvdu" target="_blank" href="#" style={{fontWeight: "bold", color: "rgb(200, 16, 46)"}}>
-            <div>
-              <div class="_truncate_ww5d6d">
-                <span>Brand Assets</span>
-              </div>
-            </div>
-          </a>
-        </div>
-                <div class="_countContainer_13ovesk">
-                  <div class="_truncateMulti_3ywtd5">
-                    <span><i>15 Sub-Folders</i></span>
-                  </div>
-                </div>
-                <div class="_indicatorRow_5kaapu">
-                  <div class="_indicatorRow_5kaapuss">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button class="_iconButton_ht0taf" tabindex="0" type="button">
-                          <div>
-                            <span class="material-icons _icon_1v098ov" color="#4a4a4a"><Public/> </span>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
                           </div>
-                        </button>
-                      </a>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                   
-      </div>
-    </div>
-</div>
+
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="_row_raku75SubMenu">
+                      <div class="_thumbColumn_1iasqch">
+                        <div class="_thumbnailContainer_1dic54o">
+                          <div class="_thumbnailContainer_1dic54op">
+                            <img
+                              class="_thumbnail_2i8afq"
+                              src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="_detailColumn_1slhs1j">
+                        <div
+                          style={{
+                            marginBottom: "auto",
+                            marginTop: "auto",
+                            maxWidth: "230px",
+                          }}
+                        >
+                          <div
+                            class="_title_k7qvdu"
+                            style={{
+                              fontWeight: "bold",
+                              color: "rgb(200, 16, 46)",
+                            }}
+                          >
+                            <a
+                              class="_title_k7qvdu"
+                              target="_blank"
+                              href="#"
+                              style={{
+                                fontWeight: "bold",
+                                color: "rgb(200, 16, 46)",
+                              }}
+                            >
+                              <div>
+                                <div class="_truncate_ww5d6d">
+                                  <span>Brand Assets</span>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="_indicatorRow_5kaapu">
+                            <div class="_indicatorRow_5kaapuss">
+                              <div class="_container_1892uua ">
+                                <a class="_linkColours_11bsm43">
+                                  <button
+                                    class="_iconButton_ht0taf"
+                                    tabindex="0"
+                                    type="button"
+                                  >
+                                    <div>
+                                      <span
+                                        class="material-icons _icon_1v098ov"
+                                        color="#4a4a4a"
+                                      >
+                                        <Public />{" "}
+                                      </span>
+                                    </div>
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
@@ -666,7 +1066,7 @@ class FolderLayout extends React.Component {
             <div class="header-bar--flex">
               <div class="_inputContainer_3j3zds">
                 <div class="_searchIcon_wt0fza">
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </div>
                 <input
                   class="_input_1ogbq7d"
@@ -678,17 +1078,21 @@ class FolderLayout extends React.Component {
                 <div class="_noCancelIcon_cvqqaxww">
                   <div class="_container_1892uua ">
                     <a class="_linkColours_11bsm43">
-                      <button class="_iconButton_1i1401z" tabindex="0" type="button">
-                      <span class="material-icons " 
-                        color="#4a4a4a"> <Tune style={{ color: '#4a4a4a' }}/></span>
-                       
+                      <button
+                        class="_iconButton_1i1401z"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span class="material-icons " color="#4a4a4a">
+                          {" "}
+                          <Tune style={{ color: "#4a4a4a" }} />
+                        </span>
                       </button>
                     </a>
                   </div>
                 </div>
               </div>
             </div>
-
 
             {/* <div class="_f5t5u5d">
               <div class="_headerActions_19tfjki">
@@ -708,8 +1112,6 @@ class FolderLayout extends React.Component {
                             </div>
                             </div>
                             </div> */}
-
-            
           </div>
           <div className="content">
             <h3>Main content</h3>
@@ -734,9 +1136,6 @@ class FolderLayout extends React.Component {
             </p>
             <br />
 
-     
-       
-   
             <p>
               Sed nulla erat, lacinia sit amet dui at, cursus blandit neque. In
               ultricies, dui a laoreet dignissim, risus mi cursus risus, at
@@ -751,8 +1150,6 @@ class FolderLayout extends React.Component {
           </div>
         </div>
       </div>
-
-      
     );
   }
 }

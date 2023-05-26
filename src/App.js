@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import "./assets/css/common.css";
 import Profile from "./pages/Profile";
 import FolderLayout from "./components/FolderLayout";
+import AddFolder from "./pages/AddFolder";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -77,6 +78,7 @@ function App() {
               <Route path="/" exact render={(props) => <Homepage />} />
               <Route path="/my-account"  render={(props) => <Profile />} />
               <Route path="/folder"  render={(props) => <FolderLayout />} />
+              <Route path="/add-folder"  render={(props) => <AddFolder />} />
             </Weblayout>
           )}
         </Switch>

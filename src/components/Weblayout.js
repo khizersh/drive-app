@@ -8,9 +8,9 @@ const Weblayout = (props) => {
   const router = useHistory();
   useEffect(() => {
     let user = checkUser();
-    // if (!user) {
-    //   router.push("/login");
-    // }
+    if (!user) {
+      router.push("/login");
+    }
 
   }, []);
 

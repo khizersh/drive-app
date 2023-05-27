@@ -7,6 +7,8 @@ export const LOGIN_USER = "user/login"
 export const NOT_VERIFIED_USER = "user/get-unverified"
 export const DELETE_USER = "user/delete"
 export const APPROVE_USER = "user/approve"
+export const FIND_FOLDER = "folder/getResourceByUser"
+export const FIND__SUB_FOLDER = "folder/getResourceByFolder"
 
 
 

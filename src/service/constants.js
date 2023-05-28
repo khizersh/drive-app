@@ -26,7 +26,6 @@ export const FIND__SUB_FOLDER = "folder/getResourceByFolder"
 
 
 
-
 export const USER_ROLE = "user";
 export const ADMIN_ROLE = "admin";
 export const SUCCESS = "0000";

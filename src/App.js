@@ -12,6 +12,8 @@ import "./assets/css/common.css";
 import Profile from "./pages/Profile";
 import FolderLayout from "./components/FolderLayout";
 import AddFolder from "./pages/AddFolder";
+import MainProvider from "./context/MainContext";
+import { TailSpin } from "react-loader-spinner";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -42,8 +44,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Switch>
-          {/* <Route
+        <MainProvider>
+          <Switch>
+           
+            {/* <Route
             path="/"
             exact
             render={(props) =>  <Weblayout {...props} ><Homepage /></Weblayout>}
@@ -62,26 +66,27 @@ function App() {
             path="/register"
             exact
             render={(props) =>  <NoLayout {...props} ><Register /></NoLayout>}
-            /> */}
+          /> */}
 
-          {dashboard === true ? (
-            <DashbboardLayout> 
-              <Route path="/admin/user"  render={(props) => <User />} />
-            </DashbboardLayout>
-          ) : noLayoutPage === true ? (
-            <NoLayout>
-              <Route path="/login"  render={(props) => <Login />} />
-              <Route path="/register"  render={(props) => <Register />} />
-            </NoLayout>
-          ) : (
-            <Weblayout>
-              <Route path="/" exact render={(props) => <Homepage />} />
-              <Route path="/my-account"  render={(props) => <Profile />} />
-              <Route path="/folder"  render={(props) => <FolderLayout />} />
-              <Route path="/add-folder"  render={(props) => <AddFolder />} />
-            </Weblayout>
-          )}
-        </Switch>
+            {dashboard === true ? (
+              <DashbboardLayout>
+                <Route path="/admin/user" render={(props) => <User />} />
+              </DashbboardLayout>
+            ) : noLayoutPage === true ? (
+              <NoLayout>
+                <Route path="/login" render={(props) => <Login />} />
+                <Route path="/register" render={(props) => <Register />} />
+              </NoLayout>
+            ) : (
+              <Weblayout>
+                <Route path="/" exact render={(props) => <Homepage />} />
+                <Route path="/my-account" render={(props) => <Profile />} />
+                <Route path="/folder" render={(props) => <FolderLayout />} />
+                <Route path="/add-folder" render={(props) => <AddFolder />} />
+              </Weblayout>
+            )}
+          </Switch>
+        </MainProvider>
       </BrowserRouter>
     </>
   );

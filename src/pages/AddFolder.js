@@ -1,34 +1,75 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { postRequest, showError, showSuccess } from "../service/commonService";
+import { ADD_RESOURCE, BASE_URL, SUCCESS } from "../service/constants";
+import { MainContext } from "../context/MainContext";
 
 const AddFolder = () => {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    jobTitle: "",
-    contact: "",
-    linkedIn: "",
-    skypeName: "",
-    address1: "",
-    address2: "",
-    city: "",
-    state: "",
-    postCode: "",
-    country: "",
-    summary: "",
-    contactName: "",
-    purpose: "",
-    skills: "",
+  const {  setLoading } = useContext(MainContext);
+
+  const [folder, setFolder] = useState({
+    userId: "",
+    name: "",
+    description: "",
+    rootFolder: false,
+    isFolder: true,
+    file: "",
+    folderImage: "",
+    children: [],
+    parentId: "",
+    homeParentId: "",
+    resourcesCount: "",
+    folderCount: "",
+    addedBy: "",
+    lastUpdatedBy: "",
+    folderPath: "",
+    fileFormat: "",
+    fileSize: "",
+    width: "",
+    height: "",
   });
 
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+
+  useEffect(() => {
+    let userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      var json = JSON.parse(userLocal);
+      if (json) {
+        setFolder({
+          ...folder,
+          userId: json._id,
+          homeParentId: params.parent,
+          parentId: params.folder ? params.folder : "",
+        });
+      }
+    }
+  }, []);
+
   const onChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setFolder({ ...folder, [e.target.name]: e.target.value });
   };
 
-  const onClickAddFolder = () => {
-
-  }
+  const onClickAddFolder = async () => {
+    setLoading(true);
+    try {
+      const data = await postRequest(BASE_URL + ADD_RESOURCE, folder);
+      if (data) {
+        if (data.status == SUCCESS) {
+          showSuccess(data);
+          window.location.reload();
+        } else {
+          showError(data);
+        }
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      showError();
+    }
+  };
 
   return (
     <div className="container">
@@ -36,17 +77,17 @@ const AddFolder = () => {
         <div className="col-12 my-3">
           <div className="row ">
             <div className="col-5">
-              <text>FirstName</text>
+              <text>Title</text>
             </div>
             <div className="col-7">
               <input
-                name="firstName"
+                name="name"
                 maxlength="50"
                 required="required"
-                placeholder="First Name *"
+                placeholder="Title*"
                 type="text"
                 onChange={(e) => onChange(e)}
-                value={user.firstName}
+                value={folder.name}
               />
             </div>
           </div>
@@ -54,292 +95,21 @@ const AddFolder = () => {
         <div className="col-12 my-3">
           <div className="row ">
             <div className="col-5">
-              <text>LastName</text>
+              <text>Description</text>
             </div>
             <div className="col-7">
               <input
-                name="lastName"
-                maxlength="50"
+                name="description"
                 required="required"
-                placeholder="Last Name *"
+                placeholder="Description"
                 type="text"
                 onChange={(e) => onChange(e)}
-                value={user.lastName}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Email *</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="email"
-                maxlength="50"
-                required="required"
-                placeholder="Email *"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.email}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Job Title</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="jobTitle"
-                maxlength="50"
-                required="required"
-                placeholder="Job Title"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.jobTitle}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Company</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="company"
-                maxlength="50"
-                required="required"
-                placeholder="Company"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.company}
+                value={folder.description}
               />
             </div>
           </div>
         </div>
 
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>LinkedIn</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="linkedIn"
-                maxlength="50"
-                required="required"
-                placeholder="LinkedIn*"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.linkedIn}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>SkypeName *</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="skypeName"
-                maxlength="50"
-                required="required"
-                placeholder="SkypeName"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.skypeName}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Address 1</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="address1"
-                maxlength="50"
-                required="required"
-                placeholder="Address 1"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.address1}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Address 2</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="address2"
-                maxlength="50"
-                required="required"
-                placeholder="First Name *"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.address2}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>City</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="city"
-                maxlength="50"
-                required="required"
-                placeholder="City"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.city}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>State</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="state"
-                maxlength="50"
-                required="required"
-                placeholder="State"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.state}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Postal Code</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="postCode"
-                maxlength="50"
-                required="required"
-                placeholder="Postal Code"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.postCode}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Country</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="country"
-                maxlength="50"
-                required="required"
-                placeholder="Country"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.country}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Summary</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="summary"
-                maxlength="50"
-                required="required"
-                placeholder="Summary"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.summary}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Contact Name</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="contactName"
-                maxlength="50"
-                required="required"
-                placeholder="Summary"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.contactName}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Purpose</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="purpose"
-                maxlength="50"
-                required="required"
-                placeholder="Purpose"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.purpose}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-12 my-3">
-          <div className="row ">
-            <div className="col-5">
-              <text>Skills</text>
-            </div>
-            <div className="col-7">
-              <input
-                name="skills"
-                maxlength="50"
-                required="required"
-                placeholder="Skills"
-                type="text"
-                onChange={(e) => onChange(e)}
-                value={user.skills}
-              />
-            </div>
-          </div>
-        </div>
         <div className="col-12 text-right mt-2">
           <button
             className="p-1 text-right login-btn weight-600 font-14 px-3 "

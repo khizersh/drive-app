@@ -9,7 +9,7 @@ import Collapse from "@material-ui/core/Collapse";
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   const [collapsed, setCollapsed] = React.useState(true);
   const {
-    name : label,
+    name: label,
     children: items,
     Icon,
     onClick: onClickProp,
@@ -18,12 +18,17 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
     description,
   } = item;
 
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+
   function toggleCollapse() {
     setCollapsed((prevValue) => !prevValue);
   }
 
   function onClick(e) {
     e.preventDefault();
+
     if (Array.isArray(items)) {
       toggleCollapse();
     }
@@ -102,13 +107,14 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                     </div>
                   </a>
                 </div>
+                <span>{description}</span>
                 {folderCount || resourceCount ? (
                   <div className="_countContainer_13ovesk">
                     <div className="_truncateMulti_3ywtd5">
                       <span>
                         <i>
-                          {folderCount ? folderCount + " Sub-Folders" : <></>} ,{" "}
-                          {resourceCount ? resourceCount + " Resources" : <></>}
+                          {folderCount ? folderCount + " Sub-Folders" : <></>} {" "}
+                          {resourceCount ? resourceCount + " , Resources" : <></>}
                         </i>
                       </span>
                     </div>

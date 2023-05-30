@@ -6,6 +6,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Collapse from "@material-ui/core/Collapse";
 
+
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   const [collapsed, setCollapsed] = React.useState(true);
   const {
@@ -42,19 +43,19 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   if (Array.isArray(items) && items.length) {
     expandIcon = !collapsed ? (
       <ExpandLessIcon
-        classNameName={
-          "sidebar-item-expand-arrow" + " sidebar-item-expand-arrow-expanded"
+        className={
+          "sidebar-item-expand-arrow arrowStyle" + " sidebar-item-expand-arrow-expanded arrowStyle"
         }
       />
     ) : (
-      <ExpandMoreIcon classNameName="sidebar-item-expand-arrow" />
+      <ExpandMoreIcon className="sidebar-item-expand-arrow arrowStyle" />
     );
   }
 
   return (
     <>
       <ListItem
-        classNameName="sidebar-item"
+        className="sidebar-item"
         onClick={onClick}
         button
         dense
@@ -62,7 +63,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
       >
         <div
           style={{ paddingLeft: depth * depthStep }}
-          classNameName="sidebar-item-content"
+          className="sidebar-item-content"
         >
           <div className="_row_raku75">
             <div className="_thumbColumn_1iasqch">
@@ -82,6 +83,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                   marginBottom: "auto",
                   marginTop: "auto",
                   maxWidth: "230px",
+                  lineHeight: "15px",
                 }}
               >
                 <div
@@ -107,7 +109,10 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                     </div>
                   </a>
                 </div>
-                <span>{description}</span>
+
+
+                <div class="_countContainer_13ovesk"><div class="_truncateMulti_3ywtd5"><span><i>{description} </i></span></div></div>
+          
                 {folderCount || resourceCount ? (
                   <div className="_countContainer_13ovesk">
                     <div className="_truncateMulti_3ywtd5">
@@ -140,7 +145,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                               {/* <Public />{" "} */}
                               {Icon && (
                                 <Icon
-                                  classNameName="sidebar-item-icon"
+                                  className="sidebar-item-icon"
                                   fontSize="small"
                                 />
                               )}
@@ -154,8 +159,8 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
               </div>
             </div>
           </div>
-          {/* {Icon && <Icon classNameName="sidebar-item-icon" fontSize="small" />}
-          <div classNameName="sidebar-item-text">{label}</div> */}
+          {/* {Icon && <Icon className="sidebar-item-icon" fontSize="small" />}
+          <div className="sidebar-item-text">{label}</div> */}
         </div>
         {expandIcon}
       </ListItem>
@@ -184,7 +189,6 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
 
 function Sidebar({ items, depthStep, depth, expanded }) {
   return (
-    <div classNameName="sidebar">
       <List disablePadding dense>
         {items.map((sidebarItem, index) => (
           <React.Fragment key={`${sidebarItem.name}${index}`}>
@@ -201,7 +205,6 @@ function Sidebar({ items, depthStep, depth, expanded }) {
           </React.Fragment>
         ))}
       </List>
-    </div>
   );
 }
 

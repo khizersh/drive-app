@@ -38,6 +38,7 @@ const FolderLayout = () => {
 
   const router = useHistory();
   const [show, setShow] = useState(false);
+  const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
   const [items, setItems] = useState([]);
   const toggleSidebar = (event) => {
@@ -49,7 +50,10 @@ const FolderLayout = () => {
   });
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (data) => {
+    setIsFolder(data)
+    setShow(true);
+  }
 
   const onClick = async (e, item) => {
     try {
@@ -103,7 +107,6 @@ const FolderLayout = () => {
         email: email,
         homeParentId: parentId,
       });
-      console.log("data : ", data);
       if (data) {
         if (data.status == SUCCESS) {
           renderMenu(data.data);
@@ -253,10 +256,10 @@ const FolderLayout = () => {
                 role="group"
                 aria-label="Basic example"
               >
-                <button className="btn-folder mx-2" onClick={handleShow}>
+                <button className="btn-folder mx-2" onClick={() => handleShow(true)}>
                   <CreateNewFolderIcon /> Add Folder
                 </button>
-                <button className="btn-folder">
+                <button className="btn-folder" onClick={() => handleShow(false)}>
                   <UploadFileIcon /> Add File
                 </button>
               </div>
@@ -281,7 +284,7 @@ const FolderLayout = () => {
           <Modal.Title>Add Folder</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddFolder />
+          <AddFolder data={isFolder}/>
         </Modal.Body>
       </Modal>
     </>

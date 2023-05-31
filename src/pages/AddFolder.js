@@ -3,16 +3,18 @@ import { Modal, Button } from "react-bootstrap";
 import { postRequest, showError, showSuccess } from "../service/commonService";
 import { ADD_RESOURCE, BASE_URL, SUCCESS } from "../service/constants";
 import { MainContext } from "../context/MainContext";
+import { DropzoneArea } from "material-ui-dropzone";
 
-const AddFolder = () => {
-  const {  setLoading } = useContext(MainContext);
+const AddFolder = ({ data }) => {
+  const { setLoading } = useContext(MainContext);
+  console.log("data : ", data);
 
   const [folder, setFolder] = useState({
     userId: "",
     name: "",
     description: "",
     rootFolder: false,
-    isFolder: true,
+    isFolder: data,
     file: "",
     folderImage: "",
     children: [],
@@ -71,6 +73,11 @@ const AddFolder = () => {
     }
   };
 
+  const onClickImage = (file) => {
+    // setImageList(file);
+    console.log("file :: ",file);
+  };
+
   return (
     <div className="container">
       <div className="row  mx-2 p-3">
@@ -109,6 +116,21 @@ const AddFolder = () => {
             </div>
           </div>
         </div>
+        {data === false ? (
+          <>
+            <div>
+              <DropzoneArea
+                acceptedFiles={["image/*", "application/*"]}
+                onChange={onClickImage}
+                dropzoneText="Drag images here."
+                showAlerts={false}
+                filesLimit={7}
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
 
         <div className="col-12 text-right mt-2">
           <button

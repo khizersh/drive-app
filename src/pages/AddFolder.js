@@ -137,15 +137,15 @@ const AddFolder = ({ data }) => {
           <>
             <div>
               <DropzoneArea
-                acceptedFiles={[
-                  "application/*",
-                  "audio/*",
-                  "image/*",
-                  "text/*",
-                  "multipart/*",
-                  "video/*",
-                ]}
-                // acceptedFiles={["*/*"]}
+                // acceptedFiles={[
+                //   "application/*",
+                //   "audio/*",
+                //   "image/*",
+                //   "text/*",
+                //   "multipart/*",
+                //   "video/*",
+                // ]}
+                acceptedFiles={["image/* , video/*"]}
                 onChange={onClickImage}
                 dropzoneText="Drag images here."
                 showAlerts={false}

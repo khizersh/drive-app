@@ -20,6 +20,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import ReplayIcon from "@mui/icons-material/Replay";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
+import MoreVert from "@mui/icons-material/MoreVert";
 import { checkUser, postRequest } from "../service/commonService";
 import {
   BASE_URL,
@@ -289,12 +290,41 @@ const FolderLayout = () => {
               </div>
             </div>
             <div className="container-fluid">
-              <div className="row">
+              <div className="row folderRow">
                 {resources.length ? (
                   resources.map((m) => (
-                    <div className="col-4">
-                      <div className="card shadow">{m.name}</div>
-                    </div>
+                      <a  className="card folderLayputCard">
+                          <div className="card-body">
+
+                          <div className="hoverDiv">
+                            <div className="iconActive">
+                                < MoreVert />
+
+                            </div>
+                          </div>
+                            
+                              <div className="card-img">
+                                <img src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
+                              </div>
+
+                              <div className="card-describation">
+                              <div class="_truncate_ww5d6d"><span> {m.name}</span></div>
+
+                           
+                              <div class="_countContainer_13ovesk">
+                                <div class="_truncateMulti_3ywtd5">
+                                  <span><i>15 Sub-Folders</i></span>
+                                </div>
+                              </div>
+                              <div className="_linkColours_11bsm43">
+                                 <Public color="#4a4a4a" />
+
+                              </div>
+                              </div>
+
+                          </div>
+                      </a>
+                   
                   ))
                 ) : (
                   <></>

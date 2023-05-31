@@ -679,3 +679,112 @@ padding-right: 10px;
     overflow: visible;
     margin-left: 10px;
 }
+
+
+
+.folderRow{
+
+
+
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 10px ;
+
+
+    .hoverDiv{
+        display: none;
+        color: rgb(74, 74, 74);
+        background-color: #faf9f7d6;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        height: 100%;
+        top: 0;
+        border-radius: 1rem;
+        z-index: 1;
+        padding: 10px;
+        text-align: end;
+    }
+
+    .iconActive{
+        &:hover{
+            color: #c8102e;
+        }
+
+    }
+    
+    .folderLayputCard{
+        -webkit-box-align: center;
+        height: 300px;
+        width: 300px;
+        position: relative;
+        margin: 10px 16px;
+        box-shadow: rgb(216, 216, 216) 0px 2px 4px 0px;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 1rem;
+        border: none;
+        text-align: center;
+        &:hover{
+            border: 1px solid #c8102e;
+
+        }
+        &:hover .hoverDiv{
+            display: block;
+            transition: 5ms;
+
+        }
+
+        &:hover .hoverDiv{
+            display: block;
+            transition: 5ms;
+
+        }
+
+        
+
+        &:hover ._truncate_ww5d6d{
+            color: #c8102e !important;
+        }
+    
+    }
+
+        .card-img img{
+            max-width: 290px !important;
+            max-height: 170px !important;
+        }
+
+        .card-describation{
+            color: rgb(74, 74, 74);
+            position: relative;
+            z-index: 11;
+        }
+
+._truncate_ww5d6d{
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: rgb(74, 74, 74);
+    text-decoration-line: none;
+
+}
+
+._countContainer_13ovesk {
+    font-size: 12px;
+    font-style: italic;
+}
+
+._linkColours_11bsm43 {
+    color: rgb(163, 163, 163) !important;
+    text-decoration: none !important;
+}
+
+
+
+}
+
+

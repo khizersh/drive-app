@@ -37,9 +37,9 @@ export function showError(response) {
 }
 export function showSuccess(response) {
   if (response) {
-    swal({ title: response.message, icon: "success", timer: 3000 });
+   return swal({ title: response.message, icon: "success", timer: 3000 });
   } else {
-    swal({ title: "Success", icon: "success", timer: 3000 });
+    return swal({ title: "Success", icon: "success", timer: 3000 });
   }
 }
 export function checkUser() {

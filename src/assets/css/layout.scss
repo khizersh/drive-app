@@ -43,7 +43,10 @@ div {
   }
   
   // Main area specific style:
-  #main { background: var(--bg-main); flex-grow: 1;
+  #main { 
+    // background: var(--bg-main); 
+    
+    flex-grow: 1;
     .header {  background: rgb(255, 199, 44);
         color: rgb(45, 41, 38);
         padding: 8px 20px;

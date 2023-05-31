@@ -18,6 +18,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
 import SettingsIcon from "@material-ui/icons/Settings";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import ReplayIcon from "@mui/icons-material/Replay";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { checkUser, postRequest } from "../service/commonService";
 import {
@@ -58,36 +59,29 @@ const FolderLayout = () => {
 
   const onClick = async (e, item) => {
     try {
-      console.log("OncLick  :: ", item);
-      if (item.folderCount) {
+      setLoading(true);
+      // if (item.folderCount) {
         const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
           parentId: item._id,
         });
+        setLoading(false);
         if (data) {
           if (data.status == SUCCESS) {
             setResources(data.data);
           }
         }
-      }
+      // }
+      setLoading(false);
       router.push(
         "/folder?parent=" + params.parent + "&" + "folder=" + item._id
       );
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    let user = checkUser();
-    if (!user && !params.parent) {
-      router.push("/login");
-    } else {
-      let userLocal = localStorage.getItem("user");
-      if (userLocal) {
-        var json = JSON.parse(userLocal);
-        if (json) {
-          setSidebar(json.email, params.parent);
-        }
-      }
-    }
+    reload();
   }, [leftOpen]);
 
   const setSidebar = async (email, parentId) => {
@@ -96,6 +90,7 @@ const FolderLayout = () => {
       const data = await postRequest(BASE_URL + FIND_FOLDER_BY_HOME_PARENT, {
         email: email,
         homeParentId: parentId,
+        isFolder: true,
       });
       if (data) {
         if (data.status == SUCCESS) {
@@ -106,6 +101,21 @@ const FolderLayout = () => {
     } catch (error) {
       setLoading(false);
       console.log(error);
+    }
+  };
+
+  const setHomePage = async (email, parentId) => {
+    setLoading(true);
+    const data = await postRequest(BASE_URL + FIND_FOLDER_BY_HOME_PARENT, {
+      email: email,
+      homeParentId: parentId,
+      isFolder: false,
+    });
+    setLoading(false);
+    if (data) {
+      if (data.status == SUCCESS) {
+        setResources(data.data);
+      }
     }
   };
 
@@ -176,6 +186,22 @@ const FolderLayout = () => {
     });
   };
 
+  const reload = () => {
+    let user = checkUser();
+    if (!user && !params.parent) {
+      router.push("/login");
+    } else {
+      let userLocal = localStorage.getItem("user");
+      if (userLocal) {
+        var json = JSON.parse(userLocal);
+        if (json) {
+          setSidebar(json.email, params.parent);
+          setHomePage(json.email, params.parent);
+        }
+      }
+    }
+  };
+
   return (
     <>
       <div className="">
@@ -205,7 +231,6 @@ const FolderLayout = () => {
                 <Menu />
                 {/* &equiv; */}
               </div>
-              <p class="ms-3 mb-0 menuText"> Resources</p>
             </div>
 
             <div class="header-bar--flex">
@@ -257,6 +282,9 @@ const FolderLayout = () => {
                   onClick={() => handleShow(false)}
                 >
                   <UploadFileIcon /> Add File
+                </button>
+                <button className="btn-folder mx-2" onClick={() => reload()}>
+                  <ReplayIcon /> Reload
                 </button>
               </div>
             </div>

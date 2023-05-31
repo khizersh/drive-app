@@ -14,6 +14,7 @@ const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
   console.log("data : ", data);
   const [file, setFile] = useState(null);
+  const [reload, setReload] = useState(1);
 
   const [folder, setFolder] = useState({
     userId: "",
@@ -55,7 +56,7 @@ const AddFolder = ({ data }) => {
         });
       }
     }
-  }, []);
+  }, [reload]);
 
   const onChange = (e) => {
     setFolder({ ...folder, [e.target.name]: e.target.value });
@@ -74,13 +75,12 @@ const AddFolder = ({ data }) => {
         formData.append("file", file);
       }
       const data = await postAxios(BASE_URL + ADD_RESOURCE, formData);
-      console.log("data : ",data);
+      console.log("data : ", data);
       if (data) {
         if (data.data.status == SUCCESS) {
-          showSuccess(data);
-          window.location.reload();
+          showSuccess(data.data).then((r) => window.location.reload());
         } else {
-          showError(data);
+          showError(data.data);
         }
       }
       setLoading(false);
@@ -137,7 +137,15 @@ const AddFolder = ({ data }) => {
           <>
             <div>
               <DropzoneArea
-                acceptedFiles={["image/*", "application/*"]}
+                acceptedFiles={[
+                  "application/*",
+                  "audio/*",
+                  "image/*",
+                  "text/*",
+                  "multipart/*",
+                  "video/*",
+                ]}
+                // acceptedFiles={["*/*"]}
                 onChange={onClickImage}
                 dropzoneText="Drag images here."
                 showAlerts={false}

@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { postRequest, showError, showSuccess } from "../service/commonService";
+import {
+  postAxios,
+  postRequest,
+  showError,
+  showSuccess,
+} from "../service/commonService";
 import { ADD_RESOURCE, BASE_URL, SUCCESS } from "../service/constants";
 import { MainContext } from "../context/MainContext";
 import { DropzoneArea } from "material-ui-dropzone";
@@ -8,6 +13,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
   console.log("data : ", data);
+  const [file, setFile] = useState(null);
 
   const [folder, setFolder] = useState({
     userId: "",
@@ -45,6 +51,7 @@ const AddFolder = ({ data }) => {
           userId: json._id,
           homeParentId: params.parent,
           parentId: params.folder ? params.folder : "",
+          isFolder: data,
         });
       }
     }
@@ -57,9 +64,19 @@ const AddFolder = ({ data }) => {
   const onClickAddFolder = async () => {
     setLoading(true);
     try {
-      const data = await postRequest(BASE_URL + ADD_RESOURCE, folder);
+      var formData = new FormData();
+      formData.append("data", JSON.stringify(folder));
+      // formData.append("file", file);
+      if (!folder.isFolder) {
+        if (!file) {
+          return showError({ message: "Please select file!" });
+        }
+        formData.append("file", file);
+      }
+      const data = await postAxios(BASE_URL + ADD_RESOURCE, formData);
+      console.log("data : ",data);
       if (data) {
-        if (data.status == SUCCESS) {
+        if (data.data.status == SUCCESS) {
           showSuccess(data);
           window.location.reload();
         } else {
@@ -74,8 +91,8 @@ const AddFolder = ({ data }) => {
   };
 
   const onClickImage = (file) => {
-    // setImageList(file);
-    console.log("file :: ",file);
+    setFile(file[0]);
+    console.log("file :: ", file[0]);
   };
 
   return (
@@ -124,7 +141,7 @@ const AddFolder = ({ data }) => {
                 onChange={onClickImage}
                 dropzoneText="Drag images here."
                 showAlerts={false}
-                filesLimit={7}
+                filesLimit={1}
               />
             </div>
           </>

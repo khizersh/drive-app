@@ -24,7 +24,7 @@ import {
   BASE_URL,
   FIND_FOLDER,
   FIND_FOLDER_BY_HOME_PARENT,
-  FIND__SUB_FOLDER,
+  FIND_SUB_FOLDER,
   SUCCESS,
 } from "../service/constants";
 import { Modal, Button } from "react-bootstrap";
@@ -41,6 +41,7 @@ const FolderLayout = () => {
   const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
   const [items, setItems] = useState([]);
+  const [resources, setResources] = useState([]);
   const toggleSidebar = (event) => {
     setLeftOpen(!leftOpen);
   };
@@ -51,37 +52,26 @@ const FolderLayout = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = (data) => {
-    setIsFolder(data)
+    setIsFolder(data);
     setShow(true);
-  }
+  };
 
   const onClick = async (e, item) => {
     try {
-      router.push("/folder?parent=" + params.parent + "&" + "folder=" + item._id);
+      console.log("OncLick  :: ", item);
       if (item.folderCount) {
-        const data = await postRequest(BASE_URL + FIND__SUB_FOLDER, {
-          parentId: item.id,
+        const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
+          parentId: item._id,
         });
-        console.log("data : ", data, item);
         if (data) {
           if (data.status == SUCCESS) {
-            let tempArray = [];
-            tempArray = items;
-            await tempArray.map((m) => {
-              if (m.id === item.id) {
-                let subArray = data.data.map((n) => {
-                  return mapDataToSidebar(n);
-                });
-                m["items"] = subArray;
-              }
-            });
-            if (tempArray.length) {
-              setItems(tempArray);
-            }
+            setResources(data.data);
           }
         }
       }
-      router.push("/folder?parent=" + params.parent + "&" + "folder=" + item._id);
+      router.push(
+        "/folder?parent=" + params.parent + "&" + "folder=" + item._id
+      );
     } catch (error) {}
   };
 
@@ -98,7 +88,7 @@ const FolderLayout = () => {
         }
       }
     }
-  }, [leftOpen ]);
+  }, [leftOpen]);
 
   const setSidebar = async (email, parentId) => {
     try {
@@ -256,26 +246,33 @@ const FolderLayout = () => {
                 role="group"
                 aria-label="Basic example"
               >
-                <button className="btn-folder mx-2" onClick={() => handleShow(true)}>
+                <button
+                  className="btn-folder mx-2"
+                  onClick={() => handleShow(true)}
+                >
                   <CreateNewFolderIcon /> Add Folder
                 </button>
-                <button className="btn-folder" onClick={() => handleShow(false)}>
+                <button
+                  className="btn-folder"
+                  onClick={() => handleShow(false)}
+                >
                   <UploadFileIcon /> Add File
                 </button>
               </div>
             </div>
-            <h3>Main content</h3>
-            <br />
-            <p>
-              Nam accumsan eleifend metus at imperdiet. Mauris pellentesque
-              ipsum nisi, et fringilla leo blandit sed. In tempor, leo sit amet
-              fringilla imperdiet, ipsum enim sagittis sem, non molestie nisi
-              purus consequat sapien. Proin at velit id elit tincidunt iaculis
-              ac ac libero. Vivamus vitae tincidunt ex. Duis sit amet lacinia
-              massa. Quisque lobortis tincidunt metus ut commodo. Sed euismod
-              quam gravida condimentum commodo.
-            </p>
-            <br />
+            <div className="container-fluid">
+              <div className="row">
+                {resources.length ? (
+                  resources.map((m) => (
+                    <div className="col-4">
+                      <div className="card shadow">{m.name}</div>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -284,7 +281,7 @@ const FolderLayout = () => {
           <Modal.Title>Add Folder</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddFolder data={isFolder}/>
+          <AddFolder data={isFolder} />
         </Modal.Body>
       </Modal>
     </>

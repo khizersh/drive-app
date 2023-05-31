@@ -9,7 +9,7 @@ export const DELETE_USER = "user/delete"
 export const APPROVE_USER = "user/approve"
 export const FIND_FOLDER = "folder/getResourceByUser"
 export const FIND_FOLDER_BY_HOME_PARENT = "folder/getResourcesByRootParent"
-export const FIND__SUB_FOLDER = "folder/getResourceByFolder"
+export const FIND_SUB_FOLDER = "folder/getResourceByFolder"
 export const ADD_RESOURCE = "folder/upload"
 
 

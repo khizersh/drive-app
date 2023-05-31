@@ -1,5 +1,6 @@
 import swal from "sweetalert";
 import { ADMIN_ROLE, USER_ROLE } from "./constants";
+import axios from "axios";
 
 export async function postRequest(url = "", data = {}) {
   const response = await fetch(url, {
@@ -13,6 +14,14 @@ export async function postRequest(url = "", data = {}) {
   return jsonData;
 }
 
+
+export const postAxios = async (url, data) => {
+  try {
+    return await axios.post(url, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 export async function getRequest(url) {
   const response = await fetch(url);
   const jsonData = await response.json();

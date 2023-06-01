@@ -14,6 +14,7 @@ import FolderLayout from "./components/FolderLayout";
 import AddFolder from "./pages/AddFolder";
 import MainProvider from "./context/MainContext";
 import { TailSpin } from "react-loader-spinner";
+import FileDetail from "./components/FileDetail";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -83,6 +84,7 @@ function App() {
                 <Route path="/my-account" render={(props) => <Profile />} />
                 <Route path="/folder" render={(props) => <FolderLayout />} />
                 <Route path="/add-folder" render={(props) => <AddFolder />} />
+                <Route path="/resource-detail" render={(props) => <FileDetail />} />
               </Weblayout>
             )}
           </Switch>

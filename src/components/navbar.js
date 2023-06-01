@@ -32,7 +32,7 @@ const navbar = (props) => {
           >
             <ul class="left">
               <li class="active menu-item ">
-                <a id="menu-1b64717ea816e1aeecc407db6b752f0e" href="#">
+                <a id="menu-1b64717ea816e1aeecc407db6b752f0e" href="/">
                   HOME
                 </a>
               </li>

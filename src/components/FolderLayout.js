@@ -12,6 +12,7 @@ import Tune from "@mui/icons-material/Tune";
 import Public from "@mui/icons-material/Public";
 import Accordion from "react-bootstrap/Accordion";
 import Sidebar from "./Sidebar";
+import ShareIcon from "@mui/icons-material/Share";
 import HomeIcon from "@material-ui/icons/Home";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -21,6 +22,9 @@ import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import ReplayIcon from "@mui/icons-material/Replay";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import MoreVert from "@mui/icons-material/MoreVert";
+import Button from "@mui/material/Button";
+import Menuu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { checkUser, postRequest } from "../service/commonService";
 import {
   BASE_URL,
@@ -29,7 +33,7 @@ import {
   FIND_SUB_FOLDER,
   SUCCESS,
 } from "../service/constants";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import AddFolder from "../pages/AddFolder";
 import { MainContext } from "../context/MainContext";
@@ -43,9 +47,19 @@ const FolderLayout = () => {
   const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
   const [items, setItems] = useState([]);
+  const [currentFolder, setCurrentFolder] = useState(null);
+
   const [resources, setResources] = useState([]);
   const toggleSidebar = (event) => {
     setLeftOpen(!leftOpen);
+  };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose1 = () => {
+    setAnchorEl(null);
   };
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -61,16 +75,17 @@ const FolderLayout = () => {
   const onClick = async (e, item) => {
     try {
       setLoading(true);
+      setCurrentFolder(item);
       // if (item.folderCount) {
-        const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
-          parentId: item._id,
-        });
-        setLoading(false);
-        if (data) {
-          if (data.status == SUCCESS) {
-            setResources(data.data);
-          }
+      const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
+        parentId: item._id,
+      });
+      setLoading(false);
+      if (data) {
+        if (data.status == SUCCESS) {
+          setResources(data.data);
         }
+      }
       // }
       setLoading(false);
       router.push(
@@ -227,11 +242,14 @@ const FolderLayout = () => {
 
         <div id="main">
           <div className="header">
-            <div class="d-flex" id="left" className={leftOpen}>
+            <div
+              className={`d-flex justify-content-between ${leftOpen} `}
+              id="left"
+            >
               <div className="icon" onClick={toggleSidebar}>
                 <Menu />
-                {/* &equiv; */}
               </div>
+              <div className="folder-name">{currentFolder?.name}</div>
             </div>
 
             <div class="header-bar--flex">
@@ -293,38 +311,58 @@ const FolderLayout = () => {
               <div className="row folderRow">
                 {resources.length ? (
                   resources.map((m) => (
-                      <a  className="card folderLayputCard">
-                          <div className="card-body">
+                    <a className="card folderLayputCard">
+                      <div className="card-body">
+                        <div className="hoverDiv">
+                          <div className="iconActive">
+                            <Button
+                              id="basic-button"
+                              aria-controls={open ? "basic-menu" : undefined}
+                              aria-haspopup="true"
+                              aria-expanded={open ? "true" : undefined}
+                              onClick={handleClick}
+                            >
+                              <MoreVert />
+                            </Button>
+                            <Menuu
+                              id="basic-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose1}
+                              MenuListProps={{
+                                "aria-labelledby": "basic-button",
+                              }}
+                            >
+                              <MenuItem onClick={handleClose1}>
+                                <ShareIcon />
+                                <text className="ml-2">Share Folder Link</text>
+                              </MenuItem>
+                            </Menuu>
+                          </div>
+                        </div>
 
-                          <div className="hoverDiv">
-                            <div className="iconActive">
-                                < MoreVert />
+                        <div className="card-img">
+                          <img src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
+                        </div>
 
+                        <div className="card-describation">
+                          <div class="_truncate_ww5d6d">
+                            <span> {m.name}</span>
+                          </div>
+
+                          <div class="_countContainer_13ovesk">
+                            <div class="_truncateMulti_3ywtd5">
+                              <span>
+                                <i>15 Sub-Folders</i>
+                              </span>
                             </div>
                           </div>
-                            
-                              <div className="card-img">
-                                <img src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png" />
-                              </div>
-
-                              <div className="card-describation">
-                              <div class="_truncate_ww5d6d"><span> {m.name}</span></div>
-
-                           
-                              <div class="_countContainer_13ovesk">
-                                <div class="_truncateMulti_3ywtd5">
-                                  <span><i>15 Sub-Folders</i></span>
-                                </div>
-                              </div>
-                              <div className="_linkColours_11bsm43">
-                                 <Public color="#4a4a4a" />
-
-                              </div>
-                              </div>
-
+                          <div className="_linkColours_11bsm43">
+                            <Public color="#4a4a4a" />
                           </div>
-                      </a>
-                   
+                        </div>
+                      </div>
+                    </a>
                   ))
                 ) : (
                   <></>

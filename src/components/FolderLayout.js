@@ -49,6 +49,7 @@ const FolderLayout = () => {
   const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
   const [items, setItems] = useState([]);
+  const [searchItem, setSearchItem] = useState([]);
   const [currentFolder, setCurrentFolder] = useState(null);
 
   const [resources, setResources] = useState([]);
@@ -112,7 +113,8 @@ const FolderLayout = () => {
       });
       if (data) {
         if (data.status == SUCCESS) {
-          renderMenu(data.data);
+          const itemArray = await renderMenu(data.data);
+          setItems(itemArray)
           setLoading(false);
         }
       }
@@ -132,6 +134,7 @@ const FolderLayout = () => {
     setLoading(false);
     if (data) {
       if (data.status == SUCCESS) {
+        setSearchItem(data.data);
         setResources(data.data);
       }
     }
@@ -152,9 +155,10 @@ const FolderLayout = () => {
 
   var finalMenu = [];
 
-  const renderMenu = (menu) => {
+  const renderMenu = async (menu) => {
     while (menu.length > 0) {
       menu.forEach((menuItem) => {
+        console.log("menuItem : ",menuItem);
         menuItem.children = [];
 
         if (!menuItem.parentId) {
@@ -185,9 +189,14 @@ const FolderLayout = () => {
       });
     });
 
-    setItems(finalMenu);
+    console.log("finalMenu : ",finalMenu);
+    // setItems(finalMenu);
+
+    return finalMenu;
+    
   };
 
+  var array = []
   const serachFather = (menuArray, father, menuItem, menu) => {
     menuArray.forEach((menuPainted) => {
       if (menuPainted._id === father) {
@@ -219,6 +228,12 @@ const FolderLayout = () => {
       }
     }
   };
+
+
+  const onChangeSearch = (e) => {
+    let value = e.target.value;
+    console.log("log :: ",value);
+  }
 
   return (
     <>
@@ -264,6 +279,7 @@ const FolderLayout = () => {
                   placeholder="What are you looking for?"
                   spellcheck="true"
                   value=""
+                  onChange={(e) =>  onChangeSearch(e)}
                 />
                 <span class="_noCancelIcon_cvqqax"></span>
                 <div class="_noCancelIcon_cvqqaxww">

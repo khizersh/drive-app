@@ -8,8 +8,9 @@ import Button from "@mui/material/Button";
 import Menuu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-const Folder = ({ data , onClick}) => {
+const Folder = ({ data, onClick }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [onHover, setOnHover] = React.useState(false);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -19,12 +20,20 @@ const Folder = ({ data , onClick}) => {
     setAnchorEl(null);
   };
 
+  const onMouseOver = () => {
+    setOnHover(true);
+  };
+  const onMouseLeave = () => {
+    setOnHover(false);
+  };
+
   const onClickResource = () => {
-    onClick("",data)
-  }
+    if (!onHover) {
+      onClick("", data);
+    }
+  };
 
   return (
-    
     <a className="card folderLayputCard" onClick={onClickResource}>
       <div className="card-body">
         <div className="hoverDiv">
@@ -35,6 +44,8 @@ const Folder = ({ data , onClick}) => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
+              onMouseOver={(e) => onMouseOver(e)}
+              onMouseOut={(e) => onMouseLeave(e)}
             >
               <MoreVert />
             </Button>

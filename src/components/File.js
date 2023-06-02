@@ -6,9 +6,14 @@ import ShareIcon from "@mui/icons-material/Share";
 import MoreVert from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 import Menuu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useHistory } from "react-router-dom";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const File = ({ data, onClick }) => {
 
@@ -33,44 +38,35 @@ const File = ({ data, onClick }) => {
   };
 
   return (
-    <a className="card folderLayputCard" onClick={onClickResource}>
-      <div className="card-body">
+    
+    <a className="card folderLayputCardImage" onClick={onClickResource}>
         <div className="hoverDiv">
           <div className="iconActive">
-            <Button
-              id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
-            >
-              <MoreVert />
-            </Button>
-            <Menuu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose1}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem onClick={handleClose1}>
-                <ShareIcon />
-                <text className="ml-2">Share Folder Link</text>
-              </MenuItem>
-            </Menuu>
+
+
+              <div className="checkBox">
+
+              <FormGroup>
+      <FormControlLabel  control={<Checkbox />} />
+    </FormGroup>
+
+              </div>
+              <div className="iconMenus">
+                  <FileDownloadIcon />
+                  <MoreVert />
+
+              </div>
+          </div>
+          <div className="eyeIcon">
+            <VisibilityIcon />
           </div>
         </div>
 
         <div className="card-img">
-          <img src={data.file} />
+          <img src="https://cdn.intelligencebank.com/us/thumbnail/Dnn9/fe227fe87635b7a1ec08e6abbf18ff5f/original/Drink_Straight_CokeGlass_022017" />
         </div>
 
         <div className="card-describation">
-          <div class="_truncate_ww5d6d">
-            <span> {data.name}</span>
-          </div>
 
           <div class="_countContainer_13ovesk">
             <div class="_truncateMulti_3ywtd5">
@@ -100,11 +96,23 @@ const File = ({ data, onClick }) => {
               </span>
             </div>
           </div>
-          <div className="_linkColours_11bsm43">
+          <div class="_bottom_f93tfg">
+            <div class="_dpv7do3">
+              <div class="_truncate_ww5d6d">
+                <span>C_Drink_Coffee_Coldbrew_Vanilla_011819</span>
+                </div>
+                </div>
+                <div class="_content_c3jvop">
+                  <div>
+                    <span>4326 x 6707, Photoshop (psd), 69.46 MB</span>
+                    </div>
+                    </div>
+                    <div className="_linkColours_11bsm43">
             <Public color="#4a4a4a" />
           </div>
+                    </div>
+          
         </div>
-      </div>
     </a>
   );
 };

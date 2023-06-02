@@ -870,4 +870,165 @@ body {
     color: rgb(163, 163, 163) !important;
     text-decoration: none !important;
   }
+
+
+
+
 }
+
+.folderLayputCardImage{
+
+    -webkit-box-align: center;
+    height: 370px;
+    width: 300px;
+    position: relative;
+    margin: 10px 16px;
+    box-shadow: rgb(216, 216, 216) 0px 2px 4px 0px;
+    user-select: none;
+    display: flex;
+    cursor: pointer;
+    border-radius: 1rem;
+    border: none;
+    text-align: center;
+    &:hover {
+      border: 1px solid #c8102e;
+      ._linkColours_11bsm43 {
+          display: block !important;
+      }
+    }
+    &:hover .hoverDiv {
+      display: block;
+      transition: 5ms;
+    }
+
+
+    .hoverDiv {
+        display: none;
+        color: rgb(74, 74, 74);
+        background: rgb(255, 255, 255);
+        opacity: 0.85;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        height: 100%;
+        top: 0;
+        border-radius: 1rem;
+        z-index: 1;
+        padding: 10px;
+        text-align: end;
+      }
+
+      .eyeIcon{
+            color: rgb(163, 163, 163);
+        position: relative;
+        font-size: 80px;
+        display: inline-block;
+        user-select: none;
+        transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+        opacity: 0.4;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        align-items: center;
+        height: 70%;
+
+        svg{
+            font-size: 80px;
+        }
+      }
+    
+      .iconActive {
+
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+      }
+    
+
+    
+      .card-img img {
+        display: block;
+        height: auto;
+        max-width: 282.5px !important;
+        max-height: 395px !important;
+        margin: auto;
+        text-align: center;
+        background-image: url(../images/checkered-background.png);
+      }
+    
+      .card-describation {
+        color: rgb(74, 74, 74);
+        position: relative;
+        z-index: 11;
+      }
+    
+      ._truncate_ww5d6d {
+        margin-bottom: 0px;
+        color: rgb(74, 74, 74);
+        text-decoration-line: none;
+      }
+    
+      ._countContainer_13ovesk {
+        font-size: 12px;
+        font-style: italic;
+      }
+
+
+._bottom_f93tfg{
+
+    line-height: 14px;
+    margin-top: 10px;
+
+    ._dpv7do3 {
+      -webkit-box-align: center;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: bold;
+      font-size: 12px;
+      padding-bottom: 2px;
+      display: table;
+  }
+
+
+  ._content_c3jvop {
+      -webkit-box-align: center;
+      align-items: center;
+      display: flex;
+      font-size: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+  }
+  
+
+  ._truncate_ww5d6d {
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    text-align: inherit;
+}
+
+    ._linkColours_11bsm43 {
+      color: rgb(163, 163, 163) !important;
+      text-decoration: none !important;
+      text-align: left;
+      display: none;
+
+      svg{
+        font-size: 20px;
+      }
+    }
+
+
+}
+    
+    
+    
+    
+}
+
+

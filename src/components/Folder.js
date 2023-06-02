@@ -24,6 +24,7 @@ const Folder = ({ data , onClick}) => {
   }
 
   return (
+    
     <a className="card folderLayputCard" onClick={onClickResource}>
       <div className="card-body">
         <div className="hoverDiv">

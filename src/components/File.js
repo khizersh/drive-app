@@ -52,8 +52,9 @@ const File = ({ data, onClick }) => {
         </div>
       </div>
 
-      <div className="card-img">
-        <img src="https://cdn.intelligencebank.com/us/thumbnail/Dnn9/fe227fe87635b7a1ec08e6abbf18ff5f/original/Drink_Straight_CokeGlass_022017" />
+      <div className="card-imgaa">
+        {/* <img src="https://cdn.intelligencebank.com/us/thumbnail/Dnn9/fe227fe87635b7a1ec08e6abbf18ff5f/original/Drink_Straight_CokeGlass_022017" /> */}
+        <img src={data.file} />
       </div>
 
       <div className="card-describation">

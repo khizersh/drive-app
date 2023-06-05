@@ -476,7 +476,7 @@ const FolderLayout = () => {
             <div className="w-100">
               <div
                 class="header-bar--flex"
-                style={{ position: "relative", left: "-50%" }}
+                style={{ position: "relative", left: "0", width: "100%" }}
               >
                 <div class="_inputContainer_3j3zds">
                   <div class="_searchIcon_wt0fza">
@@ -535,10 +535,14 @@ const FolderLayout = () => {
               className={`d-flex justify-content-between ${leftOpen} `}
               id="left"
             >
-              <div className="icon" onClick={toggleSidebar}>
+           
+            </div>
+
+            <div className="d-flex sideIcon">
+            <div className="icon" onClick={toggleSidebar}>
                 <Menu style={{ color: "rgb(200, 16, 46)" }} />
               </div>
-              <div className="folder-name">{currentFolder?.name}</div>
+              <div className="folder-name mx-2">{currentFolder?.name}</div>
             </div>
 
             <div class="header-bar--flex">

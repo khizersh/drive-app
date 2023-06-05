@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/css/layout.css";
 import "../assets/css/layout.scss";
 import Public from "@mui/icons-material/Public";
@@ -12,9 +12,11 @@ const Folder = ({ data, onClick }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [onHover, setOnHover] = React.useState(false);
   const open = Boolean(anchorEl);
+  const [showDiv, setShowDiv] = useState(false);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    // setAnchorEl(event.currentTarget);
+    setShowDiv(true);
   };
   const handleClose1 = () => {
     setAnchorEl(null);
@@ -40,29 +42,25 @@ const Folder = ({ data, onClick }) => {
           <div className="iconActive">
             <Button
               id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
+              aria-controls={onHover ? "basic-menu" : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
-              onMouseOver={(e) => onMouseOver(e)}
-              onMouseOut={(e) => onMouseLeave(e)}
+              aria-expanded={onHover ? "true" : undefined}
+              onMouseOver={() => setOnHover(true)}
+              onClick={(e) => setOnHover(true)}
             >
-              <MoreVert />
+              <MoreVert style={{ color: " rgb(200, 16, 46)" }} />
             </Button>
-            <Menuu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose1}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem onClick={handleClose1}>
-                <ShareIcon />
-                <text className="ml-2">Share Folder Link</text>
-              </MenuItem>
-            </Menuu>
+            {onHover ? (
+              <div className="row   " onMouseLeave={() => setOnHover(false)}>
+                <div className="col-12 card shadow showDiv col-lg-6 offset-lg-6">
+                  <p className="text-left mb-0 ">
+                    <ShareIcon /> Share{" "}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
 

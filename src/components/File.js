@@ -17,7 +17,6 @@ import Checkbox from "@mui/material/Checkbox";
 const File = ({ data, onClick }) => {
   const router = useHistory();
   useEffect(() => {
-    console.log("data :: ", data);
   }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);

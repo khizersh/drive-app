@@ -208,7 +208,7 @@ body {
 .header-bar--flex {
   align-items: center;
   display: flex;
-  width: 80%;
+  width: 50%;
   justify-content: center;
   ._inputContainer_3j3zds {
     background: rgb(255, 255, 255) !important;
@@ -1532,6 +1532,10 @@ body {
 .css-c6scz2-FolderLinkWrapper {
   color: rgb(200, 16, 46);
   font-weight: bold;
+}
+
+.text-red {
+  color: rgb(200, 16, 46);
 }
 
 .css-1ffbns-StyledAssetInfoWrapper {

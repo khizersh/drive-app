@@ -10,7 +10,6 @@ import Camera from "@mui/icons-material/Camera";
 import Menu from "@mui/icons-material/Menu";
 import Tune from "@mui/icons-material/Tune";
 import Public from "@mui/icons-material/Public";
-import Accordion from "react-bootstrap/Accordion";
 import HomeIcon from "@mui/icons-material/Home";
 import Sidebar from "./Sidebar";
 import SidebarSearch from "./SidebarSearch";
@@ -20,6 +19,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
+import Accordion from "react-bootstrap/Accordion";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -60,6 +60,7 @@ import PageviewIcon from "@mui/icons-material/Pageview";
 import InputAdornment from "@mui/material/InputAdornment";
 import SendIcon from "@mui/icons-material/Send";
 import ClearIcon from "@mui/icons-material/Clear";
+import FilterComponent from "./FilterComponent";
 
 const FolderLayout = () => {
   const { mainState, setLoading } = useContext(MainContext);
@@ -72,6 +73,7 @@ const FolderLayout = () => {
   const [sort, setSort] = useState("asc");
   const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
+  const [isFilter, setIsFilter] = useState(false);
   const [items, setItems] = useState([]);
   const [breadcrumb, setBreadcrumbs] = useState([]);
   const [searchItem, setSearchItem] = useState([]);
@@ -80,8 +82,11 @@ const FolderLayout = () => {
   const [fileKeyword, setFileKeyword] = useState("");
   const [currentFolder, setCurrentFolder] = useState(null);
   const [activeFolder, setActiveFolder] = useState(null);
-
   const [resources, setResources] = useState([]);
+  const [filteredResources, setFilteredResources] = useState([]);
+  const [scopeSelected, setScopeSelected] = useState("all");
+  const [typeSelected, setTypeSelected] = useState("all");
+
   const toggleSidebar = (event) => {
     setLeftOpen(!leftOpen);
   };
@@ -110,6 +115,13 @@ const FolderLayout = () => {
 
   useEffect(() => {
     setBreadCrumbFunc();
+    var input = document.getElementById("searchInput");
+    input.addEventListener("keyup", function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        onClickSearch();
+      }
+    });
   }, [params.folder]);
 
   const onClick = async (e, item) => {
@@ -368,6 +380,16 @@ const FolderLayout = () => {
     }
     return 0;
   }
+
+  function compareByDate(a, b) {
+    if (a.createdDate < b.createdDate) {
+      return 1;
+    }
+    if (a.name > b.name) {
+      return -1;
+    }
+    return 0;
+  }
   function compareNameDesc(a, b) {
     if (a.name < b.name) {
       return 1;
@@ -389,6 +411,11 @@ const FolderLayout = () => {
       setSort("asc");
       setResources(res);
     }
+  };
+  const handleSortDate = () => {
+    let res = resources;
+    res.sort(compareByDate);
+    setResources(res);
   };
 
   const onChangeSearchSidebar = (e) => {
@@ -454,6 +481,54 @@ const FolderLayout = () => {
     }
   }
 
+  function onClickScope(data) {
+    setScopeSelected(data.type);
+    var filteredArray = [];
+    console.log("scope : " + data.type + " :: type :: " + typeSelected);
+    if (data.type == "all") {
+      if (typeSelected == "all") {
+        filteredArray = [];
+      } else {
+        filteredArray = resources.filter((m) => (m.mimeType = typeSelected));
+      }
+    } else {
+      if (typeSelected != "all") {
+        filteredArray = resources.filter(
+          (m) => m.mimeType && m.mimeType.includes(typeSelected) && m[data.type]
+        );
+      } else {
+        filteredArray = resources.filter((m) => m[data.type]);
+      }
+    }
+    setFilteredResources(filteredArray);
+  }
+
+  function onClickType(data) {
+    setTypeSelected(data.type);
+    var filteredArray = [];
+    console.log("scope : " + scopeSelected + " :: type :: " + data.type);
+    if (data.type == "all") {
+      if (scopeSelected == "all") {
+        filteredArray = [];
+      } else {
+        filteredArray = resources.filter((m) => m[scopeSelected]);
+      }
+    } else {
+      if (scopeSelected != "all") {
+        filteredArray = resources.filter(
+          (m) =>
+            m.mimeType && m.mimeType.includes(data.type) && m[scopeSelected]
+        );
+      } else {
+        console.log("specific condition");
+        filteredArray = resources.filter(
+          (m) => m.mimeType && m.mimeType.includes(data.type)
+        );
+      }
+    }
+    setFilteredResources(filteredArray);
+  }
+
   const menuClass = `dropdown-menu${sortOpen ? " show" : ""}`;
   return (
     <>
@@ -478,50 +553,70 @@ const FolderLayout = () => {
                 class="header-bar--flex"
                 style={{ position: "relative", left: "0", width: "100%" }}
               >
-                <div class="_inputContainer_3j3zds">
-                  <div class="_searchIcon_wt0fza">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} style={{}} />
-                  </div>
-                  <input
-                    class="_input_1ogbq7d"
-                    placeholder="Search Folder(s)"
-                    spellcheck="true"
-                    value={folderKeyword}
-                    onChange={(e) => onChangeSearchSidebar(e)}
-                  />
-                  {folderKeyword ? (
-                    <span className="cursor-pointer" onClick={resetSidebar}>
+                {isFilter ? (
+                  <div className="d-flex justify-content-between w-filter">
+                    <div className="filter-text">Filtering Options</div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => setIsFilter(false)}
+                    >
+                      {" "}
                       <ClearIcon />
-                    </span>
-                  ) : (
-                    <></>
-                  )}
-                  <span class="_noCancelIcon_cvqqax"></span>
-                  <div class="_noCancelIcon_cvqqaxww">
-                    <div class="_container_1892uua ">
-                      <a class="_linkColours_11bsm43">
-                        <button
-                          class="_iconButton_1i1401z"
-                          tabindex="0"
-                          type="button"
-                        >
-                          <span
-                            class="material-icons "
-                            color="#4a4a4a"
-                            onClick={onClickSidebarSearc}
-                          >
-                            {" "}
-                            <SendIcon style={{ color: "#4a4a4a" }} />
-                          </span>
-                        </button>
-                      </a>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div class="_inputContainer_3j3zds">
+                    <div class="_searchIcon_wt0fza">
+                      <FontAwesomeIcon icon={faMagnifyingGlass} style={{}} />
+                    </div>
+                    <input
+                      class="_input_1ogbq7d"
+                      placeholder="Search Folder(s)"
+                      spellcheck="true"
+                      value={folderKeyword}
+                      onChange={(e) => onChangeSearchSidebar(e)}
+                    />
+                    {folderKeyword ? (
+                      <span className="cursor-pointer" onClick={resetSidebar}>
+                        <ClearIcon />
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                    <span class="_noCancelIcon_cvqqax"></span>
+                    <div class="_noCancelIcon_cvqqaxww">
+                      <div class="_container_1892uua ">
+                        <a class="_linkColours_11bsm43">
+                          <button
+                            class="_iconButton_1i1401z"
+                            tabindex="0"
+                            type="button"
+                          >
+                            <span
+                              class="material-icons "
+                              color="#4a4a4a"
+                              onClick={onClickSidebarSearc}
+                            >
+                              {" "}
+                              <SendIcon style={{ color: "#4a4a4a" }} />
+                            </span>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
-            {searchItemSidebar.length ? (
+            {isFilter ? (
+              <div className="">
+                <FilterComponent
+                  onClickScope={onClickScope}
+                  onClickType={onClickType}
+                />
+              </div>
+            ) : searchItemSidebar.length ? (
               <SidebarSearch items={searchItemSidebar} />
             ) : (
               <Sidebar items={items} />
@@ -534,12 +629,10 @@ const FolderLayout = () => {
             <div
               className={`d-flex justify-content-between ${leftOpen} `}
               id="left"
-            >
-           
-            </div>
+            ></div>
 
             <div className="d-flex sideIcon">
-            <div className="icon" onClick={toggleSidebar}>
+              <div className="icon" onClick={toggleSidebar}>
                 <Menu style={{ color: "rgb(200, 16, 46)" }} />
               </div>
               <div className="folder-name mx-2">{currentFolder?.name}</div>
@@ -552,6 +645,7 @@ const FolderLayout = () => {
                 </div>
                 <input
                   class="_input_1ogbq7d"
+                  id="searchInput"
                   placeholder="What are you looking for?"
                   spellcheck="true"
                   value={fileKeyword}
@@ -579,8 +673,11 @@ const FolderLayout = () => {
                           onClick={onClickSearch}
                         >
                           {" "}
-                          <SendIcon style={{ color: "#4a4a4a" }} />
-                          {/* <Tune style={{ color: "#4a4a4a" }} /> */}
+                          {/* <SendIcon style={{ color: "#4a4a4a" }} /> */}
+                          <Tune
+                            style={{ color: "#4a4a4a" }}
+                            onClick={() => setIsFilter(true)}
+                          />
                         </span>
                       </button>
                     </a>
@@ -678,7 +775,11 @@ const FolderLayout = () => {
                         >
                           <SortByAlphaIcon /> Alphabetical
                         </a>
-                        <a className="dropdown-item mr-2" href="#nogo">
+                        <a
+                          className="dropdown-item mr-2"
+                          href="#nogo"
+                          onClick={handleSortDate}
+                        >
                           <Calender /> Date Created
                         </a>
                       </div>
@@ -736,7 +837,13 @@ const FolderLayout = () => {
             </div>
             <div className="container-fluid">
               <div className="row folderRow">
-                {resources.length ? (
+                {filteredResources.length ? (
+                  filteredResources.map((m) =>
+                    m.isFolder
+                      ? showFolder && <Folder data={m} onClick={onClick} />
+                      : !showFolder && <File data={m} onClick={onClick}></File>
+                  )
+                ) : resources.length ? (
                   resources.map((m) =>
                     m.isFolder
                       ? showFolder && <Folder data={m} onClick={onClick} />

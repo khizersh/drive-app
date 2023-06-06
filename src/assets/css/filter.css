@@ -1,0 +1,23 @@
+.accord-header {
+  width: 100%;
+  border: none;
+}
+
+.text-red {
+  color: rgb(200, 16, 46);
+}
+
+.scope {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(74, 74, 74);
+}
+
+.scope-text {
+  padding-top: 5px;
+  position: relative;
+  font-size: 15px;
+  line-height: 24px;
+  color: rgb(74, 74, 74);
+  font-family: Helvetica, Arial, sans-serif;
+}

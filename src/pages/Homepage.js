@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "../assets/css/homepage.css";
 import { withRouter } from "react-router";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Homepage = () => {
   const router = useHistory();
@@ -117,7 +118,15 @@ const Homepage = () => {
                 id="searchPageIcon"
                 class="postfix ib-icon icon-button entypo-regular icon-search searchPageIcon"
                 title="Search"
-              ></span>
+              >
+                <SearchIcon
+                  style={{
+                    color: "white",
+                    paddingTop: "8px",
+                    fontSize: "35px",
+                  }}
+                />
+              </span>
             </div>
             <div class="searchModuleContent" style={{ display: "none" }}></div>
           </li>

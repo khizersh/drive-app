@@ -142,11 +142,9 @@ input {
   cursor: pointer;
 } */
 
-
 .sidebar-item-content {
   z-index: 12;
 }
-
 
 .btn-folder {
   background: rgb(255, 199, 44);
@@ -193,10 +191,7 @@ input {
   );
 }
 
-
-
 .drop-zone {
-
   padding: 25px;
   display: flex;
   align-items: center;
@@ -229,6 +224,25 @@ input {
   position: relative;
 }
 
+.w-filter {
+  width: 495px;
+  padding: 0px 20px;
+  height: 56px;
+  border-bottom: 1px solid rgb(224, 224, 224) !important;
+}
+
+.filter-div{
+  padding: 0px 20px;
+}
+
+.filter-text {
+  font-family: Helvetica, Arial, sans-serif !important;
+  font-size: 18px !important;
+  display: inline-block !important;
+  width: 80% !important;
+  line-height: 1.5rem !important;
+}
+
 .drop-zone__thumb::after {
   content: attr(data-label);
   position: absolute;
@@ -240,4 +254,9 @@ input {
   background: rgba(0, 0, 0, 0.75);
   font-size: 14px;
   text-align: center;
+}
+
+
+.bg-white{
+  background-color: white;
 }

@@ -1380,6 +1380,10 @@ body {
   width: 57.1809%;
 }
 
+.bg-grey{
+ background-color:  rgb(237, 237, 237);
+}
+
 .css-ista28-P {
   width: 100%;
   display: flex;
@@ -1411,7 +1415,7 @@ body {
 }
 
 .css-y2h32b-B {
-  background: rgb(237, 237, 237);
+  // background: rgb(237, 237, 237);
   padding: 0px 16px;
   text-align: center;
   color: rgb(21, 21, 21);
@@ -1442,9 +1446,10 @@ body {
 
 
 .css-1j5acs0-RightContainer {
-  height: calc(100% - 49px);
+  // height: calc(100% - 49px);
+  height: 100%;
   border: 1px solid rgb(191, 191, 191);
-  margin-top: 8px;
+  // margin-top: 8px;
   background: rgb(247, 247, 247);
   display: flex;
   flex-direction: column;
@@ -1454,10 +1459,10 @@ body {
 }
 
 .css-9olsrx-k-AccordianWrapper {
-  padding: 0px 0px 0px 4px;
+  // padding: 0px 0px 0px 4px;
   width: 100%;
   display: block;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(44, 29, 29);
   box-shadow: rgb(217, 217, 217) 0px -1px 0px inset;
 }
 
@@ -1494,7 +1499,7 @@ body {
 }
 
 .css-ymkeaq-DetailsWrapper {
-  padding: 0px 12px 16px 40px;
+  // padding: 0px 12px 16px 40px;
 }
 
 .css-ymkeaq-DetailsWrapper > div {

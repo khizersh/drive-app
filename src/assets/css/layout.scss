@@ -52,7 +52,7 @@ body {
   }
 }
 
-.w-100{
+.w-100 {
   width: 100% !important;
 }
 
@@ -201,8 +201,7 @@ body {
   font-size: 20px;
 }
 
-
-.sideIcon{
+.sideIcon {
   width: 200px;
 }
 .header-bar--flex {
@@ -1011,7 +1010,7 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-  .card-imgaa{
+  .card-imgaa {
     object-fit: cover;
     max-width: 230px;
     max-height: 82%;
@@ -1093,19 +1092,6 @@ body {
 
 // hover card condition ....
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .css-1h6e7bp-V-StyledOverlay {
   display: flex;
   -webkit-box-align: center;
@@ -1151,7 +1137,6 @@ body {
 .css-o51lz9-T {
   height: 24px;
 }
-
 
 .jss53 {
   fill: currentColor;
@@ -1325,7 +1310,6 @@ body {
   height: 24px;
 }
 
-
 .css-1dfsjzh-m {
   color: rgb(89, 89, 89) !important;
   transition: color 100ms ease 0s !important;
@@ -1380,8 +1364,8 @@ body {
   width: 57.1809%;
 }
 
-.bg-grey{
- background-color:  rgb(237, 237, 237);
+.bg-grey {
+  background-color: rgb(237, 237, 237);
 }
 
 .css-ista28-P {
@@ -1443,7 +1427,6 @@ body {
 .css-1h091bq-B:last-child {
   border-radius: 0px 3px 3px 0px;
 }
-
 
 .css-1j5acs0-RightContainer {
   // height: calc(100% - 49px);
@@ -1521,6 +1504,16 @@ body {
   line-height: 20px;
   text-transform: uppercase;
   margin-right: 10px;
+}
+.detail-bg{
+  background-image: url('../images/checkered-background.png');
+}
+.text-red {
+  color: rgb(200, 16, 46);
+}
+
+.bg-red {
+  background: rgb(200, 16, 46);
 }
 
 .css-1aul40s-S-k {

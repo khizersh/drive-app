@@ -16,8 +16,9 @@ import Checkbox from "@mui/material/Checkbox";
 
 const File = ({ data, onClick }) => {
   const router = useHistory();
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
+
+  const [onHover, setOnHover] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -30,8 +31,19 @@ const File = ({ data, onClick }) => {
   };
 
   const onClickResource = () => {
-    router.push("/resource-detail");
+    if (!onHover) {
+      router.push("/resource-detail?id=" + data._id);
+    }
   };
+  const onClickShare = () => {
+ 
+  };
+  const onClickDownload = () => {
+ 
+  };
+
+
+
 
   return (
     <a className="card folderLayputCardImage" onClick={onClickResource}>
@@ -43,14 +55,25 @@ const File = ({ data, onClick }) => {
             </FormGroup>
           </div>
           <div className="iconMenus">
-            <FileDownloadIcon />
-            <MoreVert />
+            <FileDownloadIcon
+              onMouseOver={() => setOnHover(true)}
+              onClick={(e) => onClickDownload(true)}
+              onMouseLeave={() => setOnHover(false)}
+              style={{marginRight : '10px'}}
+            />
+            <ShareIcon 
+              onMouseOver={() => setOnHover(true)}
+              onClick={(e) => onClickShare(true)}
+              onMouseLeave={() => setOnHover(false)}
+            />
+            
           </div>
         </div>
         <div className="eyeIcon">
           <VisibilityIcon />
         </div>
       </div>
+      
 
       <div className="card-imgaa">
         {/* <img src="https://cdn.intelligencebank.com/us/thumbnail/Dnn9/fe227fe87635b7a1ec08e6abbf18ff5f/original/Drink_Straight_CokeGlass_022017" /> */}

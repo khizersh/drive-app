@@ -484,7 +484,6 @@ const FolderLayout = () => {
   function onClickScope(data) {
     setScopeSelected(data.type);
     var filteredArray = [];
-    console.log("scope : " + data.type + " :: type :: " + typeSelected);
     if (data.type == "all") {
       if (typeSelected == "all") {
         filteredArray = [];
@@ -506,7 +505,6 @@ const FolderLayout = () => {
   function onClickType(data) {
     setTypeSelected(data.type);
     var filteredArray = [];
-    console.log("scope : " + scopeSelected + " :: type :: " + data.type);
     if (data.type == "all") {
       if (scopeSelected == "all") {
         filteredArray = [];

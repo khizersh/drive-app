@@ -86,8 +86,8 @@ const Folder = ({ data, onClick }) => {
                           ) : (
                             <></>
                           )}{" "}
-                          {data.resourceCount ? (
-                            data.resourceCount + " , Resources"
+                          {data.resourcesCount ? (
+                           " , " + data.resourcesCount + " Resources"
                           ) : (
                             <></>
                           )}

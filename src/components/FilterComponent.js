@@ -51,7 +51,7 @@ const FilterComponent = ({onClickScope , onClickType}) => {
 
   return (
     <div className="">
-      <Accordion className="filter-div m-0" style={{ margin: "0px" }}>
+      <Accordion className="filter-div m-0" style={{ margin: "0px" }} defaultExpanded={true}>
         <AccordionSummary
           className="accord-header m-0"
           style={{ padding: "0px" }}

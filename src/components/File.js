@@ -16,12 +16,34 @@ import Checkbox from "@mui/material/Checkbox";
 
 const File = ({ data, onClick }) => {
   const router = useHistory();
-  useEffect(() => {}, []);
+  const [file, setFile] = useState(null);
+
+  console.log("file :: ", data);
+  useEffect(() => {
+    if (data?.mimeType?.includes("image")) {
+      console.log("naturalWidth : ");
+      getMeta(data.file, (err, img) => {
+        console.log("img.naturalWidth :: ", img.naturalWidth);
+        data["width"] = img.naturalWidth;
+        data["height"] = img.naturalHeight;
+        setFile(data);
+      });
+    } else {
+      setFile(data);
+    }
+  }, []);
 
   const [onHover, setOnHover] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const getMeta = (url, cb) => {
+    const img = new Image();
+    img.onload = () => cb(null, img);
+    img.onerror = (err) => cb(err);
+    img.src = url;
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,18 +54,11 @@ const File = ({ data, onClick }) => {
 
   const onClickResource = () => {
     if (!onHover) {
-      router.push("/resource-detail?id=" + data._id);
+      router.push("/resource-detail?id=" + file?._id);
     }
   };
-  const onClickShare = () => {
- 
-  };
-  const onClickDownload = () => {
- 
-  };
-
-
-
+  const onClickShare = () => {};
+  const onClickDownload = () => {};
 
   return (
     <a className="card folderLayputCardImage" onClick={onClickResource}>
@@ -59,43 +74,44 @@ const File = ({ data, onClick }) => {
               onMouseOver={() => setOnHover(true)}
               onClick={(e) => onClickDownload(true)}
               onMouseLeave={() => setOnHover(false)}
-              style={{marginRight : '10px'}}
+              style={{ marginRight: "10px" }}
             />
-            <ShareIcon 
+            <ShareIcon
               onMouseOver={() => setOnHover(true)}
               onClick={(e) => onClickShare(true)}
               onMouseLeave={() => setOnHover(false)}
             />
-            
           </div>
         </div>
         <div className="eyeIcon">
           <VisibilityIcon />
         </div>
       </div>
-      
 
       <div className="card-imgaa">
-        {/* <img src="https://cdn.intelligencebank.com/us/thumbnail/Dnn9/fe227fe87635b7a1ec08e6abbf18ff5f/original/Drink_Straight_CokeGlass_022017" /> */}
-        <img src={data.file} />
+        {file?.mimeType?.includes("video") ? (
+          <img src="https://drive-app.s3.amazonaws.com/c7c1feb8-a5b3-4acb-8d39-bdeae261ae7f.png" />
+        ) : (
+          <img src={file?.file} />
+        )}
       </div>
 
       <div className="card-describation">
         <div class="_countContainer_13ovesk">
           <div class="_truncateMulti_3ywtd5">
             <span>
-              {data.folderCount || data.resourceCount ? (
+              {file?.folderCount || file?.resourceCount ? (
                 <div className="_countContainer_13ovesk">
                   <div className="_truncateMulti_3ywtd5">
                     <span>
                       <i>
-                        {data.folderCount ? (
-                          data.folderCount + " Sub-Folders"
+                        {file?.folderCount ? (
+                          file?.folderCount + " Sub-Folders"
                         ) : (
                           <></>
                         )}{" "}
-                        {data.resourceCount ? (
-                          data.resourceCount + " , Resources"
+                        {file?.resourceCount ? (
+                          file?.resourceCount + " , Resources"
                         ) : (
                           <></>
                         )}
@@ -112,12 +128,20 @@ const File = ({ data, onClick }) => {
         <div class="_bottom_f93tfg">
           <div class="_dpv7do3">
             <div class="_truncate_ww5d6d">
-              <span>C_Drink_Coffee_Coldbrew_Vanilla_011819</span>
+              <span>{file?.name}</span>
             </div>
           </div>
           <div class="_content_c3jvop">
             <div>
-              <span>4326 x 6707, Photoshop (psd), 69.46 MB</span>
+              <span>
+                {" "}
+                {file?.mimeType?.includes("video") ? (
+                  "Video (mov)"
+                ) : (
+                  <>{file?.width + " x " + file?.height}</>
+                )}{" "}
+                {file?.fileSize}
+              </span>
             </div>
           </div>
           <div className="_linkColours_11bsm43">

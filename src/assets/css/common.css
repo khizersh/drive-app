@@ -1,3 +1,5 @@
+
+
 input {
   background-color: #fff;
   font-family: inherit;
@@ -233,6 +235,10 @@ input {
 
 .filter-div{
   padding: 0px 20px;
+}
+
+.video-img{
+  
 }
 
 .filter-text {

@@ -17,12 +17,9 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import HomeIcon from "@mui/icons-material/Home";
-import ReactPlayer from "react-player/youtube";
-import { Player } from "video-react";
 
 const FileDetail = () => {
   const [file, setFile] = useState(null);
-  const [isVideo, setIsVideo] = useState(false);
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
   const onClickBreadCrum = (data) => {
@@ -66,18 +63,18 @@ const FileDetail = () => {
               };
             });
 
-            setIsVideo(false);
-            if (data?.mimeType?.includes("image")) {
-              setIsVideo(false);
-              getMeta(data.data.file, (err, img) => {
-                fileData["width"] = img.naturalWidth;
-                fileData["height"] = img.naturalHeight;
-                setFile(fileData);
-              });
-            } else {
-              setIsVideo(true);
+            getMeta(data.data.file, (err, img) => {
+              console.log(
+                "img.naturalWidth :: " +
+                  img.naturalWidth +
+                  "  img.naturalHeight :: " +
+                  img.naturalHeight
+              );
+              fileData["width"] = img.naturalWidth;
+              fileData["height"] = img.naturalHeight;
+              console.log("fileData :: ", fileData);
               setFile(fileData);
-            }
+            });
             if (folderArray.length) {
               let arrayy = folderArray.map((bread, index) =>
                 index == folderArray.length - 1 ? (
@@ -105,7 +102,7 @@ const FileDetail = () => {
         } else {
           showError(data.data);
         }
-        console.log("fileData :: " + data);
+        console.log("setFile :: ", data);
       } else {
         showError();
       }
@@ -175,24 +172,16 @@ const FileDetail = () => {
                       </div>
                       <div className="css-qozap3-LeftContainerContent e10r0o571">
                         <div className="_container_8oa4ch">
-                          {console.log("file?.file : ", isVideo)}
-
-                          {file?.mimeType.includes("video") === true? (
-                            file?.file && (
-                              <Player playsInline src={file?.file} />
-                            )
-                          ) : (
-                            <img
-                              className="detail-bg"
-                              src={file?.file}
-                              alt="C_Drink_Coffee_Coldbrew_Vanilla_011819.psd"
-                              style={{
-                                display: "block",
-                                maxWidth: "100%",
-                                maxHeight: "100%",
-                              }}
-                            />
-                          )}
+                          <img
+                            className="detail-bg"
+                            src={file?.file}
+                            alt="C_Drink_Coffee_Coldbrew_Vanilla_011819.psd"
+                            style={{
+                              display: "block",
+                              maxWidth: "100%",
+                              maxHeight: "100%",
+                            }}
+                          />
                         </div>
                       </div>
                     </div>

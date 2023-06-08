@@ -177,7 +177,7 @@ const FileDetail = () => {
                         <div className="_container_8oa4ch">
                           {console.log("file?.file : ", isVideo)}
 
-                          {file?.mimeType.includes("video") === true? (
+                          {file?.mimeType.includes("video") ? (
                             file?.file && (
                               <Player playsInline src={file?.file} />
                             )
@@ -185,7 +185,7 @@ const FileDetail = () => {
                             <img
                               className="detail-bg"
                               src={file?.file}
-                              alt="C_Drink_Coffee_Coldbrew_Vanilla_011819.psd"
+                              alt={file?.name}
                               style={{
                                 display: "block",
                                 maxWidth: "100%",

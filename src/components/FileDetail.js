@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import "../assets/css/layout.css";
 import "../assets/css/layout.scss";
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -19,8 +19,44 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import HomeIcon from "@mui/icons-material/Home";
 import ReactPlayer from "react-player/youtube";
 import { Player } from "video-react";
+import { LeftSide } from './LeftSide';
+import { RightSide } from './RightSide';
+import { DragHandle } from '@material-ui/icons';
+import { DragHandler } from './drag-handle.tsx';
+
+const minWidth = 300;
+const collapsedWidth = 100;
+const toCollapseWidth = 125;
+const expandedWidth = 1000;
+const maxWidth = 1200;
 
 const FileDetail = () => {
+
+  const [width, setWidth] = useState(expandedWidth);
+
+  const sidebarRef = useRef();
+
+  const onMoveX = useCallback(
+    (val) => {
+      setWidth((w) => {
+        const newVal = w + val;
+        if (newVal < minWidth) return minWidth;
+        if (newVal > maxWidth) return maxWidth;
+
+        const isCollapsed = sidebarRef.current.isCollapsed;
+        if (newVal <= toCollapseWidth && !isCollapsed) {
+          sidebarRef.current.collapse();
+        }
+        if (newVal > toCollapseWidth && isCollapsed) {
+          sidebarRef.current.expand();
+        }
+        return newVal;
+      });
+    },
+    [sidebarRef]
+  );
+
+
   const [file, setFile] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
   const [breadcrumbs, setBreadcrumbs] = useState([]);
@@ -144,80 +180,42 @@ const FileDetail = () => {
             <div className="css-ecz5du-OverlayContent eduyzic4">
               <div className="css-mxd61i-StyledLayoutWrapper eduyzic0">
                 <div height="162px" className="css-117wpbr-we e1vmnjjl9">
-                  <div className="css-v86hxw-d e1vmnjjl6">
-                    <div className="css-yj4l3y-LeftContainer e10r0o572">
-                      <div className="css-u9qt4x-ContainerHeader e10r0o573">
-                        <div className="css-1xusefk-StyledCheckbox e10r0o570">
-                          <span
-                            className="jss50 jss72 jss68 jss62 jss67 css-1siuk2u-f e1cxn8ur0"
-                            data-id="RE_Info_Preview_Select_Resource"
-                          >
-                            <span className="jss77">
-                              <span />
-                              <input
-                                className="jss71"
-                                type="checkbox"
-                                data-indeterminate="false"
-                                defaultValue=""
-                              />
-                            </span>
-                            <span className="jss78" />
-                          </span>
-                        </div>
-                        <div className="css-tynm26-ActionMenuContainer ed9irzr1">
-                          <div>
-                            <GetAppIcon />
-                          </div>
-                          <div style={{ marginLeft: "10px" }}>
-                            <ShareIcon />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="css-qozap3-LeftContainerContent e10r0o571">
-                        <div className="_container_8oa4ch">
-                          {console.log("file?.file : ", isVideo)}
 
-                          {file?.mimeType.includes("video") ? (
-                            file?.file && (
-                              <Player playsInline src={file?.file} />
-                            )
-                          ) : (
-                            <img
-                              className="detail-bg"
-                              src={file?.file}
-                              alt={file?.name}
-                              style={{
-                                display: "block",
-                                maxWidth: "100%",
-                                maxHeight: "100%",
-                              }}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    data-id="RE_Info_Preview_DraggableHandle"
-                    className="css-1n4pdp3-ye e1vmnjjl8"
-                  >
-                    <div className="css-c977od-Ae e1vmnjjl7">
-                      <svg
-                        className="jss53"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                        role="presentation"
-                      >
-                        <path
-                          d="M1 0V22M5 0V22"
-                          stroke="#D9D9D9"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </div>
-                  </div>
+
+                {/* <div
+        style={{ width: `${width}px`}}
+      >
+        <RightSide
+          ref={sidebarRef}
+          toggle={(isCollapsed) => {
+            if (isCollapsed) {
+              setWidth(collapsedWidth);
+              return;
+            }
+            setWidth(expandedWidth);
+          }}
+        />
+      </div>
+      <DragHandler moveX={onMoveX} />
+        <LeftSide /> */}
+
+            <div
+        style={{ width: `${width}px`}}
+      >
+        <RightSide
+          ref={sidebarRef}
+          toggle={(isCollapsed) => {
+            if (isCollapsed) {
+              setWidth(collapsedWidth);
+              return;
+            }
+            setWidth(expandedWidth);
+          }}
+        />
+      </div>
+
+                  <DragHandler moveX={onMoveX} />
+
                   <div className="css-1q84ldw-d e1vmnjjl6">
                     <div className="css-1j5acs0-RightContainer e1cv5de72">
                       <Accordion
@@ -447,6 +445,7 @@ const FileDetail = () => {
                       </div> */}
                     </div>
                   </div>
+
                   {/* <div className="css-dmutxw-Ie e1vmnjjl0">
                     <div className="css-hw7qmm e1vmnjjl2" />
                     <div className="css-1rbqvv8-Z e1vmnjjl3">

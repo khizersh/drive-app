@@ -10,6 +10,8 @@ import { ADD_RESOURCE, BASE_URL, SUCCESS } from "../service/constants";
 import { MainContext } from "../context/MainContext";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useDropzone } from "react-dropzone";
+import "../assets/css/layout.scss";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
@@ -44,6 +46,7 @@ const AddFolder = ({ data }) => {
   });
 
   useEffect(() => {
+    
     let userLocal = localStorage.getItem("user");
     if (userLocal) {
       var json = JSON.parse(userLocal);
@@ -184,6 +187,22 @@ const AddFolder = ({ data }) => {
                 filesLimit={1}
               />
             </div> */}
+
+
+            <div className="dropzone-wrapper" {...getRootProps()}>
+              <div className="dropzone-desc">
+                <i className=""><FileDownloadIcon/></i>
+                {isDragActive ? (
+                <p>Drop the files here ...</p>
+              ) : (
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              )}
+              </div>
+              <input className="dropzone" {...getInputProps()} />
+            </div>
+
+
+{/* 
             <div className="drag-img" {...getRootProps()}>
               <input {...getInputProps()} />
               {isDragActive ? (
@@ -191,7 +210,7 @@ const AddFolder = ({ data }) => {
               ) : (
                 <p>Drag 'n' drop some files here, or click to select files</p>
               )}
-            </div>
+            </div> */}
           </>
         ) : (
           <></>

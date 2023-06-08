@@ -45,6 +45,8 @@ const AddFolder = ({ data }) => {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
+  const [fileName , setFileName] = useState("")
+
   useEffect(() => {
     
     let userLocal = localStorage.getItem("user");
@@ -71,7 +73,6 @@ const AddFolder = ({ data }) => {
     try {
       var formData = new FormData();
       formData.append("data", JSON.stringify(folder));
-      // formData.append("file", file);
       if (!folder.isFolder) {
         if (!file) {
           return showError({ message: "Please select file!" });
@@ -79,7 +80,6 @@ const AddFolder = ({ data }) => {
         formData.append("file", file);
       }
       const data = await postAxios(BASE_URL + ADD_RESOURCE, formData);
-      console.log("data : ", data);
       if (data) {
         if (data.data.status == SUCCESS) {
           showSuccess(data.data).then((r) => window.location.reload());
@@ -126,6 +126,7 @@ const AddFolder = ({ data }) => {
     setFile(file[0]);
     const size = formatBytes(file[0]?.size, 1);
     setFolder({ ...folder, fileSize: size, mimeType: file[0]?.type });
+    setFileName(file[0].name)
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -169,34 +170,15 @@ const AddFolder = ({ data }) => {
         </div>
         {data === false ? (
           <>
-            {/* <div>
-              <DropzoneArea
-                acceptedFiles={[
-                  "application/*",
-                  "audio/*",
-                  "image/*",
-                  "text/*",
-                  "multipart/*",
-                  "video/*",
-                  ".mp4"
-                ]}
-                // acceptedFiles={["image/* , video/*"]}
-                onChange={onClickImage}
-                dropzoneText="Drag images here."
-                showAlerts={false}
-                filesLimit={1}
-              />
-            </div> */}
-
-
-            <div className="dropzone-wrapper" {...getRootProps()}>
+            <div className="dropzone-wrapper cursor-pointer" {...getRootProps()}>
               <div className="dropzone-desc">
                 <i className=""><FileDownloadIcon/></i>
                 {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <p>Drag 'n' drop some files here, or click to select files</p>
-              )}
+                  <p>Drop the files here ...</p>
+                  ) : (
+                    <p><strong>Choose a file</strong>  or  drag it here</p>
+                    )}
+                <p className="text-red">{fileName}</p>
               </div>
               <input className="dropzone" {...getInputProps()} />
             </div>

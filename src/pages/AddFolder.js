@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Modal, Button } from "react-bootstrap";
 import {
   postAxios,
@@ -9,6 +9,7 @@ import {
 import { ADD_RESOURCE, BASE_URL, SUCCESS } from "../service/constants";
 import { MainContext } from "../context/MainContext";
 import { DropzoneArea } from "material-ui-dropzone";
+import { useDropzone } from "react-dropzone";
 
 const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
@@ -92,23 +93,38 @@ const AddFolder = ({ data }) => {
 
   const onClickImage = (file) => {
     setFile(file[0]);
-    const size = formatBytes(file[0]?.size , 1);
-    setFolder({...folder , fileSize : size})
-    
+    const size = formatBytes(file[0]?.size, 1);
+    setFolder({ ...folder, fileSize: size });
   };
 
-
   function formatBytes(bytes, decimals = 2) {
-    if (!+bytes) return '0 Bytes'
+    if (!+bytes) return "0 Bytes";
 
-    const k = 1024
-    const dm = decimals < 0 ? 0 : decimals
-    const sizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = [
+      "Bytes",
+      "KiB",
+      "MiB",
+      "GiB",
+      "TiB",
+      "PiB",
+      "EiB",
+      "ZiB",
+      "YiB",
+    ];
 
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-}
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+  }
+
+  const onDrop = useCallback((file) => {
+    setFile(file[0]);
+    const size = formatBytes(file[0]?.size, 1);
+    setFolder({ ...folder, fileSize: size, mimeType: file[0]?.type });
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <div className="container">
@@ -150,22 +166,31 @@ const AddFolder = ({ data }) => {
         </div>
         {data === false ? (
           <>
-            <div>
+            {/* <div>
               <DropzoneArea
-                // acceptedFiles={[
-                //   "application/*",
-                //   "audio/*",
-                //   "image/*",
-                //   "text/*",
-                //   "multipart/*",
-                //   "video/*",
-                // ]}
-                acceptedFiles={["image/* , video/*"]}
+                acceptedFiles={[
+                  "application/*",
+                  "audio/*",
+                  "image/*",
+                  "text/*",
+                  "multipart/*",
+                  "video/*",
+                  ".mp4"
+                ]}
+                // acceptedFiles={["image/* , video/*"]}
                 onChange={onClickImage}
                 dropzoneText="Drag images here."
                 showAlerts={false}
                 filesLimit={1}
               />
+            </div> */}
+            <div className="drag-img" {...getRootProps()}>
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop the files here ...</p>
+              ) : (
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              )}
             </div>
           </>
         ) : (

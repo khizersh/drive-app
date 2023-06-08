@@ -144,6 +144,10 @@ input {
   cursor: pointer;
 } */
 
+.drag-img{
+  
+}
+
 .sidebar-item-content {
   z-index: 12;
 }

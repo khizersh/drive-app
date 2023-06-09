@@ -15,6 +15,7 @@ import AddFolder from "./pages/AddFolder";
 import MainProvider from "./context/MainContext";
 import { TailSpin } from "react-loader-spinner";
 import FileDetail from "./components/FileDetail";
+import ShareFile from "./components/ShareFile";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -47,28 +48,6 @@ function App() {
       <BrowserRouter>
         <MainProvider>
           <Switch>
-           
-            {/* <Route
-            path="/"
-            exact
-            render={(props) =>  <Weblayout {...props} ><Homepage /></Weblayout>}
-            />
-            <Route
-            path="/admin/user"
-            exact
-            render={(props) =>  <DashbboardLayout {...props} ><User /></DashbboardLayout>}
-            />
-            <Route
-            path="/login"
-            exact
-            render={(props) =>  <NoLayout {...props} ><Login /></NoLayout>}
-            />
-            <Route
-            path="/register"
-            exact
-            render={(props) =>  <NoLayout {...props} ><Register /></NoLayout>}
-          /> */}
-
             {dashboard === true ? (
               <DashbboardLayout>
                 <Route path="/admin/user" render={(props) => <User />} />
@@ -85,6 +64,7 @@ function App() {
                 <Route path="/folder" render={(props) => <FolderLayout />} />
                 <Route path="/add-folder" render={(props) => <AddFolder />} />
                 <Route path="/resource-detail" render={(props) => <FileDetail />} />
+                <Route path="/resource-share" render={(props) => <ShareFile />} />
               </Weblayout>
             )}
           </Switch>

@@ -57,7 +57,9 @@ const File = ({ data, onClick }) => {
       router.push("/resource-detail?id=" + file?._id);
     }
   };
-  const onClickShare = () => {};
+  const onClickShare = () => {
+      router.push("/resource-share?id=" + file?._id);
+  };
   const onClickDownload = () => {};
 
   return (

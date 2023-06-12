@@ -838,14 +838,14 @@ const FolderLayout = () => {
                 {filteredResources.length ? (
                   filteredResources.map((m) =>
                     m.isFolder
-                      ? showFolder && <Folder data={m} onClick={onClick} />
-                      : !showFolder && <File data={m} onClick={onClick}></File>
+                      ? showFolder && <Folder data={m} onClick={onClick} viewType={view}/>
+                      : !showFolder && <File data={m} onClick={onClick} viewType={view}></File>
                   )
                 ) : resources.length ? (
                   resources.map((m) =>
                     m.isFolder
-                      ? showFolder && <Folder data={m} onClick={onClick} />
-                      : !showFolder && <File data={m} onClick={onClick}></File>
+                      ? showFolder && <Folder data={m} onClick={onClick} viewType={view}/>
+                      : !showFolder && <File data={m} onClick={onClick} viewType={view}></File>
                   )
                 ) : (
                   <></>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState , useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { postRequest, showError } from "../service/commonService";
 import { BASE_URL, FIND_RESOURCE_BY_ID, SUCCESS } from "../service/constants";
 import { red } from "@mui/material/colors";
@@ -6,15 +6,15 @@ import Radio from "@mui/material/Radio";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import { MainContext } from "../context/MainContext";
+import Col12 from "../components/Col12";
+import Col6 from "../components/Col6";
 
 const Collection = () => {
   const [isVideo, setIsVideo] = useState(false);
-  const {setLoading , mainState} = useContext(MainContext)
+  const { setLoading, mainState } = useContext(MainContext);
   const [file, setFile] = useState(null);
   const [selectedValue, setSelectedValue] = useState("Internal");
   const [copyText, setCopyText] = useState("Copy Link");
-
-  
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -26,12 +26,12 @@ const Collection = () => {
 
   const findData = async () => {
     if (params.id) {
-      setLoading(true)
+      setLoading(true);
       var fileData = null;
       const data = await postRequest(BASE_URL + FIND_RESOURCE_BY_ID, {
         id: params.id,
       });
-  
+
       if (data) {
         if (data.status == SUCCESS) {
           if (!data.data.isFolder) {
@@ -45,14 +45,14 @@ const Collection = () => {
               setFile(fileData);
             }
           }
-          setLoading(false)
+          setLoading(false);
         } else {
           showError(data.data);
         }
       } else {
         showError();
       }
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -98,84 +98,8 @@ const Collection = () => {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="">
-          <h2 className="share-file-name">{file?.name}</h2>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-lg-6">
-            <div className="card leftDiv">
-              <img className="" src={file?.file} />
-            </div>
-          </div>
-          <div className="col-12 col-lg-6">
-            <div className="share-title-div">SHARE</div>
-            <div className="card p-3">
-              <p><strong> Share Type</strong></p>
-              {getList().length ? (
-                getList().map((m) => (
-                  <div style={{marginTop : '0px'}}>
-                    {" "}
-                    <Radio
-                      {...controlProps(m.id)}
-                      sx={{
-                        color: red[900],
-                        "&.Mui-checked": {
-                          color: red[900],
-                        },
-                      }}
-                    />{" "}
-                    <text style={{ fontSize: "15px" }}>{m.title}</text>
-                  </div>
-                ))
-              ) : (
-                <></>
-              )}
-
-              <hr />
-              {selectedValue == "Social" ? (
-                <div>
-                  <div></div>
-                  <FacebookShareButton
-                    url={file?.file}
-                    quote={file?.description}
-                    hashtag={""}
-                    description={file?.description}
-                    className="mr-2"
-                  >
-                    <FacebookIcon size={52} round={false} />{" "}
-                  </FacebookShareButton>
-                  <TwitterShareButton
-                    url={file?.file}
-                    quote={file?.description}
-                    hashtag={""}
-                    description={file?.description}
-                    hashtags={[""]}
-                  >
-                    <TwitterIcon size={52} round={false} />
-                  </TwitterShareButton>
-                </div>
-              ) : (
-                <>
-                  {" "}
-                  <div className="link-here">{selectedValue} Link</div>
-                  {console.log("value  :: " + findObject(selectedValue))}
-                  <p className="share-link">
-                    {findObject(selectedValue) != null
-                      ? findObject(selectedValue).link
-                      : ""}
-                  </p>
-                  <button className="copy-link-btn" onClick={onClickLink}>
-                    {copyText}
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Col12 />
+      <Col6 />
     </>
   );
 };

@@ -7,7 +7,7 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import { MainContext } from "../context/MainContext";
 
-const ShareFile = () => {
+const Collection = () => {
   const [isVideo, setIsVideo] = useState(false);
   const {setLoading , mainState} = useContext(MainContext)
   const [file, setFile] = useState(null);
@@ -180,4 +180,4 @@ const ShareFile = () => {
   );
 };
 
-export default ShareFile;
+export default Collection;

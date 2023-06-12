@@ -13,6 +13,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import {saveAs} from "file-saver";
 
 const File = ({ data, onClick }) => {
   const router = useHistory();
@@ -60,7 +61,10 @@ const File = ({ data, onClick }) => {
   const onClickShare = () => {
       router.push("/resource-share?id=" + file?._id);
   };
-  const onClickDownload = () => {};
+  const onClickDownload = () => {
+    // router.push("/resource-download?id=" + file?._id);
+    saveAs(file?.file, file?.name);
+  };
 
   return (
     <a className="card folderLayputCardImage" onClick={onClickResource}>

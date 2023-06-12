@@ -1,20 +1,17 @@
-import React, { useEffect, useState , useContext} from "react";
+import React, { useEffect, useState } from "react";
 import { postRequest, showError } from "../service/commonService";
 import { BASE_URL, FIND_RESOURCE_BY_ID, SUCCESS } from "../service/constants";
 import { red } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
-import { MainContext } from "../context/MainContext";
+import ConvertImage from "react-convert-image";
 
-const ShareFile = () => {
+const DownloadFile = () => {
   const [isVideo, setIsVideo] = useState(false);
-  const {setLoading , mainState} = useContext(MainContext)
   const [file, setFile] = useState(null);
   const [selectedValue, setSelectedValue] = useState("Internal");
   const [copyText, setCopyText] = useState("Copy Link");
-
-  
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -26,12 +23,10 @@ const ShareFile = () => {
 
   const findData = async () => {
     if (params.id) {
-      setLoading(true)
       var fileData = null;
       const data = await postRequest(BASE_URL + FIND_RESOURCE_BY_ID, {
         id: params.id,
       });
-  
       if (data) {
         if (data.status == SUCCESS) {
           if (!data.data.isFolder) {
@@ -45,14 +40,12 @@ const ShareFile = () => {
               setFile(fileData);
             }
           }
-          setLoading(false)
         } else {
           showError(data.data);
         }
       } else {
         showError();
       }
-      setLoading(false)
     }
   };
 
@@ -96,8 +89,13 @@ const ShareFile = () => {
     }
   }
 
+  function handleConvertedImage(url) {
+    console.log(url);
+  }
+
   return (
     <>
+    
       <div className="container-fluid">
         <div className="">
           <h2 className="share-file-name">{file?.name}</h2>
@@ -113,10 +111,12 @@ const ShareFile = () => {
           <div className="col-12 col-lg-6">
             <div className="share-title-div">SHARE</div>
             <div className="card p-3">
-              <p><strong> Share Type</strong></p>
+              <p>
+                <strong> Share Type</strong>
+              </p>
               {getList().length ? (
                 getList().map((m) => (
-                  <div style={{marginTop : '0px'}}>
+                  <div style={{ marginTop: "0px" }}>
                     {" "}
                     <Radio
                       {...controlProps(m.id)}
@@ -180,4 +180,4 @@ const ShareFile = () => {
   );
 };
 
-export default ShareFile;
+export default DownloadFile;

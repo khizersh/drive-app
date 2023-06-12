@@ -1,5 +1,6 @@
 import React from "react";
 import "../assets/css/navbar.css";
+import { Link } from "react-router-dom";
 
 const navbar = (props) => {
   const onClickLogout = () => {
@@ -12,14 +13,14 @@ const navbar = (props) => {
         <nav id="mainTopBar" class="top-bar d-flex mb-0">
           <ul class="p-0 mb-1">
             <li class="name">
-              <a href="#">
+              <Link to="/">
                 <img
                   alt="CKE Digital Library Small Logo"
                   title="Go to CKE Digital Library home page"
                   src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/small-logo-0fdcfdbb9af1834e7e18deae8039404c.png"
                   id="ibFooterLogo"
                 />
-              </a>
+              </Link>
             </li>
             <li class="toggle-topbar">
               <a href="javascript:void(0);" title="toggle top bar menu"></a>
@@ -32,9 +33,13 @@ const navbar = (props) => {
           >
             <ul class="left">
               <li class="active menu-item ">
-                <a id="menu-1b64717ea816e1aeecc407db6b752f0e" href="/">
+                <Link
+                  to="/"
+                  id="menu-1b64717ea816e1aeecc407db6b752f0e"
+                  href="/"
+                >
                   HOME
-                </a>
+                </Link>
               </li>
               <li class="divider"></li>
               <li class="has-dropdown menu-item ">
@@ -159,13 +164,14 @@ const navbar = (props) => {
               </li>
               <li class="divider"></li>
               <li class="menu-item ">
-                <a
+                <Link
+                  to={`my-collection?id=`}
                   data-id="co_navigation_menu"
                   id="menu-43efd1b065da06a5e4e024a4ff9cff6f"
-                  href="/lists/custom/index"
+                  href="my-account"
                 >
                   MY COLLECTIONS
-                </a>{" "}
+                </Link>{" "}
               </li>
               <li class="divider"></li>
             </ul>

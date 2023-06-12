@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../assets/css/layout.css";
 import "../assets/css/layout.scss";
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -19,10 +19,10 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import HomeIcon from "@mui/icons-material/Home";
 import ReactPlayer from "react-player/youtube";
 import { Player } from "video-react";
-import { LeftSide } from './LeftSide';
-import { RightSide } from './RightSide';
-import { DragHandle } from '@material-ui/icons';
-import { DragHandler } from './drag-handle.tsx';
+import { LeftSide } from "./LeftSide";
+import { RightSide } from "./RightSide";
+import { DragHandle } from "@material-ui/icons";
+import { DragHandler } from "./drag-handle.tsx";
 
 const minWidth = 300;
 const collapsedWidth = 100;
@@ -31,7 +31,6 @@ const expandedWidth = 1000;
 const maxWidth = 1200;
 
 const FileDetail = () => {
-
   const [width, setWidth] = useState(expandedWidth);
 
   const sidebarRef = useRef();
@@ -55,7 +54,6 @@ const FileDetail = () => {
     },
     [sidebarRef]
   );
-
 
   const [file, setFile] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
@@ -180,39 +178,18 @@ const FileDetail = () => {
             <div className="css-ecz5du-OverlayContent eduyzic4">
               <div className="css-mxd61i-StyledLayoutWrapper eduyzic0">
                 <div height="162px" className="css-117wpbr-we e1vmnjjl9">
-
-
-                {/* <div
-        style={{ width: `${width}px`}}
-      >
-        <RightSide
-          ref={sidebarRef}
-          toggle={(isCollapsed) => {
-            if (isCollapsed) {
-              setWidth(collapsedWidth);
-              return;
-            }
-            setWidth(expandedWidth);
-          }}
-        />
-      </div>
-      <DragHandler moveX={onMoveX} />
-        <LeftSide /> */}
-
-            <div
-        style={{ width: `${width}px`}}
-      >
-        <RightSide
-          ref={sidebarRef}
-          toggle={(isCollapsed) => {
-            if (isCollapsed) {
-              setWidth(collapsedWidth);
-              return;
-            }
-            setWidth(expandedWidth);
-          }}
-        />
-      </div>
+                  <div style={{ width: `${width}px` }}>
+                    <RightSide
+                      ref={sidebarRef}
+                      toggle={(isCollapsed) => {
+                        if (isCollapsed) {
+                          setWidth(collapsedWidth);
+                          return;
+                        }
+                        setWidth(expandedWidth);
+                      }}
+                    />
+                  </div>
 
                   <DragHandler moveX={onMoveX} />
 

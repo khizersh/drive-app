@@ -16,6 +16,8 @@ import MainProvider from "./context/MainContext";
 import { TailSpin } from "react-loader-spinner";
 import FileDetail from "./components/FileDetail";
 import ShareFile from "./components/ShareFile";
+import DownloadFile from "./components/DownloadFile";
+import Collection from "./pages/Collection";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -65,6 +67,8 @@ function App() {
                 <Route path="/add-folder" render={(props) => <AddFolder />} />
                 <Route path="/resource-detail" render={(props) => <FileDetail />} />
                 <Route path="/resource-share" render={(props) => <ShareFile />} />
+                <Route path="/resource-download" render={(props) => <DownloadFile />} />
+                <Route path="/my-collection" render={(props) => <Collection />} />
               </Weblayout>
             )}
           </Switch>

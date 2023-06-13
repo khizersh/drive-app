@@ -87,6 +87,7 @@ const DownloadFile = () => {
     if (findObject(selectedValue)) {
       navigator.clipboard.writeText(findObject(selectedValue).link);
     }
+    setCopyText("Text Copied!")
   }
 
   function handleConvertedImage(url) {

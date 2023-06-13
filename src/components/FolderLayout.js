@@ -38,12 +38,16 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import { checkUser, postRequest } from "../service/commonService";
+import Multiselect from "multiselect-react-dropdown";
 import {
   BASE_URL,
   FIND_FOLDER,
   FIND_FOLDER_BY_HOME_PARENT,
   FIND_RESOURCE_BY_ID,
   FIND_SUB_FOLDER,
+  GET_COLLECTION,
+  GET_COLLECTION_BY_ID,
+  GET_COLLECTION_GROUP,
   GET_RESOURCSES_BY_KEYWORD,
   SUCCESS,
 } from "../service/constants";
@@ -67,14 +71,17 @@ const FolderLayout = () => {
 
   const router = useHistory();
   const [show, setShow] = useState(false);
+  const [showCollection, setShowCollection] = useState(false);
   const [view, setView] = useState("grid");
   const [showFolder, setShowFolder] = useState(true);
   const [sortOpen, setSortOpen] = useState(false);
+  const [resourceId, setSesourceId] = useState("");
   const [sort, setSort] = useState("asc");
   const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
   const [isFilter, setIsFilter] = useState(false);
   const [items, setItems] = useState([]);
+  const [oldCollection, setOldCollection] = useState([]);
   const [breadcrumb, setBreadcrumbs] = useState([]);
   const [searchItem, setSearchItem] = useState([]);
   const [searchItemSidebar, setSearchItemSidebar] = useState([]);
@@ -83,9 +90,11 @@ const FolderLayout = () => {
   const [currentFolder, setCurrentFolder] = useState(null);
   const [activeFolder, setActiveFolder] = useState(null);
   const [resources, setResources] = useState([]);
+  const [collectionList, setCollectionList] = useState([]);
   const [filteredResources, setFilteredResources] = useState([]);
   const [scopeSelected, setScopeSelected] = useState("all");
   const [typeSelected, setTypeSelected] = useState("all");
+  const [newCollection, setNewCollection] = useState("");
 
   const toggleSidebar = (event) => {
     setLeftOpen(!leftOpen);
@@ -527,6 +536,76 @@ const FolderLayout = () => {
     setFilteredResources(filteredArray);
   }
 
+  function onClickAddCollection(data) {
+    let userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      setLoading(true);
+      var json = JSON.parse(userLocal);
+      if (json) {
+        const array = oldCollection.map((m) =>  m.name)
+        if (newCollection) {
+          array.push(newCollection);
+        }
+        let req = {
+          email: json.email,
+          resourceId: resourceId,
+          group: array,
+        };
+        console.log("req :: ", req);
+      }
+      setLoading(false);
+    }
+  }
+
+  const onClickShowCollection = async (data) => {
+    setLoading(true);
+    setSesourceId(data._id)
+    let userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      var json = JSON.parse(userLocal);
+      if (json) {
+        const collecttionData = await postRequest(
+          BASE_URL + GET_COLLECTION_GROUP,
+          {
+            email: json.email,
+          }
+        );
+        if (collecttionData) {
+          const groups = collecttionData.data.map((m) => {
+            return {
+              name: m.group,
+              id: m.group,
+            };
+          });
+          setCollectionList(groups);
+        }
+        const resp = await postRequest(BASE_URL + GET_COLLECTION_BY_ID, {
+          resourceId: data._id,
+        });
+        if (resp) {
+          if (resp.status == SUCCESS) {
+            const array = resp.data.group.map((m) => {
+              return { name: m, id: m };
+            });
+            console.log("data :: ", array);
+            setOldCollection(array);
+            setShowCollection(true);
+          }
+        }
+        setLoading(false);
+        console.log("collection data :: ", data);
+      }
+    }
+  };
+
+  function onSelect(selectedList, selectedItem) {
+    console.log(selectedList, " ", selectedItem);
+  }
+
+  function onRemove(selectedList, removedItem) {
+    console.log(selectedList + " " + removedItem);
+  }
+
   const menuClass = `dropdown-menu${sortOpen ? " show" : ""}`;
   return (
     <>
@@ -838,14 +917,32 @@ const FolderLayout = () => {
                 {filteredResources.length ? (
                   filteredResources.map((m) =>
                     m.isFolder
-                      ? showFolder && <Folder data={m} onClick={onClick} viewType={view}/>
-                      : !showFolder && <File data={m} onClick={onClick} viewType={view}></File>
+                      ? showFolder && (
+                          <Folder data={m} onClick={onClick} viewType={view} />
+                        )
+                      : !showFolder && (
+                          <File
+                            data={m}
+                            onClick={onClick}
+                            viewType={view}
+                          ></File>
+                        )
                   )
                 ) : resources.length ? (
                   resources.map((m) =>
                     m.isFolder
-                      ? showFolder && <Folder data={m} onClick={onClick} viewType={view}/>
-                      : !showFolder && <File data={m} onClick={onClick} viewType={view}></File>
+                      ? showFolder && (
+                          <Folder data={m} onClick={onClick} viewType={view} />
+                        )
+                      : !showFolder && (
+                          <File
+                            data={m}
+                            onClick={onClick}
+                            viewType={view}
+                            onOpenPopup={onClickShowCollection}
+                            onClickAdd={onClickAddCollection}
+                          ></File>
+                        )
                   )
                 ) : (
                   <></>
@@ -861,6 +958,54 @@ const FolderLayout = () => {
         </Modal.Header>
         <Modal.Body>
           <AddFolder data={isFolder} />
+        </Modal.Body>
+      </Modal>
+      <Modal show={showCollection} onHide={() => setShowCollection(false)}>
+        <Modal.Header closeButton>
+          <strong>Add/Remove from My Collection(s)</strong>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <text>
+              <strong> New Collection: </strong>
+            </text>
+            <input
+              name="lastName"
+              maxlength="50"
+              required="required"
+              placeholder="Type a new collection name"
+              type="text"
+              onChange={(e) => setNewCollection(e.target.value)}
+              value={newCollection}
+            />
+          </div>
+          <div>
+            <text>
+              <strong> My Collection(s): </strong>
+            </text>
+            <Multiselect
+              options={collectionList} // Options to display in the dropdown
+              selectedValues={oldCollection} // Preselected value to persist in dropdown
+              onSelect={onSelect} // Function will trigger on select event
+              onRemove={onRemove} // Function will trigger on remove event
+              displayValue="name" // Property name to display in the dropdown options
+            />
+          </div>
+          <div className="mt-3">
+            <button
+              className="copy-link-btn "
+              style={{ marginRight: "10px" }}
+              onClick={onClickAddCollection}
+            >
+              <strong>Save</strong>
+            </button>
+            <button
+              className="copy-link-btn"
+              onClick={() => setShowCollection(false)}
+            >
+              <strong>Cancel</strong>
+            </button>
+          </div>
         </Modal.Body>
       </Modal>
     </>

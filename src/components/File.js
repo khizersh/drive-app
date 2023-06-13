@@ -13,13 +13,15 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import {saveAs} from "file-saver";
+import { saveAs } from "file-saver";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import { postRequest } from "../service/commonService";
+import { ADD_OR_REMOVE_COLLECTION, BASE_URL } from "../service/constants";
 
-const File = ({ data, onClick }) => {
+const File = ({ data, onClick, onOpenPopup, onClickAdd }) => {
   const router = useHistory();
   const [file, setFile] = useState(null);
 
-  console.log("file :: ", data);
   useEffect(() => {
     if (data?.mimeType?.includes("image")) {
       console.log("naturalWidth : ");
@@ -59,11 +61,15 @@ const File = ({ data, onClick }) => {
     }
   };
   const onClickShare = () => {
-      router.push("/resource-share?id=" + file?._id);
+    router.push("/resource-share?id=" + file?._id);
   };
   const onClickDownload = () => {
-    // router.push("/resource-download?id=" + file?._id);
     saveAs(file?.file, file?.name);
+  };
+  const onClickAddCollection = () => {
+    // postRequest(BASE_URL + ADD_OR_REMOVE_COLLECTION , )
+    // console.log("collection");
+    onOpenPopup(file);
   };
 
   return (
@@ -80,11 +86,16 @@ const File = ({ data, onClick }) => {
               onMouseOver={() => setOnHover(true)}
               onClick={(e) => onClickDownload(true)}
               onMouseLeave={() => setOnHover(false)}
-              style={{ marginRight: "10px" }}
             />
             <ShareIcon
               onMouseOver={() => setOnHover(true)}
               onClick={(e) => onClickShare(true)}
+              onMouseLeave={() => setOnHover(false)}
+              style={{ margin: "auto 10px" }}
+            />
+            <LibraryAddIcon
+              onMouseOver={() => setOnHover(true)}
+              onClick={(e) => onClickAddCollection(true)}
               onMouseLeave={() => setOnHover(false)}
             />
           </div>

@@ -102,7 +102,6 @@ const FileDetail = () => {
         } else {
           showError(data.data);
         }
-        console.log("setFile :: ", data);
       } else {
         showError();
       }

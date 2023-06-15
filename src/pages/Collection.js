@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { postRequest, showError } from "../service/commonService";
-import { BASE_URL, FIND_RESOURCE_BY_ID, SUCCESS } from "../service/constants";
+import {
+  BASE_URL,
+  FIND_RESOURCE_BY_ID,
+  GET_COLLECTION,
+  SUCCESS,
+} from "../service/constants";
 import { red } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
@@ -8,11 +13,18 @@ import { FacebookIcon, TwitterIcon } from "react-share";
 import { MainContext } from "../context/MainContext";
 import Col12 from "../components/Col12";
 import Col6 from "../components/Col6";
+import Chip from "@mui/material/Chip";
+import Badge from "react-bootstrap/Badge";
+import Stack from "@mui/material/Stack";
+import CollectionTable from "../components/CollectionTable";
 
 const Collection = () => {
   const [isVideo, setIsVideo] = useState(false);
   const { setLoading, mainState } = useContext(MainContext);
-  const [file, setFile] = useState(null);
+  const [json, setJson] = useState(null);
+  const [selectedPill, setSelectedPill] = useState("");
+  const [pills, setPills] = useState([]);
+  const [files, setFiles] = useState([]);
   const [selectedValue, setSelectedValue] = useState("Internal");
   const [copyText, setCopyText] = useState("Copy Link");
 
@@ -25,79 +37,87 @@ const Collection = () => {
   }, []);
 
   const findData = async () => {
-    if (params.id) {
-      setLoading(true);
-      var fileData = null;
-      const data = await postRequest(BASE_URL + FIND_RESOURCE_BY_ID, {
-        id: params.id,
-      });
+    let userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      var json = JSON.parse(userLocal);
+      if (json) {
+        setLoading(true);
+        const data = await postRequest(BASE_URL + GET_COLLECTION, {
+          email: json.email,
+        });
 
-      if (data) {
-        if (data.status == SUCCESS) {
-          if (!data.data.isFolder) {
-            fileData = data.data;
-
-            setIsVideo(false);
-            if (data?.mimeType?.includes("image")) {
-              setIsVideo(false);
-            } else {
-              setIsVideo(true);
-              setFile(fileData);
-            }
+        if (data) {
+          if (data.status == SUCCESS) {
+            const pills = Object.keys(data.data);
+            setPills(pills);
+            setJson(data.data);
+            setLoading(false);
+          } else {
+            showError(data.data);
           }
-          setLoading(false);
         } else {
-          showError(data.data);
+          showError();
         }
-      } else {
-        showError();
+        setLoading(false);
       }
-      setLoading(false);
     }
   };
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const onClickPill = (data) => {
+    setSelectedPill(data);
+    console.log("json[data] :: ", json[data]);
+    setFiles(json[data]);
   };
-
-  const controlProps = (item) => ({
-    checked: selectedValue === item,
-    onChange: handleChange,
-    value: item,
-    name: "color-radio-button-demo",
-    inputProps: { "aria-label": item },
-  });
-
-  function getList() {
-    var array = [
-      {
-        id: "Internal",
-        title: "Internal Link",
-        link: window.location.origin + "/resource-detail?id=" + file?._id,
-      },
-      {
-        id: "Public",
-        title: "Public Link",
-        link: file?.file,
-      },
-      { id: "Social", title: "Social Link" },
-    ];
-    return array;
-  }
-
-  function findObject() {
-    return getList().find((m) => m.id === selectedValue);
-  }
-
-  function onClickLink() {
-    console.log("origin  :: " + window.location.origin);
-    if (findObject(selectedValue)) {
-      navigator.clipboard.writeText(findObject(selectedValue).link);
-    }
-  }
+  const onClickAll = () => {
+    setSelectedPill("all");
+  };
 
   return (
     <>
+      <div className="container-fluid">
+        <h5 className="text-yellow mt-2">My Collection(s)</h5>
+        <hr />
+        <p className="weight-400">My Collections</p>
+
+        <div className="row ">
+          <div className="col-12 d-flex ">
+            {/* <p className="pill">Pill one</p> */}
+            <Badge
+              bg="light"
+              pill
+              text="dark"
+              onClick={() => onClickAll()}
+              className={`px-3 mx-2 pill ${
+                selectedPill == "all" ? "selected-pill" : ""
+              }`}
+            >
+              All My Collections(s)
+            </Badge>
+            {pills.length ? (
+              pills.map((pill) => (
+                <Badge
+                  bg="light"
+                  pill
+                  text="dark"
+                  onClick={() => onClickPill(pill)}
+                  className={`px-3 mx-2 pill ${
+                    selectedPill == pill ? "selected-pill" : ""
+                  }`}
+                >
+                  {pill}
+                </Badge>
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+        <div className="row ">
+          <div className="container-fluid">
+            <CollectionTable list={files} />
+          </div>
+        </div>
+      </div>
       <Col12 />
       <Col6 />
     </>

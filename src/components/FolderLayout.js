@@ -1016,7 +1016,7 @@ const FolderLayout = () => {
                 </button>
                 <button
                   className="copy-link-btn"
-                  onClick={() => setShowCollection(false)}
+                  onClick={() => onHideModal()}
                 >
                   <strong>BACK</strong>
                 </button>

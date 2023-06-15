@@ -32,6 +32,18 @@ input {
 .text-yellow {
   color: #ffc72c;
 }
+.border-black {
+  border: 1px solid black;
+}
+.border-grey {
+  border: 1px solid grey;
+}
+.border-bottom-black {
+  border-bottom: 2px solid black !important;
+}
+.bg-yellow {
+  background-color: #ffc72c;
+}
 
 /* Font */
 .font-14 {

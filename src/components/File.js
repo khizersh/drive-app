@@ -23,9 +23,7 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
 
   useEffect(() => {
     if (data?.mimeType?.includes("image")) {
-      console.log("naturalWidth : ");
       getMeta(data.file, (err, img) => {
-        console.log("img.naturalWidth :: ", img.naturalWidth);
         data["width"] = img.naturalWidth;
         data["height"] = img.naturalHeight;
         setFile(data);
@@ -66,8 +64,6 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     saveAs(file?.file, file?.name);
   };
   const onClickAddCollection = () => {
-    // postRequest(BASE_URL + ADD_OR_REMOVE_COLLECTION , )
-    // console.log("collection");
     onOpenPopup(file);
   };
 
@@ -93,17 +89,17 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
                 data-id="re_single_download_action"
               >
                 <div className="_truncate_title">
-                  <span>happyEndTagWink_v2_COPY REMOVAL</span>
+                  <span>{file?.name}</span>
                 </div>
               </div>
               <div className="_secondaryText_jnfj5l">
                 <div>
-                  <span className="_labelText_hq5slr">File Format:</span> Video
-                  (mov)
+                  <span className="_labelText_hq5slr">File Format:</span>{" "}
+                  {file?.mimeType}
                 </div>
                 <div>
-                  <span className="_labelText_hq5slr">File Size:</span> 176.83
-                  MB
+                  <span className="_labelText_hq5slr">File Size:</span>{" "}
+                  {file?.fileSize}
                 </div>
               </div>
 
@@ -122,7 +118,7 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
           </div>
 
           <div className="card-date">
-            <span>6/5/2022</span>
+            <span>{file?.createdDate}</span>
           </div>
 
           <div className="_actionsColumn_13waoy8">
@@ -144,7 +140,11 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
                   <a className="_linkColours_icon">
                     <button className="_iconButton_10fc6mfw" type="button">
                       <span className="material-icons _icon_77bp8u ">
-                        <FileDownloadIcon />
+                        <FileDownloadIcon
+                          onMouseOver={() => setOnHover(true)}
+                          onClick={(e) => onClickDownload(true)}
+                          onMouseLeave={() => setOnHover(false)}
+                        />
                       </span>
                     </button>
                     <div className="_text_13v1tkt">Download</div>
@@ -156,10 +156,14 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
                   <a className="_linkColours_icon">
                     <button className="_iconButton_10fc6mfw" type="button">
                       <span className="material-icons _icon_77bp8u ">
-                        <MoreVertIcon />
+                        <LibraryAddIcon
+                          onMouseOver={() => setOnHover(true)}
+                          onClick={(e) => onClickAddCollection(true)}
+                          onMouseLeave={() => setOnHover(false)}
+                        />
                       </span>
                     </button>
-                    <div className="_text_13v1tkt">More</div>
+                    <div className="_text_13v1tkt">Collection</div>
                   </a>
                 </div>
               </div>

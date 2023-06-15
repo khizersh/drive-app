@@ -15,8 +15,9 @@ import { saveAs } from "file-saver";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 
-const File = ({ data, onClick, viewType }) => {
+const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
   const router = useHistory();
   const [file, setFile] = useState(null);
 
@@ -65,6 +66,12 @@ const File = ({ data, onClick, viewType }) => {
   const onClickDownload = () => {
     // router.push("/resource-download?id=" + file?._id);
     saveAs(file?.file, file?.name);
+  };
+
+  const onClickAddCollection = () => {
+    // postRequest(BASE_URL + ADD_OR_REMOVE_COLLECTION , )
+    // console.log("collection");
+    onOpenPopup(file);
   };
 
   return (
@@ -176,11 +183,16 @@ const File = ({ data, onClick, viewType }) => {
                   onMouseOver={() => setOnHover(true)}
                   onClick={(e) => onClickDownload(true)}
                   onMouseLeave={() => setOnHover(false)}
-                  style={{ marginRight: "10px" }}
                 />
                 <ShareIcon
                   onMouseOver={() => setOnHover(true)}
                   onClick={(e) => onClickShare(true)}
+                  onMouseLeave={() => setOnHover(false)}
+                  style={{ margin: "auto 10px" }}
+                />
+                <LibraryAddIcon
+                  onMouseOver={() => setOnHover(true)}
+                  onClick={(e) => onClickAddCollection(true)}
                   onMouseLeave={() => setOnHover(false)}
                 />
               </div>

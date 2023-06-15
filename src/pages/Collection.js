@@ -3,6 +3,7 @@ import { postRequest, showError } from "../service/commonService";
 import {
   BASE_URL,
   FIND_RESOURCE_BY_ID,
+  GET_ALL_BY_EMAIL,
   GET_COLLECTION,
   SUCCESS,
 } from "../service/constants";
@@ -68,8 +69,24 @@ const Collection = () => {
     console.log("json[data] :: ", json[data]);
     setFiles(json[data]);
   };
-  const onClickAll = () => {
+  const onClickAll = async () => {
     setSelectedPill("all");
+    try {
+      let userLocal = localStorage.getItem("user");
+      if (userLocal) {
+        var json = JSON.parse(userLocal);
+        if (json) {
+          const data = await postRequest(BASE_URL + GET_ALL_BY_EMAIL, {
+            email: json.email,
+          });
+          if (data) {
+            if (data.status == SUCCESS) {
+              setFiles(data.data);
+            }
+          }
+        }
+      }
+    } catch (error) {}
   };
 
   return (
@@ -112,14 +129,12 @@ const Collection = () => {
             )}
           </div>
         </div>
-        <div className="row ">
+        <div className="row mt-4">
           <div className="container-fluid">
             <CollectionTable list={files} />
           </div>
         </div>
       </div>
-      <Col12 />
-      <Col6 />
     </>
   );
 };

@@ -140,7 +140,6 @@ const CollectionTable = ({ list }) => {
   };
 
   const handleChangeRow = (event) => {
-    console.log("event.target.value : ",event.target.value);
     setRowCount(event.target.value);
   };
 
@@ -201,25 +200,28 @@ const CollectionTable = ({ list }) => {
           <div>Type</div>
         </div>
         <div className={`${viewType === "grid" ? "row" : ""}`}>
-          {console.log("list :: ", list)}
           {list && list?.length
-            ? list.map((m) =>
-                viewType == "list" ? (
-                  <TableFileListView
-                    data={m.resource}
-                    onClick={onClick}
-                    viewType={viewType}
-                    onOpenPopup={onClickShowCollection}
-                    onClickAdd={onClickAddCollection}
-                  />
+            ? list.map((m, ind) =>
+                rowCount > ind ? (
+                  viewType == "list" ? (
+                    <TableFileListView
+                      data={m.resource}
+                      onClick={onClick}
+                      viewType={viewType}
+                      onOpenPopup={onClickShowCollection}
+                      onClickAdd={onClickAddCollection}
+                    />
+                  ) : (
+                    <TableFileGridView
+                      data={m.resource}
+                      onClick={onClick}
+                      viewType={viewType}
+                      onOpenPopup={onClickShowCollection}
+                      onClickAdd={onClickAddCollection}
+                    />
+                  )
                 ) : (
-                  <TableFileGridView
-                    data={m.resource}
-                    onClick={onClick}
-                    viewType={viewType}
-                    onOpenPopup={onClickShowCollection}
-                    onClickAdd={onClickAddCollection}
-                  />
+                  <></>
                 )
               )
             : ""}
@@ -235,8 +237,7 @@ const CollectionTable = ({ list }) => {
             label="Age"
             onChange={handleChangeRow}
           >
-            <MenuItem value="">
-            </MenuItem>
+            <MenuItem value=""></MenuItem>
             <MenuItem value={10}>10</MenuItem>
             <MenuItem value={25}>25</MenuItem>
             <MenuItem value={50}>50</MenuItem>

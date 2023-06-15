@@ -107,9 +107,9 @@ const TableFileListView = ({
         </div>
       </div>
 
-      <div className="card-date">
+      {/* <div className="card-date">
         <span>{file?.createdDate}</span>
-      </div>
+      </div> */}
 
       <div className="_actionsColumn_13waoy8">
         <div className="actions-menu ">
@@ -157,8 +157,10 @@ const TableFileListView = ({
               </a>
             </div>
           </div>
+    
         </div>
       </div>
+      <div className="m-auto">Resource</div>
     </div>
   );
 };

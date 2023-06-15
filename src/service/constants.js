@@ -17,6 +17,7 @@ export const ADD_OR_REMOVE_COLLECTION = "collection/updateList"
 export const GET_COLLECTION_BY_ID = "collection/getCollectionById"
 export const GET_COLLECTION = "collection/getAll"
 export const GET_COLLECTION_GROUP = "collection/getAllCollectionGroup"
+export const GET_ALL_BY_EMAIL = "collection/getAllByEmail"
 
 
 

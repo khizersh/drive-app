@@ -21,7 +21,6 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
   const router = useHistory();
   const [file, setFile] = useState(null);
 
-  console.log("file :: ", data);
   useEffect(() => {
     if (data?.mimeType?.includes("image")) {
       console.log("naturalWidth : ");
@@ -64,15 +63,14 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     router.push("/resource-share?id=" + file?._id);
   };
   const onClickDownload = () => {
-    // router.push("/resource-download?id=" + file?._id);
     saveAs(file?.file, file?.name);
   };
-
   const onClickAddCollection = () => {
     // postRequest(BASE_URL + ADD_OR_REMOVE_COLLECTION , )
     // console.log("collection");
     onOpenPopup(file);
   };
+
 
   return (
     <>

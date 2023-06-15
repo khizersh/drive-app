@@ -37,9 +37,15 @@ import ListView from "@mui/icons-material/ViewStreamOutlined";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
-import { checkUser, postRequest } from "../service/commonService";
+import {
+  checkUser,
+  postRequest,
+  showError,
+  showSuccess,
+} from "../service/commonService";
 import Multiselect from "multiselect-react-dropdown";
 import {
+  ADD_OR_REMOVE_COLLECTION,
   BASE_URL,
   FIND_FOLDER,
   FIND_FOLDER_BY_HOME_PARENT,
@@ -79,6 +85,7 @@ const FolderLayout = () => {
   const [sort, setSort] = useState("asc");
   const [isFolder, setIsFolder] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
+  const [collectionUpdated, setCollectionUpdated] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [items, setItems] = useState([]);
   const [oldCollection, setOldCollection] = useState([]);
@@ -536,13 +543,18 @@ const FolderLayout = () => {
     setFilteredResources(filteredArray);
   }
 
-  function onClickAddCollection(data) {
+  function onHideModal(){
+    setShowCollection(false);
+    setCollectionUpdated(false)
+  }
+
+  const onClickAddCollection = async () => {
     let userLocal = localStorage.getItem("user");
     if (userLocal) {
       setLoading(true);
       var json = JSON.parse(userLocal);
       if (json) {
-        const array = oldCollection.map((m) =>  m.name)
+        const array = oldCollection.map((m) => m.name);
         if (newCollection) {
           array.push(newCollection);
         }
@@ -551,15 +563,25 @@ const FolderLayout = () => {
           resourceId: resourceId,
           group: array,
         };
-        console.log("req :: ", req);
+        const data = await postRequest(
+          BASE_URL + ADD_OR_REMOVE_COLLECTION,
+          req
+        );
+        if (data) {
+          if (data.status == SUCCESS) {
+            setCollectionUpdated(true);
+          } else {
+            showError(data);
+          }
+        }
       }
       setLoading(false);
     }
-  }
+  };
 
   const onClickShowCollection = async (data) => {
     setLoading(true);
-    setSesourceId(data._id)
+    setSesourceId(data._id);
     let userLocal = localStorage.getItem("user");
     if (userLocal) {
       var json = JSON.parse(userLocal);
@@ -587,7 +609,6 @@ const FolderLayout = () => {
             const array = resp.data.group.map((m) => {
               return { name: m, id: m };
             });
-            console.log("data :: ", array);
             setOldCollection(array);
             setShowCollection(true);
           }
@@ -600,10 +621,12 @@ const FolderLayout = () => {
 
   function onSelect(selectedList, selectedItem) {
     console.log(selectedList, " ", selectedItem);
+    setOldCollection(selectedList);
   }
 
   function onRemove(selectedList, removedItem) {
-    console.log(selectedList + " " + removedItem);
+    console.log(selectedList , " " , removedItem);
+    setOldCollection(selectedList);
   }
 
   const menuClass = `dropdown-menu${sortOpen ? " show" : ""}`;
@@ -960,53 +983,84 @@ const FolderLayout = () => {
           <AddFolder data={isFolder} />
         </Modal.Body>
       </Modal>
-      <Modal show={showCollection} onHide={() => setShowCollection(false)}>
-        <Modal.Header closeButton>
-          <strong>Add/Remove from My Collection(s)</strong>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <text>
-              <strong> New Collection: </strong>
-            </text>
-            <input
-              name="lastName"
-              maxlength="50"
-              required="required"
-              placeholder="Type a new collection name"
-              type="text"
-              onChange={(e) => setNewCollection(e.target.value)}
-              value={newCollection}
-            />
-          </div>
-          <div>
-            <text>
-              <strong> My Collection(s): </strong>
-            </text>
-            <Multiselect
-              options={collectionList} // Options to display in the dropdown
-              selectedValues={oldCollection} // Preselected value to persist in dropdown
-              onSelect={onSelect} // Function will trigger on select event
-              onRemove={onRemove} // Function will trigger on remove event
-              displayValue="name" // Property name to display in the dropdown options
-            />
-          </div>
-          <div className="mt-3">
-            <button
-              className="copy-link-btn "
-              style={{ marginRight: "10px" }}
-              onClick={onClickAddCollection}
-            >
-              <strong>Save</strong>
-            </button>
-            <button
-              className="copy-link-btn"
-              onClick={() => setShowCollection(false)}
-            >
-              <strong>Cancel</strong>
-            </button>
-          </div>
-        </Modal.Body>
+      <Modal show={showCollection} onHide={onHideModal}>
+        {collectionUpdated ? (
+          <>
+            {" "}
+            <Modal.Header closeButton>
+              <strong>Manage Collection(s)</strong>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Collection(s) updated successfully.</p>
+              <div className="mt-3">
+                <button
+                  className="copy-link-btn "
+                  style={{ marginRight: "10px" , width: '50%'}}
+                  onClick={() => router.push("/my-collection")}
+                >
+                  <strong>GO TO MY COLLECTION(S)</strong>
+                </button>
+                <button
+                  className="copy-link-btn"
+               
+                  onClick={() => setShowCollection(false)}
+                >
+                  <strong>BACK</strong>
+                </button>
+              </div>
+            </Modal.Body>
+          </>
+        ) : (
+          <>
+            {" "}
+            <Modal.Header closeButton>
+              <strong>Add/Remove from My Collection(s)</strong>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                <text>
+                  <strong> New Collection: </strong>
+                </text>
+                <input
+                  name="lastName"
+                  maxlength="50"
+                  required="required"
+                  placeholder="Type a new collection name"
+                  type="text"
+                  onChange={(e) => setNewCollection(e.target.value)}
+                  value={newCollection}
+                />
+              </div>
+              <div>
+                <text>
+                  <strong> My Collection(s): </strong>
+                </text>
+                <Multiselect
+                  options={collectionList} // Options to display in the dropdown
+                  selectedValues={oldCollection} // Preselected value to persist in dropdown
+                  onSelect={onSelect} // Function will trigger on select event
+                  onRemove={onRemove} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                />
+              </div>
+              <div className="mt-3">
+                <button
+                  className="copy-link-btn "
+                  style={{ marginRight: "10px" }}
+                  onClick={onClickAddCollection}
+                >
+                  <strong>Save</strong>
+                </button>
+                <button
+                  className="copy-link-btn"
+                  onClick={() => setShowCollection(false)}
+                >
+                  <strong>Cancel</strong>
+                </button>
+              </div>
+            </Modal.Body>
+          </>
+        )}
       </Modal>
     </>
   );

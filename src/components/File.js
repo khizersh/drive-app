@@ -71,7 +71,6 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     onOpenPopup(file);
   };
 
-
   return (
     <>
       {viewType == "list" ? (

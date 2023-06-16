@@ -25,6 +25,7 @@ const Folder = ({ data, onClick, viewType }) => {
   const onMouseOver = () => {
     setOnHover(true);
   };
+  
   const onMouseLeave = () => {
     setOnHover(false);
   };

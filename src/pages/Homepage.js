@@ -100,7 +100,7 @@ const Homepage = () => {
   return (
     <div>
       <div
-        class="row custompageviewcontent"
+        class="custompageviewcontent"
         data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"
       >
         <ul class="search">
@@ -133,7 +133,7 @@ const Homepage = () => {
         </ul>
       </div>
 
-      <div className="row custompageviewcontent htmlpagecontent">
+      <div className="custompageviewcontent htmlpagecontent">
         <div className="brand-theme">
           <div className="container">
             <div className="row links-row">

@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/navbar.css";
 import { Link } from "react-router-dom";
 
-const navbar = (props) => {
+const NavbarComponent = (props) => {
+  const [user, setUser] = useState(null);
   const onClickLogout = () => {
     localStorage.removeItem("user");
     window.location.href = "/login";
   };
+
+  useEffect(() => {
+    let userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      var json = JSON.parse(userLocal);
+      if (json) {
+        console.log("json :: ",json);
+        setUser(json);
+      }
+    }
+  }, []);
+  
   return (
     <>
       <div class="small-logo-nav">
@@ -50,24 +63,11 @@ const navbar = (props) => {
                   ASSETS LIBRARY
                 </a>
                 <ul class="dropdown" id="controlledID">
-                  <li class="title back js-generated">
-                    <h5>
-                      <a href="#">ASSETS LIBRARY</a>
-                    </h5>
-                  </li>
-                  <li>
-                    <a
-                      class="parent-link js-generated show-for-touch"
-                      href="/resource/folder/index"
-                    >
-                      ASSETS LIBRARY
-                    </a>
-                  </li>
                   <li class="divider"></li>
                   <li class="menu-item ">
                     <a
                       id="menu-f1ec525fbeff9bd7b113e4e288036eb0"
-                      href="/resource/folder/index/3d22c853294f0db5daaaf9a2e5f0d6b8"
+                      href={`folder?parent=brand-asset`}
                     >
                       BRAND ASSETS
                     </a>{" "}
@@ -75,7 +75,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-ffced830d939cd1260bd7d5475d38034"
-                      href="/resource/folder/index/f774ccae9d34dff1234fcb7b1d0e0a54"
+                      href={`folder?parent=core-product-photgraphy`}
                     >
                       CORE PRODUCT PHOTOGRAPHY
                     </a>{" "}
@@ -83,7 +83,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-656b1cddd806a5858c0e0d1989b44eaf"
-                      href="/resource/folder/index/71a0e89d5762de2434147f0d71a9323f"
+                      href={`folder?parent=videos`}
                     >
                       GLOBALLY APPROVED VIDEOS
                     </a>{" "}
@@ -91,7 +91,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-69ed859ee82831ef860d65163af91113"
-                      href="/resource/folder/index/4ff228c5a9314add60627d5f475cf2b6"
+                      href={`folder?parent=ltos`}
                     >
                       LTOS
                     </a>{" "}
@@ -99,7 +99,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-e03ef516e1d3c9ca549c92304382fe5a"
-                      href="/resource/folder/index/965d4d59b0b6e81b2497e6a6a4ec9bb6"
+                      href={`folder?parent=menu-board-panel`}
                     >
                       MENU BOARD PANELS
                     </a>{" "}
@@ -107,7 +107,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-dd0d1573778452c4a1ba9cd3fc1d6e67"
-                      href="/resource/folder/index/ccbbf8c9c2cc556878f7fd0fbfaf71af"
+                      href={`folder?parent=social-media-asset`}
                     >
                       SOCIAL MEDIA ASSETS
                     </a>{" "}
@@ -115,7 +115,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-d2a65e63c23853a58f0a3e3f0e583b6f"
-                      href="/resource/folder/index/d08ed752be199a547012847692904b5a"
+                      href={`folder?parent=templates`}
                     >
                       TEMPLATES
                     </a>{" "}
@@ -123,15 +123,15 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-7ae293db5bf8932a76ca8594b4f7d227"
-                      href="/resource/folder/index/29a10516a5c67000fefe4c025d6153b7"
+                      href={`folder?parent=recovery-playbook-assets`}
                     >
-                      RESEARCH
+                      Recovery Playbook & Assets
                     </a>{" "}
                   </li>
                   <li class="menu-item ">
                     <a
                       id="menu-840224f0d2622e6a18c6ff3407e334d2"
-                      href="/resource/folder/index/1b324af3b82ed8a99b39b0229e030cec"
+                      href={`folder?parent=regional-assets`}
                     >
                       REGIONAL ASSETS
                     </a>{" "}
@@ -139,7 +139,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-9eed51b25a42c8e5d289d9524735ae3c"
-                      href="/resource/folder/index/fcbc4c682b1d91984fbcd109d76ac77e"
+                      href={`folder?parent=development`}
                     >
                       DEVELOPMENT
                     </a>{" "}
@@ -147,7 +147,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-86167b4ec8ee50ef402c40a404dc2352"
-                      href="/resource/folder/index/76b0df69f251cf54133e6601f91706db"
+                      href={`folder?packaging`}
                     >
                       PACKAGING
                     </a>{" "}
@@ -155,7 +155,7 @@ const navbar = (props) => {
                   <li class="menu-item ">
                     <a
                       id="menu-ccef29aadbb8bac6af92f80a35aa8bc4"
-                      href="/resource/folder/index/cb62ac818786d1523858a3b705ac9632"
+                      href={`folder?reference-document-forms`}
                     >
                       FORMS
                     </a>{" "}
@@ -181,13 +181,14 @@ const navbar = (props) => {
               <li class="divider"></li>
               <li class="has-dropdown menu-item ">
                 <a id="menu-userDetail" class="deadMenu" href="#">
-                  <div class="userProfiler"></div>HAROLDO SOTO
+                  <div class="userProfiler"></div>
+                  {user?.firstName}
                 </a>{" "}
                 <ul class="dropdown" id="controlledID">
                   <li class="title back js-generated">
                     <h5>
                       <a href="#">
-                        <div class="userProfiler"></div>HAROLDO SOTO
+                        <div class="userProfiler"></div>
                       </a>
                     </h5>
                   </li>
@@ -219,4 +220,4 @@ const navbar = (props) => {
   );
 };
 
-export default navbar;
+export default NavbarComponent;

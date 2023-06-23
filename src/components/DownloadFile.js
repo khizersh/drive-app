@@ -83,7 +83,6 @@ const DownloadFile = () => {
   }
 
   function onClickLink() {
-    console.log("origin  :: " + window.location.origin);
     if (findObject(selectedValue)) {
       navigator.clipboard.writeText(findObject(selectedValue).link);
     }

@@ -42,12 +42,10 @@ const CollectionTable = ({ list }) => {
   const [newCollection, setNewCollection] = useState("");
 
   function onSelect(selectedList, selectedItem) {
-    console.log(selectedList, " ", selectedItem);
     setOldCollection(selectedList);
   }
 
   function onRemove(selectedList, removedItem) {
-    console.log(selectedList, " ", removedItem);
     setOldCollection(selectedList);
   }
 
@@ -57,7 +55,6 @@ const CollectionTable = ({ list }) => {
   }
 
   function onClickCheckboxAll() {
-    console.log("all");
   }
 
   const onClick = async (item) => {

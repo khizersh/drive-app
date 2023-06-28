@@ -152,6 +152,11 @@ const FolderLayout = () => {
       setLoading(false);
       if (data) {
         if (data.status == SUCCESS) {
+          console.log("onclick :: ", data);
+          const folderExist = data.data.find((m) => m.isFolder === true);
+          if (!folderExist) {
+            setShowFolder(false);
+          }
           setResources(data.data);
         }
       }
@@ -265,6 +270,9 @@ const FolderLayout = () => {
           resourcesCount: fileCount,
           folderCount: folderCount,
         };
+        if (!folderCount) {
+          setShowFolder(false);
+        }
         setActiveFolder(obj);
         setResources(data.data);
       }
@@ -592,6 +600,7 @@ const FolderLayout = () => {
             email: json.email,
           }
         );
+        console.log("collecttionData :: ",collecttionData);
         if (collecttionData) {
           const groups = collecttionData.data.map((m) => {
             return {
@@ -610,11 +619,11 @@ const FolderLayout = () => {
               return { name: m, id: m };
             });
             setOldCollection(array);
-            setShowCollection(true);
           }
+          setShowCollection(true);
         }
         setLoading(false);
-        console.log("collection data :: ", data);
+        console.log("collection data :: ", resp);
       }
     }
   };
@@ -991,7 +1000,7 @@ const FolderLayout = () => {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Folder</Modal.Title>
+          <Modal.Title>Add {isFolder ? "Folder" : "File"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddFolder data={isFolder} />
@@ -1014,10 +1023,7 @@ const FolderLayout = () => {
                 >
                   <strong>GO TO MY COLLECTION(S)</strong>
                 </button>
-                <button
-                  className="copy-link-btn"
-                  onClick={() => onHideModal()}
-                >
+                <button className="copy-link-btn" onClick={() => onHideModal()}>
                   <strong>BACK</strong>
                 </button>
               </div>
@@ -1062,7 +1068,9 @@ const FolderLayout = () => {
                   style={{ marginRight: "10px" }}
                   onClick={onClickAddCollection}
                 >
-                  <strong>Save</strong>
+                  <strong>
+                    Save
+                  </strong>
                 </button>
                 <button
                   className="copy-link-btn"

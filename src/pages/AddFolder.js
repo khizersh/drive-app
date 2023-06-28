@@ -18,6 +18,7 @@ const AddFolder = ({ data }) => {
   console.log("data : ", data);
   const [file, setFile] = useState(null);
   const [reload, setReload] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [folder, setFolder] = useState({
     userId: "",
@@ -84,7 +85,8 @@ const AddFolder = ({ data }) => {
   };
 
   const onClickAddFolder = async () => {
-    // setLoading(true);
+    setLoading(true);
+    setIsLoading(true)
     try {
       var formData = new FormData();
       formData.append("data", JSON.stringify(folder));
@@ -103,6 +105,7 @@ const AddFolder = ({ data }) => {
         }
       }
       setLoading(false);
+      setIsLoading(true)
     } catch (error) {
       setLoading(false);
       showError();
@@ -224,10 +227,11 @@ const AddFolder = ({ data }) => {
 
         <div className="col-12 text-right mt-2">
           <button
-            className="p-1 text-right login-btn weight-600 font-14 px-3 "
+            className={`p-1 text-right login-btn weight-600 font-14 px-3   ${isLoading ? "bg-grey" : ""}`}
+            disabled={isLoading ? true : false}
             onClick={onClickAddFolder}
           >
-            SAVE
+            {isLoading ? "Uploading ..." : "Save"}
           </button>
         </div>
       </div>

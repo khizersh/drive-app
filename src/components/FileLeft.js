@@ -162,7 +162,7 @@ const FileDetail = () => {
                         </div>
                         <div className="css-tynm26-ActionMenuContainer ed9irzr1">
                           <div>
-                            <GetAppIcon />
+                            {/* <GetAppIcon /> */}
                           </div>
                           <div style={{ marginLeft: "10px" }}>
                             <ShareIcon />

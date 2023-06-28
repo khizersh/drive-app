@@ -14,7 +14,6 @@ const NavbarComponent = (props) => {
     if (userLocal) {
       var json = JSON.parse(userLocal);
       if (json) {
-        console.log("json :: ",json);
         setUser(json);
       }
     }

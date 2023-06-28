@@ -23,6 +23,7 @@ import { LeftSide } from "./LeftSide";
 import { RightSide } from "./RightSide";
 import { DragHandle } from "@material-ui/icons";
 import { DragHandler } from "./drag-handle.tsx";
+import { useHistory } from "react-router-dom";
 
 const minWidth = 300;
 const collapsedWidth = 100;
@@ -33,6 +34,7 @@ const maxWidth = 1200;
 const FileDetail = () => {
   const [width, setWidth] = useState(expandedWidth);
 
+  const router = useHistory();
   const sidebarRef = useRef();
 
   const onMoveX = useCallback(
@@ -59,9 +61,7 @@ const FileDetail = () => {
   const [isVideo, setIsVideo] = useState(false);
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
-  const onClickBreadCrum = (data) => {
-    console.log("data crum :: ", data);
-  };
+  const onClickBreadCrum = (data) => {};
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -101,7 +101,7 @@ const FileDetail = () => {
             });
 
             setIsVideo(false);
-            if (data?.mimeType?.includes("image")) {
+            if (data?.data?.mimeType?.includes("image")) {
               setIsVideo(false);
               getMeta(data.data.file, (err, img) => {
                 fileData["width"] = img.naturalWidth;
@@ -157,6 +157,7 @@ const FileDetail = () => {
               class="e807l4q6 css-174pus9-w-A"
               data-id="RE_Info_Preview_close_x"
               type="button"
+              onClick={() => router.goBack()}
             >
               <span class="css-o51lz9-T">
                 <svg

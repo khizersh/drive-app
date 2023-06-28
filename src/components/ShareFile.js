@@ -161,7 +161,6 @@ const ShareFile = () => {
                 <>
                   {" "}
                   <div className="link-here">{selectedValue} Link</div>
-                  {console.log("value  :: " + findObject(selectedValue))}
                   <p className="share-link">
                     {findObject(selectedValue) != null
                       ? findObject(selectedValue).link

@@ -61,7 +61,12 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     router.push("/resource-share?id=" + file?._id);
   };
   const onClickDownload = () => {
-    saveAs(file?.file, file?.name);
+    console.log("xzzxvzxv :: ", file);
+    if (file?.mimeType?.includes("image")) {
+      router.push("/resource-download?id=" + file?._id);
+    } else {
+      saveAs(file?.file, file?.name);
+    }
   };
   const onClickAddCollection = () => {
     onOpenPopup(file);

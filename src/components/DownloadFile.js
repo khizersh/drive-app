@@ -3,32 +3,44 @@ import { postAxios, postRequest, showError } from "../service/commonService";
 import {
   BASE_URL,
   DOWNLOAD_IMAGE,
+  DOWNLOAD_IMAGE_WITH_SIZE,
   FIND_RESOURCE_BY_ID,
   SUCCESS,
 } from "../service/constants";
 import { red } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
+import Checkbox from "@mui/material/Checkbox";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import ConvertImage from "react-convert-image";
 import { saveAs } from "file-saver";
+import swal from "sweetalert";
 
 const DownloadFile = () => {
   const [isVideo, setIsVideo] = useState(false);
   const [file, setFile] = useState(null);
+  const [singleDownload, setSingleDownload] = useState(true);
   const [options, setOptions] = useState([
-    // {
-    //   id: "psd",
-    //   title: "PSD",
-    // },
     {
       id: "jpeg",
       title: "JPEG",
     },
     { id: "png", title: "PNG" },
-    { id: "svg", title: "SVG" }
+    { id: "jpg", title: "JPG" },
+    { id: "gif", title: "GIF" },
+    { id: "tiff", title: "TIFF" },
+  ]);
+  const [dimensions, setDimensions] = useState([
+    {
+      id: "small",
+      title: "Small",
+      dimension: "",
+    },
+    { id: "medium", title: "Medium", dimension: "" },
+    { id: "large", title: "Large", dimension: "" },
   ]);
   const [selectedValue, setSelectedValue] = useState("psd");
+  const [selectedDimension, setSelectedDimension] = useState("");
   const [copyText, setCopyText] = useState("Download");
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -49,6 +61,7 @@ const DownloadFile = () => {
         if (data.status == SUCCESS) {
           if (!data.data.isFolder) {
             fileData = data.data;
+
             const updatedFormat = getList().map((m) => {
               if (fileData?.mimeType?.includes(m.id)) {
                 setSelectedValue(m.id);
@@ -64,6 +77,48 @@ const DownloadFile = () => {
             setIsVideo(false);
             if (data?.data?.mimeType?.includes("image")) {
               setIsVideo(false);
+              getMeta(fileData.file, (err, img) => {
+                fileData["width"] = img.naturalWidth;
+                fileData["height"] = img.naturalHeight;
+                let array = [
+                  {
+                    id: "small",
+                    title: "Small",
+                    width: Number(fileData["width"]) * 0.25,
+                    height: Number(fileData["height"]) * 0.25,
+                    dimension:
+                      Number(fileData["width"]) * 0.25 +
+                      " x " +
+                      Number(fileData["height"]) * 0.25 +
+                      " px, 25%",
+                  },
+                  {
+                    id: "medium",
+                    title: "Medium",
+                    dimension:
+                      Number(fileData["width"]) * 0.5 +
+                      " x " +
+                      Number(fileData["height"]) * 0.5 +
+                      " px, 50%",
+                    width: Number(fileData["width"]) * 0.5,
+                    height: Number(fileData["height"]) * 0.5,
+                  },
+                  {
+                    id: "large",
+                    title: "Large",
+                    width:Number(fileData["width"]) * 0.75,
+                    height:Number(fileData["height"]) * 0.75,
+                    dimension:
+                      Number(fileData["width"]) * 0.75 +
+                      " x " +
+                      Number(fileData["height"]) * 0.75 +
+                      " px, 75%",
+                  },
+                ];
+                setDimensions(array);
+                console.log("array ::: ", array);
+              });
+
               setFile(fileData);
             } else {
               setIsVideo(true);
@@ -81,6 +136,9 @@ const DownloadFile = () => {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  const handleChangeDimension = (event) => {
+    setSelectedDimension(event.target.value);
+  };
 
   const controlProps = (item) => ({
     checked: selectedValue === item,
@@ -90,8 +148,20 @@ const DownloadFile = () => {
     inputProps: { "aria-label": item },
   });
 
+  const controlDimensionProps = (item) => ({
+    checked: selectedDimension === item,
+    onChange: handleChangeDimension,
+    value: item,
+    name: "color-radio-button-demo",
+    inputProps: { "aria-label": item },
+  });
+
   function getList() {
     return options;
+  }
+
+  function getDimensions() {
+    return dimensions;
   }
 
   function findObject() {
@@ -100,8 +170,8 @@ const DownloadFile = () => {
 
   const onClickLink = async () => {
     try {
-      setCopyText("Downloading...")
-      const base64 = await postAxios(BASE_URL + DOWNLOAD_IMAGE, {
+      setCopyText("Downloading...");
+      const base64 = await postAxios(BASE_URL + DOWNLOAD_IMAGE_WITH_SIZE, {
         url: file?.file,
         format: selectedValue,
       });
@@ -110,7 +180,31 @@ const DownloadFile = () => {
       a.href = "data:image/png;base64," + base64.data;
       a.download = file?.name + "." + selectedValue; //File name Here
       a.click(); //Downloaded file
-      setCopyText("Download")
+      setCopyText("Download");
+    } catch (error) {
+      console.log("error : ", error);
+    }
+  };
+  const onClickPresetDownload = async () => {
+    try {
+      setCopyText("Downloading...");
+     const selected =  dimensions.find(dim => dim.id === selectedDimension);
+     if(selected){
+      const base64 = await postAxios(BASE_URL + DOWNLOAD_IMAGE_WITH_SIZE, {
+        url: file?.file,
+        format: selectedValue,
+        width: selected.width,
+        height: selected.height,
+      });
+      var a = document.createElement("a"); 
+      a.href = "data:image/png;base64," + base64.data;
+      a.download = file?.name + "." + selectedValue; 
+      a.click(); 
+     }else{
+      swal({icon :"error" , title : "Please select dimension!"})
+     }
+    
+      setCopyText("Download");
     } catch (error) {
       console.log("error : ", error);
     }
@@ -119,6 +213,13 @@ const DownloadFile = () => {
   function handleConvertedImage(url) {
     console.log(url);
   }
+
+  const getMeta = (url, cb) => {
+    const img = new Image();
+    img.onload = () => cb(null, img);
+    img.onerror = (err) => cb(err);
+    img.src = url;
+  };
 
   return (
     <>
@@ -135,75 +236,121 @@ const DownloadFile = () => {
             </div>
           </div>
           <div className="col-12 col-lg-6">
-            <div className="share-title-div">DOWNLOAD</div>
-            <div className="card p-3">
-              <p>
-                <strong>File Format</strong>
-              </p>
-              {getList().length ? (
-                getList().map((m) => (
-                  <div style={{ marginTop: "0px" }}>
-                    {" "}
-                    <Radio
-                      {...controlProps(m.id)}
-                      sx={{
-                        color: red[900],
-                        "&.Mui-checked": {
-                          color: red[900],
-                        },
-                      }}
-                    />{" "}
-                    <text style={{ fontSize: "15px", fontWeight: "600" }}>
-                      {m.title}
-                    </text>
-                  </div>
-                ))
-              ) : (
-                <></>
-              )}
-
-              <hr />
-              {selectedValue == "Social" ? (
-                <div>
-                  <div></div>
-                  <FacebookShareButton
-                    url={file?.file}
-                    quote={file?.description}
-                    hashtag={""}
-                    description={file?.description}
-                    className="mr-2"
-                  >
-                    <FacebookIcon size={52} round={false} />{" "}
-                  </FacebookShareButton>
-                  <TwitterShareButton
-                    url={file?.file}
-                    quote={file?.description}
-                    hashtag={""}
-                    description={file?.description}
-                    hashtags={[""]}
-                  >
-                    <TwitterIcon size={52} round={false} />
-                  </TwitterShareButton>
-                </div>
-              ) : (
-                <>
-                  {" "}
-                  {/* <div className="link-here">{selectedValue} Link</div> */}
-                  <p className="share-link">
-                    {findObject(selectedValue) != null
-                      ? findObject(selectedValue).link
-                      : ""}
-                  </p>
-                  <button
-                    className="copy-link-btn bg-red text-white"
-                    disabled={copyText == "Downloading..." ? true : false}
-                    onClick={onClickLink}
-                  >
-                    {copyText}
-                  </button>
-                </>
-              )}
+            <div className="d-flex justify-content-around ">
+              <div
+                className={`cursor-pointer ${
+                  singleDownload ? "share-title-div" : ""
+                }`}
+                onClick={() => setSingleDownload(true)}
+              >
+                SINGLE DOWNLOAD
+              </div>
+              <div
+                className={`cursor-pointer ${
+                  !singleDownload ? "share-title-div" : ""
+                }`}
+                onClick={() => setSingleDownload(false)}
+              >
+                PRESET DOWNLOAD
+              </div>
             </div>
+            {singleDownload ? (
+              <div className="card p-3">
+                <p>
+                  <strong>File Format</strong>
+                </p>
+                {getList().length ? (
+                  getList().map((m) => (
+                    <div style={{ marginTop: "0px" }}>
+                      {" "}
+                      <Radio
+                        {...controlProps(m.id)}
+                        sx={{
+                          color: red[900],
+                          "&.Mui-checked": {
+                            color: red[900],
+                          },
+                        }}
+                      />{" "}
+                      <text style={{ fontSize: "15px", fontWeight: "600" }}>
+                        {m.title}
+                      </text>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+
+                <hr />
+                <button
+                  className="copy-link-btn bg-red text-white"
+                  disabled={copyText == "Downloading..." ? true : false}
+                  onClick={onClickLink}
+                >
+                  {copyText}
+                </button>
+              </div>
+            ) : (
+              <div className="card p-3">
+                <p>
+                  <strong>File Format</strong>
+                </p>
+                {getList().length ? (
+                  getList().map((m) => (
+                    <div style={{ marginTop: "0px" }}>
+                      {" "}
+                      <Checkbox
+                        {...controlProps(m.id)}
+                        sx={{
+                          color: red[900],
+                          "&.Mui-checked": {
+                            color: red[900],
+                          },
+                        }}
+                      />{" "}
+                      <text style={{ fontSize: "15px", fontWeight: "600" }}>
+                        {m.title}
+                      </text>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+                <hr />
+                <p>
+                  <strong>Image Dimensions</strong>
+                </p>
+                {getDimensions().length ? (
+                  getDimensions().map((m) => (
+                    <div style={{ marginTop: "0px" }}>
+                      {" "}
+                      <Checkbox
+                        {...controlDimensionProps(m.id)}
+                        sx={{
+                          color: red[900],
+                          "&.Mui-checked": {
+                            color: red[900],
+                          },
+                        }}
+                      />{" "}
+                      <text style={{ fontSize: "15px", fontWeight: "600" }}>
+                        {m.title} ({m.dimension})
+                      </text>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+                <hr />
+                <button
+                  className="copy-link-btn bg-red text-white"
+                  disabled={copyText == "Downloading..." ? true : false}
+                  onClick={onClickPresetDownload}
+                >
+                  {copyText}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

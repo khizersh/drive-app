@@ -220,6 +220,7 @@ const DownloadFile = () => {
     img.onerror = (err) => cb(err);
     img.src = url;
   };
+  
 
   return (
     <>

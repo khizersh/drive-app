@@ -53,6 +53,13 @@ input {
   font-size: 18px;
 }
 
+.fileName {
+  display: inline-block;
+  position: relative;
+  bottom: 17px;
+  right: 10px;
+}
+
 /* weight */
 
 .weight-400 {

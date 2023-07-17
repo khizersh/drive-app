@@ -16,6 +16,9 @@ import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import EditIcon from "@mui/icons-material/Edit";
+import { checkPermission } from "../service/commonService";
+import { DOWNLOAD_RESOURCE_PERMISSION } from "../service/constants";
 
 const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
   const router = useHistory();
@@ -61,11 +64,13 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     router.push("/resource-share?id=" + file?._id);
   };
   const onClickDownload = () => {
-    console.log("xzzxvzxv :: ", file);
-    if (file?.mimeType?.includes("image")) {
-      router.push("/resource-download?id=" + file?._id);
-    } else {
-      saveAs(file?.file, file?.name);
+    const permit = checkPermission(DOWNLOAD_RESOURCE_PERMISSION);
+    if (permit) {
+      if (file?.mimeType?.includes("image")) {
+        router.push("/resource-download?id=" + file?._id);
+      } else {
+        saveAs(file?.file, file?.name);
+      }
     }
   };
   const onClickAddCollection = () => {

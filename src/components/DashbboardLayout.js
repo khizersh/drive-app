@@ -27,7 +27,7 @@ const DashbboardLayout = (props) => {
             <Link to="/admin/user">User</Link>
           </li>
           <li>
-            <a href="/">Home</a>
+            <Link to="/admin/permission">User Permission</Link>
           </li>
         </ul>
       </nav>

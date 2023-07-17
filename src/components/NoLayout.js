@@ -5,7 +5,7 @@ const NoLayout = (props) => {
   return (
     <div className="noLayout">
       {props.children}
-      <footer className="transparent-footer">
+      {/* <footer className="transparent-footer">
         <ul class="inline-list">
           <li>
             <a
@@ -21,7 +21,7 @@ const NoLayout = (props) => {
             </a>
           </li>
         </ul>
-      </footer>
+      </footer> */}
     </div>
   );
 };

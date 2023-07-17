@@ -38,6 +38,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import {
+  checkPermission,
   checkUser,
   postRequest,
   showError,
@@ -55,7 +56,10 @@ import {
   GET_COLLECTION_BY_ID,
   GET_COLLECTION_GROUP,
   GET_RESOURCSES_BY_KEYWORD,
+  GET_RESOURCSES_BY_KEYWORD_ALL,
+  HOME_FOLDER_LIST,
   SUCCESS,
+  VIEW_RESOURCE_PERMISSION,
 } from "../service/constants";
 import { Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -71,6 +75,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SendIcon from "@mui/icons-material/Send";
 import ClearIcon from "@mui/icons-material/Clear";
 import FilterComponent from "./FilterComponent";
+import HomeFolderCard from "./HomeFolderCard";
 
 const FolderLayout = () => {
   const { mainState, setLoading } = useContext(MainContext);
@@ -81,6 +86,7 @@ const FolderLayout = () => {
   const [view, setView] = useState("grid");
   const [showFolder, setShowFolder] = useState(true);
   const [sortOpen, setSortOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [resourceId, setSesourceId] = useState("");
   const [sort, setSort] = useState("asc");
   const [isFolder, setIsFolder] = useState(true);
@@ -96,6 +102,7 @@ const FolderLayout = () => {
   const [fileKeyword, setFileKeyword] = useState("");
   const [currentFolder, setCurrentFolder] = useState(null);
   const [activeFolder, setActiveFolder] = useState(null);
+  const [resultCount, setResultCount] = useState(0);
   const [resources, setResources] = useState([]);
   const [collectionList, setCollectionList] = useState([]);
   const [filteredResources, setFilteredResources] = useState([]);
@@ -107,13 +114,6 @@ const FolderLayout = () => {
     setLeftOpen(!leftOpen);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose1 = () => {
-    setAnchorEl(null);
-  };
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -130,19 +130,23 @@ const FolderLayout = () => {
   };
 
   useEffect(() => {
-    setBreadCrumbFunc();
-    var input = document.getElementById("searchInput");
-    input.addEventListener("keyup", function (event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        onClickSearch();
-      }
-    });
+    const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
+    if (perm) {
+      setBreadCrumbFunc();
+      setSearchOpen(true);
+      onClickSearch(true);
+    }
   }, [params.folder]);
+
+  useEffect(() => {
+    const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
+    if (perm) {
+      reload();
+    }
+  }, []);
 
   const onClick = async (e, item) => {
     try {
-      console.log("clickkkkk ::: ", item);
       setLoading(true);
       setCurrentFolder(item);
 
@@ -152,7 +156,6 @@ const FolderLayout = () => {
       setLoading(false);
       if (data) {
         if (data.status == SUCCESS) {
-          console.log("onclick :: ", data);
           const folderExist = data.data.find((m) => m.isFolder === true);
           if (!folderExist) {
             setShowFolder(false);
@@ -218,10 +221,6 @@ const FolderLayout = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    reload();
-  }, []);
 
   const setSidebar = async (email, parentId) => {
     try {
@@ -347,8 +346,11 @@ const FolderLayout = () => {
       if (userLocal) {
         var json = JSON.parse(userLocal);
         if (json) {
-          setSidebar(json.email, params.parent);
-          setHomePage(json.email, params.parent);
+          const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
+          if (perm) {
+            setSidebar(json.email, params.parent);
+            setHomePage(json.email, params.parent);
+          }
         }
       }
     }
@@ -358,31 +360,61 @@ const FolderLayout = () => {
     let value = e.target.value;
     setFileKeyword(value);
   };
-  const onClickSearch = async () => {
+  const onClickSearch = async (isSearch) => {
     try {
       setLoading(true);
       let userLocal = localStorage.getItem("user");
       if (userLocal) {
         var json = JSON.parse(userLocal);
         if (json) {
-          let obj = {
-            homeParentId: params.parent,
-            email: json.email,
-            keyword: fileKeyword,
-          };
-          const data = await postRequest(
-            BASE_URL + GET_RESOURCSES_BY_KEYWORD,
-            obj
-          );
-          if (data) {
-            if (data.status == SUCCESS) {
-              let array = [];
-              data.data.map((file) => {
-                if (file.isFolder === false) {
-                  array.push(file);
-                }
-              });
-              setResources(array);
+          if (isSearch && params.keyword) {
+            // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
+            setSearchOpen(true);
+            setShowFolder(false);
+            let obj = {
+              email: json.email,
+              keyword: params.keyword,
+            };
+            const data = await postRequest(
+              BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
+              obj
+            );
+            if (data) {
+              if (data.status == SUCCESS) {
+                let array = [];
+                data.data.map((file) => {
+                  if (file.isFolder === false) {
+                    array.push(file);
+                  }
+                });
+                setResultCount(data.data.length);
+                console.log("array :: ", array);
+                setResources(array);
+              }
+            }
+          } else {
+            // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
+            setSearchOpen(false);
+            let obj = {
+              homeParentId: params.parent,
+              email: json.email,
+              keyword: fileKeyword,
+            };
+            const data = await postRequest(
+              BASE_URL + GET_RESOURCSES_BY_KEYWORD,
+              obj
+            );
+            if (data) {
+              if (data.status == SUCCESS) {
+                let array = [];
+                data.data.map((file) => {
+                  if (file.isFolder === false) {
+                    array.push(file);
+                  }
+                });
+                console.log("array :: ", array);
+                setResources(array);
+              }
             }
           }
 
@@ -447,6 +479,41 @@ const FolderLayout = () => {
     setFolderKeyword(value);
   };
 
+  const getParentFolders = async () => {
+    try {
+      setLoading(true);
+      let userLocal = localStorage.getItem("user");
+      if (userLocal) {
+        var json = JSON.parse(userLocal);
+        if (json) {
+          let obj = {
+            homeParentId: params.parent,
+            email: json.email,
+            keyword: folderKeyword,
+          };
+          const data = await postRequest(
+            BASE_URL + GET_RESOURCSES_BY_KEYWORD,
+            obj
+          );
+
+          const array = data.data.map((m) => {
+            if (m.isFolder && m.name) {
+              return {
+                ...m,
+                onClick: onClick,
+                Icon: Public,
+              };
+            }
+          });
+          setSearchItemSidebar(array);
+          setLoading(false);
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   const onClickSidebarSearc = async () => {
     try {
       setLoading(true);
@@ -465,7 +532,7 @@ const FolderLayout = () => {
           );
 
           const array = data.data.map((m) => {
-            if (m.isFolder) {
+            if (m.isFolder && m.name) {
               return {
                 ...m,
                 onClick: onClick,
@@ -600,7 +667,7 @@ const FolderLayout = () => {
             email: json.email,
           }
         );
-        console.log("collecttionData :: ",collecttionData);
+        console.log("collecttionData :: ", collecttionData);
         if (collecttionData) {
           const groups = collecttionData.data.map((m) => {
             return {
@@ -637,6 +704,7 @@ const FolderLayout = () => {
     console.log(selectedList, " ", removedItem);
     setOldCollection(selectedList);
   }
+  function onClickHomeFolderList(data) {}
 
   const menuClass = `dropdown-menu${sortOpen ? " show" : ""}`;
   return (
@@ -718,7 +786,7 @@ const FolderLayout = () => {
               </div>
             </div>
 
-            {isFilter ? (
+            {!searchOpen && isFilter ? (
               <div className="">
                 <FilterComponent
                   onClickScope={onClickScope}
@@ -729,6 +797,14 @@ const FolderLayout = () => {
               <SidebarSearch items={searchItemSidebar} />
             ) : (
               <Sidebar items={items} />
+            )}
+
+            {searchOpen ? (
+              HOME_FOLDER_LIST(onClickHomeFolderList).map((m) => (
+                <HomeFolderCard item={m} />
+              ))
+            ) : (
+              <></>
             )}
           </div>
         </div>
@@ -779,14 +855,21 @@ const FolderLayout = () => {
                         <span
                           class="material-icons "
                           color="#4a4a4a"
-                          onClick={onClickSearch}
+                          // onClick={onClickSearch}
                         >
                           {" "}
                           {/* <SendIcon style={{ color: "#4a4a4a" }} /> */}
-                          <Tune
-                            style={{ color: "#4a4a4a" }}
-                            onClick={() => setIsFilter(true)}
-                          />
+                          {fileKeyword != "" ? (
+                            <SendIcon
+                              style={{ color: "#4a4a4a" }}
+                              onClick={() => onClickSearch()}
+                            />
+                          ) : (
+                            <Tune
+                              style={{ color: "#4a4a4a" }}
+                              onClick={() => setIsFilter(true)}
+                            />
+                          )}
                         </span>
                       </button>
                     </a>
@@ -817,7 +900,7 @@ const FolderLayout = () => {
               </div>
               <div className="col-12 col-lg-5 ">
                 <div className="d-flex justify-content-between">
-                  {activeFolder?.folderCount ? (
+                  {!searchOpen && activeFolder?.folderCount ? (
                     <div className="">
                       <button
                         className="folder-btn"
@@ -840,7 +923,8 @@ const FolderLayout = () => {
                   ) : (
                     <></>
                   )}
-                  {activeFolder?.resourcesCount ? (
+
+                  {!searchOpen && activeFolder?.resourcesCount ? (
                     <div className="">
                       <button
                         className="folder-btn"
@@ -852,6 +936,25 @@ const FolderLayout = () => {
                           Resources{" "}
                           <span className="notification">
                             <strong>{activeFolder.resourcesCount}</strong>{" "}
+                          </span>
+                        </text>
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  {searchOpen ? (
+                    <div className="">
+                      <button
+                        className="folder-btn"
+                        style={{ background: "#e0d7d7" }}
+                      >
+                        <FileIcon style={{ color: "" }} />
+                        <text style={{ paddingTop: "6px" }}>
+                          Results{" "}
+                          <span className="notification">
+                            <strong>{resultCount}</strong>{" "}
                           </span>
                         </text>
                       </button>
@@ -1068,9 +1171,7 @@ const FolderLayout = () => {
                   style={{ marginRight: "10px" }}
                   onClick={onClickAddCollection}
                 >
-                  <strong>
-                    Save
-                  </strong>
+                  <strong>Save</strong>
                 </button>
                 <button
                   className="copy-link-btn"

@@ -18,6 +18,7 @@ import FileDetail from "./components/FileDetail";
 import ShareFile from "./components/ShareFile";
 import DownloadFile from "./components/DownloadFile";
 import Collection from "./pages/Collection";
+import Permission from "./pages/admin/Permission";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -53,6 +54,7 @@ function App() {
             {dashboard === true ? (
               <DashbboardLayout>
                 <Route path="/admin/user" render={(props) => <User />} />
+                <Route path="/admin/permission" render={(props) => <Permission />} />
               </DashbboardLayout>
             ) : noLayoutPage === true ? (
               <NoLayout>

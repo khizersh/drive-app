@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { postAxios, postRequest, showError } from "../service/commonService";
+import {
+  checkPermission,
+  postAxios,
+  postRequest,
+  showError,
+} from "../service/commonService";
 import {
   BASE_URL,
   DOWNLOAD_IMAGE,
   DOWNLOAD_IMAGE_WITH_SIZE,
+  DOWNLOAD_RESOURCE_PERMISSION,
   FIND_RESOURCE_BY_ID,
   SUCCESS,
 } from "../service/constants";
@@ -106,8 +112,8 @@ const DownloadFile = () => {
                   {
                     id: "large",
                     title: "Large",
-                    width:Number(fileData["width"]) * 0.75,
-                    height:Number(fileData["height"]) * 0.75,
+                    width: Number(fileData["width"]) * 0.75,
+                    height: Number(fileData["height"]) * 0.75,
                     dimension:
                       Number(fileData["width"]) * 0.75 +
                       " x " +
@@ -170,41 +176,56 @@ const DownloadFile = () => {
 
   const onClickLink = async () => {
     try {
-      setCopyText("Downloading...");
-      const base64 = await postAxios(BASE_URL + DOWNLOAD_IMAGE_WITH_SIZE, {
-        url: file?.file,
-        format: selectedValue,
-      });
-      console.log("base64 : ", file);
-      var a = document.createElement("a"); //Create <a>
-      a.href = "data:image/png;base64," + base64.data;
-      a.download = file?.name + "." + selectedValue; //File name Here
-      a.click(); //Downloaded file
-      setCopyText("Download");
+      const approved = checkPermission(DOWNLOAD_RESOURCE_PERMISSION);
+      if (approved) {
+        setCopyText("Downloading...");
+        const base64 = await postAxios(
+          BASE_URL + DOWNLOAD_IMAGE_WITH_SIZE,
+          {
+            url: file?.file,
+            format: selectedValue,
+          }
+        );
+
+        console.log("base64 : ", base64);
+        var a = document.createElement("a"); //Create <a>
+        a.href = "data:image/png;base64," + base64.data;
+        a.download = file?.name + "." + selectedValue; //File name Here
+        a.click(); //Downloaded file
+        setCopyText("Download");
+      } else {
+        swal({ title: "Invalid Permission!", icon: "error" });
+      }
     } catch (error) {
       console.log("error : ", error);
     }
   };
   const onClickPresetDownload = async () => {
     try {
-      setCopyText("Downloading...");
-     const selected =  dimensions.find(dim => dim.id === selectedDimension);
-     if(selected){
-      const base64 = await postAxios(BASE_URL + DOWNLOAD_IMAGE_WITH_SIZE, {
-        url: file?.file,
-        format: selectedValue,
-        width: selected.width,
-        height: selected.height,
-      });
-      var a = document.createElement("a"); 
-      a.href = "data:image/png;base64," + base64.data;
-      a.download = file?.name + "." + selectedValue; 
-      a.click(); 
-     }else{
-      swal({icon :"error" , title : "Please select dimension!"})
-     }
-    
-      setCopyText("Download");
+      const approved = checkPermission(DOWNLOAD_RESOURCE_PERMISSION);
+
+      if(approved){
+        setCopyText("Downloading...");
+        const selected = dimensions.find((dim) => dim.id === selectedDimension);
+        if (selected) {
+          const base64 = await postAxios(BASE_URL + DOWNLOAD_IMAGE_WITH_SIZE, {
+            url: file?.file,
+            format: selectedValue,
+            width: selected.width,
+            height: selected.height,
+          });
+          var a = document.createElement("a");
+          a.href = "data:image/png;base64," + base64.data;
+          a.download = file?.name + "." + selectedValue;
+          a.click();
+        } else {
+          swal({ icon: "error", title: "Please select dimension!" });
+        }
+        setCopyText("Download");
+      }else{
+        swal({ title: "Invalid Permission!", icon: "error" });
+      }
+   
     } catch (error) {
       console.log("error : ", error);
     }
@@ -220,7 +241,6 @@ const DownloadFile = () => {
     img.onerror = (err) => cb(err);
     img.src = url;
   };
-  
 
   return (
     <>

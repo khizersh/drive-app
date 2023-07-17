@@ -1,23 +1,72 @@
 import swal from "sweetalert";
-import { ADMIN_ROLE, USER_ROLE } from "./constants";
+import { ADMIN_ROLE, ALL_PERMISSION, ERROR, USER_ROLE } from "./constants";
 import axios from "axios";
 
-export async function postRequest(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  const jsonData = await response.json();
-  return jsonData;
+export async function postRequest(url = "", data = {}, permission) {
+  let userLocal = localStorage.getItem("user");
+  let user = null;
+  if (userLocal) {
+    var json = JSON.parse(userLocal);
+    if (json) {
+      user = json;
+    }
+  }
+  const permissionExist = user?.permissions?.find((m) => m == permission || m == ALL_PERMISSION);
+
+  if (permission) {
+    if (permissionExist) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const jsonData = await response.json();
+      return jsonData;
+    } else {
+      return { status: ERROR, message: "Invalid Permission" };
+    }
+  } else {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const jsonData = await response.json();
+    return jsonData;
+  }
 }
 
-
-export const postAxios = async (url, data) => {
+export const postAxios = async (url, data, permission) => {
   try {
-    return await axios.post(url, data);
+    let userLocal = localStorage.getItem("user");
+    let user = null;
+    if (userLocal) {
+      var json = JSON.parse(userLocal);
+      if (json) {
+        user = json;
+      }
+    }
+
+    const permissionExist = user?.permissions?.find((m) => m == permission || m == ALL_PERMISSION);
+
+    if (permission) {
+      if (permissionExist) {
+        return await axios.post(url, data);
+      } else {
+        return {
+          data: {
+            status: ERROR,
+            message: "Invalid Permission",
+          },
+        };
+      }
+    } else {
+      return await axios.post(url, data);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -35,9 +84,31 @@ export function showError(response) {
     swal({ title: "Something went wrong!", icon: "error", timer: 3000 });
   }
 }
+
+export function checkPermission(permission) {
+  let userLocal = localStorage.getItem("user");
+  let user = null;
+  if (userLocal) {
+    var json = JSON.parse(userLocal);
+    if (json) {
+      user = json;
+    }
+  }
+
+  const permissionExist = user?.permissions?.find((m) => m == permission || m == ALL_PERMISSION);
+  if (permission) {
+    if (permissionExist) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
 export function showSuccess(response) {
   if (response) {
-   return swal({ title: response.message, icon: "success", timer: 3000 });
+    return swal({ title: response.message, icon: "success", timer: 3000 });
   } else {
     return swal({ title: "Success", icon: "success", timer: 3000 });
   }

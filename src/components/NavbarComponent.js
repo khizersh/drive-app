@@ -124,7 +124,7 @@ const NavbarComponent = (props) => {
                       id="menu-7ae293db5bf8932a76ca8594b4f7d227"
                       href={`folder?parent=recovery-playbook-assets`}
                     >
-                      Recovery Playbook & Assets
+                      RECOVERY PLAYBOOK & ASSETS
                     </a>{" "}
                   </li>
                   <li class="menu-item ">

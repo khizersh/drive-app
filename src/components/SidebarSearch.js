@@ -177,7 +177,7 @@ function Sidebar({ items, depthStep, depth, expanded }) {
   return (
     <List disablePadding dense>
       {items.map((sidebarItem, index) => (
-        <React.Fragment key={`${sidebarItem.name}${index}`}>
+        <React.Fragment key={`${index}`}>
           {sidebarItem === "divider" ? (
             <Divider style={{ margin: "6px 0" }} />
           ) : (

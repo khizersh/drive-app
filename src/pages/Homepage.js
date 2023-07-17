@@ -1,102 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "../assets/css/homepage.css";
 import { withRouter } from "react-router";
 import SearchIcon from "@mui/icons-material/Search";
+import { HOME_FOLDER_LIST } from "../service/constants";
 
 const Homepage = () => {
   const router = useHistory();
+  const [fileKeyword, setFileKeyword] = useState("");
   const onCLickFolder = (data) => {
     console.log("data : ", data);
     router.push("/folder?parent=" + data.id);
   };
 
-  const list = [
-    {
-      id: "brand-asset",
-      title: "Brand Assets",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy_Star_CMYK.PNG",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "core-product-photgraphy",
-      title: "Core Product Photography",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/CORE%20PRODUCT%20PHOTOGRAPHY.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "videos",
-      title: "Videos",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/GLOBALLY%20APPROVED%20VIDEOS.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "ltos",
-      title: "LTOs",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/LTOs.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "menu-board-panel",
-      title: "Menu Board Panels",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy_Star_CMYK.PNG",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "social-media-asset",
-      title: "Social Media Assets",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/SOCIAL%20MEDIA%20ASSETS.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "templates",
-      title: "Templates",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/LSM%20Templates.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "recovery-playbook-assets",
-      title: "Recovery Playbook & Assets",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/open.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "regional-assets",
-      title: "Regional Assets",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/INTERNAL%20ASSETS.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "development",
-      title: "Development",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/DEVELOPMENT.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "packaging",
-      title: "Packaging",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy%20Star%20Packaing.png",
-      onClick: onCLickFolder,
-    },
-    {
-      id: "reference-document-forms",
-      title: "Reference Documents & Forms",
-      image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/iconfinder_11_Agreement_report_form_layout_paper_4308068.png",
-      onClick: onCLickFolder,
-    },
-  ];
+ 
+
+  const onClickSearch = async () => {
+    try {
+      let userLocal = localStorage.getItem("user");
+      if (userLocal) {
+        var json = JSON.parse(userLocal);
+        if (json) {
+          if (fileKeyword) {
+            router.push("folder?keyword=" + fileKeyword);
+          }
+        }
+      }
+    } catch (error) {}
+  };
   return (
     <div>
       <div
@@ -113,13 +44,19 @@ const Homepage = () => {
               </div>
             </div>
             <div class="searchInput">
-              <input type="text" class="queryPage" id="queryPage" />
+              <input
+                type="text"
+                class="queryPage"
+                id="queryPage"
+                onChange={(e) => setFileKeyword(e.target.value)}
+              />
               <span
                 id="searchPageIcon"
                 class="postfix ib-icon icon-button entypo-regular icon-search searchPageIcon"
                 title="Search"
               >
                 <SearchIcon
+                  onClick={() => onClickSearch()}
                   style={{
                     color: "white",
                     paddingTop: "8px",
@@ -137,8 +74,8 @@ const Homepage = () => {
         <div className="brand-theme">
           <div className="container">
             <div className="row links-row">
-              {list.length ? (
-                list.map((m) => (
+              {HOME_FOLDER_LIST(onCLickFolder).length ? (
+                HOME_FOLDER_LIST(onCLickFolder).map((m) => (
                   <div
                     className="col-md-3 col-sm-6 lr-col"
                     onClick={() => onCLickFolder(m)}

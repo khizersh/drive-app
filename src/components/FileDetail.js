@@ -20,7 +20,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ReactPlayer from "react-player/youtube";
 import { Player } from "video-react";
 import { LeftSide } from "./LeftSide";
-import { RightSide } from "./RightSide";
+import { LeftPart } from "./LeftPart";
 import { DragHandle } from "@material-ui/icons";
 import { DragHandler } from "./drag-handle.tsx";
 import { useHistory } from "react-router-dom";
@@ -139,7 +139,6 @@ const FileDetail = () => {
         } else {
           showError(data.data);
         }
-        console.log("fileData :: " + data);
       } else {
         showError();
       }
@@ -180,7 +179,7 @@ const FileDetail = () => {
               <div className="css-mxd61i-StyledLayoutWrapper eduyzic0">
                 <div height="162px" className="css-117wpbr-we e1vmnjjl9">
                   <div style={{ width: `${width}px` }}>
-                    <RightSide
+                    <LeftPart
                       ref={sidebarRef}
                       toggle={(isCollapsed) => {
                         if (isCollapsed) {

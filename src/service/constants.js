@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3001/";
-// export const BASE_URL = "https://drive-app-backend.onrender.com/";
+// export const BASE_URL = "http://localhost:3001/";
+export const BASE_URL = "https://drive-app-backend.onrender.com/";
 export const REGISTER_USER = "user/signup";
 export const UPDATE_USER = "user/update";
 export const FIND_USER = "user/find";

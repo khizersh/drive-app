@@ -111,7 +111,7 @@ a {
 }
 
 .top-bar ul>li:not(.name):hover, .top-bar ul>li:not(.name):focus, .top-bar ul>li:not(.name).active {
-    background: #c8102e !important;
+    background: #6a431a !important;
 }
 
 .top-bar ul>li:not(.name):hover a, .top-bar ul>li:not(.name).active a, .top-bar ul>li:not(.name):focus a {
@@ -150,7 +150,7 @@ a {
 }
 
 .top-bar ul>li.has-dropdown .dropdown li a:hover, .top-bar ul>li.has-dropdown .dropdown li a:focus {
-    background: #c8102e !important;
+    background: #6a431a !important;
     color: #fff !important;
 }
 

@@ -1693,17 +1693,17 @@
   transition: .3s;
   max-width: 100%;
   position: relative;
-  background-color: #FFC72C;
+  background-color: #e7a444;
   color: #2D2926;
   font-size: 30px;
   margin-bottom: 10px;
   padding: 20px 0 0 20px;
   z-index: 1;
-  box-shadow: 5px 5px #C8102E;
+  box-shadow: 5px 5px #6a431a;
   min-height: 220px;
 }
 .custompageviewcontent .brand-theme .lr-link:hover {
-  box-shadow: 8px 8px #C8102E;
+  box-shadow: 8px 8px #6a431a;
 }
 @media (max-width: 991px) {
   .custompageviewcontent .brand-theme .lr-link {
@@ -1728,7 +1728,7 @@
   display: inline-block;
 }
 .custompageviewcontent .brand-theme .lr-placeholder {
-  background: #C8102E;
+  background: #6a431a;
   display: block;
   -ms-flex-positive: 1;
   flex-grow: 1;
@@ -1779,7 +1779,7 @@
 }
 .custompageviewcontent[data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"] .searchPageIcon {
   color: #bf0f2b !important;
-  background-color: #FFC72C !important;
+  background-color: #e7a444 !important;
   border: solid 1px #000000;
 }
 .custompageviewcontent[data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"] .searchInput input:focus {
@@ -1790,7 +1790,7 @@
 }
 .custompageviewcontent[data-uuid="d0d2f0949d26d15db6f852c0c1cf9594"] .searchPageIcon:hover {
   color: #2D2926 !important;
-  background-color: #FFC72C !important;
+  background-color: #e7a444 !important;
 }
 
 
@@ -1815,7 +1815,7 @@
 }
 
 .custompageviewcontent ul.search li.active .searchTitle>div {
-  background-color: #ffc72c
+  background-color: #e7a444
 }
 
 .custompageviewcontent ul.search li.active .searchTitle>div>div>div:nth-child(2)::after {
@@ -1829,7 +1829,7 @@
 }
 
 .custompageviewcontent ul.search li .searchInput {
-  background-color: #ffc72c;
+  background-color: #e7a444;
   padding-top: 0px;
   height: 90px;
   margin: auto
@@ -1841,7 +1841,7 @@
   margin-top: 2%;
   float: left;
   height: 38px;
-  color: #ffc72c
+  color: #e7a444
 }
 
 .custompageviewcontent ul.search li .searchInput>input:focus {
@@ -1855,14 +1855,14 @@
   margin-top: 2%;
   height: 38px;
   font-size: 17px;
-  color: #ffc72c;
+  color: #e7a444;
   border-left: white;
   border-left-style: none;
   background-color: white
 }
 
 .custompageviewcontent ul.search li .searchInput>span:hover {
-  color: #c8102e
+  color: #6a431a
 }
 
 .custompageviewcontent ul.search li .searchInput>span:before {
@@ -1882,7 +1882,7 @@
 
 .custompageviewcontent ul.search li .searchTitle>div {
   display: inline-block;
-  background-color: #ffc72c;
+  background-color: #e7a444;
   text-align: center;
   width: 100%
 }

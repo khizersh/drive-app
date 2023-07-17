@@ -253,7 +253,7 @@ const DownloadFile = () => {
         <div className="row">
           <div className="col-12 col-lg-6">
             <div className="card leftDiv">
-              <img className="" src={file?.file} />
+              <img className="" src={file?.file} width={'100%'}/>
             </div>
           </div>
           <div className="col-12 col-lg-6">

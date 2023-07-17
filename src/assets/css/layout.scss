@@ -101,7 +101,7 @@ body {
 
   flex-grow: 1;
   .header {
-    background: rgb(255, 199, 44);
+    background: #e7a444;
     color: rgb(45, 41, 38);
     padding: 8px 20px;
     height: 56px;
@@ -880,7 +880,7 @@ body {
 
   .iconActive {
     &:hover {
-      color: #c8102e;
+      color: #6a431a;
     }
   }
 
@@ -899,7 +899,7 @@ body {
     border: none;
     text-align: center;
     &:hover {
-      border: 1px solid #c8102e;
+      border: 1px solid #6a431a;
     }
     &:hover .hoverDiv {
       display: block;
@@ -912,7 +912,7 @@ body {
     }
 
     &:hover ._truncate_ww5d6d {
-      color: #c8102e !important;
+      color: #6a431a !important;
     }
   }
 
@@ -959,7 +959,7 @@ body {
   border: none;
   text-align: center;
   &:hover {
-    border: 1px solid #c8102e;
+    border: 1px solid #6a431a;
     ._linkColours_11bsm43 {
       display: block !important;
     }
@@ -1632,7 +1632,7 @@ body {
   border: none;
   text-align: center;
   &:hover {
-    border: 1px solid #c8102e;
+    border: 1px solid #6a431a;
   }
   &:hover .hoverDiv {
     display: block;
@@ -1645,7 +1645,7 @@ body {
   }
 
   &:hover ._truncate_ww5d6d {
-    color: #c8102e !important;
+    color: #6a431a !important;
   }
 
   .hoverDiv {
@@ -1682,7 +1682,7 @@ body {
     right: -10px;
     top: 10px;
     &:hover {
-      color: #c8102e;
+      color: #6a431a;
     }
   }
 
@@ -1810,7 +1810,7 @@ body {
     width: 48px;
     height: 48px;
     &:hover {
-      color: #c8102e;
+      color: #6a431a;
     }
   }
 
@@ -1828,7 +1828,7 @@ body {
     overflow: hidden;
     text-align: inherit;
     &:hover {
-      color: #c8102e;
+      color: #6a431a;
     }
   }
 
@@ -1853,10 +1853,10 @@ body {
     color: rgb(163, 163, 163);
     text-decoration: none;
     &:hover {
-      color: #c8102e;
+      color: #6a431a;
     }
     &:hover ._iconButton_10fc6mfw {
-      color: #c8102e;
+      color: #6a431a;
     }
   }
 

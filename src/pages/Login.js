@@ -35,7 +35,7 @@ const Login = () => {
         <div className="col-lg-4 offset-lg-4 col-12 ">
           <div className="card shadow py-3">
             <div className="mx-3 border-bottom-3 login-header text-yellow">
-              Welcome to CKE Digital Library
+            Bienvenidos a la biblioteca digital de Grupo Hacienda Real
             </div>
             <p className="mx-3 font-14">
               Please enter your username and password in the fields below to

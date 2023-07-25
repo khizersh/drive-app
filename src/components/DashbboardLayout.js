@@ -19,8 +19,10 @@ const DashbboardLayout = (props) => {
   return (
     <>
       <input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+    <header>
       <label for="drawer-toggle" id="drawer-toggle-label"></label>
-      <header>Home</header>
+      <h2>Home</h2>
+    </header>
       <nav id="drawer">
         <ul>
           <li>

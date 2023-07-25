@@ -98,7 +98,8 @@
     }
     
     #drawer-toggle:checked ~ #page-content { 
-    margin-left: 300px; 
+    margin-left: 300px;
+    width: 80%;
     }
     
     /* Menu item styles */ 

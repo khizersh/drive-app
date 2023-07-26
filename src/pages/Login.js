@@ -17,7 +17,7 @@ const Login = () => {
       if (data.status == SUCCESS) {
         localStorage.setItem("user", JSON.stringify(data.data));
         swal({ icon: "success", title: data.message }).then((r) => {
-          if (user.email == "admin@gmail.com") {
+          if (data.data.role == "admin") {
             window.location.href = "/admin/user";
           } else {
             window.location.href = "/";

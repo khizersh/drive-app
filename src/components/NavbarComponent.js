@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/navbar.css";
 import { Link } from "react-router-dom";
+import { checkAdmin } from "../service/commonService";
 
 const NavbarComponent = (props) => {
   const [user, setUser] = useState(null);
@@ -9,16 +10,22 @@ const NavbarComponent = (props) => {
     window.location.href = "/login";
   };
 
+
+
+
   useEffect(() => {
     let userLocal = localStorage.getItem("user");
     if (userLocal) {
       var json = JSON.parse(userLocal);
       if (json) {
+        console.log("json :: ",json);
         setUser(json);
       }
     }
+
+   
   }, []);
-  
+
   return (
     <>
       <div class="small-logo-nav">
@@ -30,7 +37,7 @@ const NavbarComponent = (props) => {
                   alt="CKE Digital Library Small Logo"
                   title="Go to CKE Digital Library home page"
                   // src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/small-logo-0fdcfdbb9af1834e7e18deae8039404c.png"
-                  src={require('../assets/images/logo.png')}
+                  src={require("../assets/images/logo.png")}
                   id="ibFooterLogo"
                 />
               </Link>
@@ -201,6 +208,18 @@ const NavbarComponent = (props) => {
                       MY ACCOUNT
                     </a>{" "}
                   </li>
+                  {user?.role == "admin" ? (
+                    <li class="menu-item ">
+                      <a
+                        id="menu-ae34edb4646d9cd70a3b65abb3e34823"
+                        href="/admin/user"
+                      >
+                        USER SETTING
+                      </a>{" "}
+                    </li>
+                  ) : (
+                    ""
+                  )}
                   <li class="menu-item ">
                     <a href="/logout/" onClick={onClickLogout}>
                       LOGOUT

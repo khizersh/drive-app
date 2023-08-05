@@ -71,7 +71,8 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                 <div className="_thumbnailContainer_1dic54op">
                   <img
                     className="_thumbnail_2i8afq"
-                    src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                    // src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/35ace8e6e6b1001500f95f6791f8d28b.png"
+                    src={require('../assets/images/folder-img.png')} 
                   />
                 </div>
               </div>

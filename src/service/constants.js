@@ -49,7 +49,9 @@ export const HOME_FOLDER_LIST = (onCLickFolder) => {
       id: "brand-asset",
       title: "Brand Assets",
       image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy_Star_CMYK.PNG",
+        // "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy_Star_CMYK.PNG",
+        // "https://drive-app.s3.amazonaws.com/d5b5226a-1bdf-41c2-b4f6-369975209190.png",
+        "https://drive-app.s3.amazonaws.com/903f8d0f-6dc6-4071-a7c0-641328e9e5d9.png",
       onClick: onCLickFolder,
     },
     {
@@ -77,7 +79,7 @@ export const HOME_FOLDER_LIST = (onCLickFolder) => {
       id: "menu-board-panel",
       title: "Menu Board Panels",
       image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy_Star_CMYK.PNG",
+        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/MENUBOARD%20PANEL.png",
       onClick: onCLickFolder,
     },
     {
@@ -119,7 +121,8 @@ export const HOME_FOLDER_LIST = (onCLickFolder) => {
       id: "packaging",
       title: "Packaging",
       image:
-        "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy%20Star%20Packaing.png",
+        // "https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/custom/images/Happy%20Star%20Packaing.png",
+        "https://drive-app.s3.amazonaws.com/d944cb03-4702-472e-b8d7-a4cbea531f57.png",
       onClick: onCLickFolder,
     },
     {

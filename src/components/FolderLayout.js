@@ -892,7 +892,7 @@ const FolderLayout = () => {
                       color="inherit"
                       href={"/folder?parent=" + params.parent}
                     >
-                      <HomeIcon style={{ color: "rgb(200, 16, 46)" }} />
+                      <HomeIcon style={{color : '#6a431a'}} />
                     </Link>
                     {breadcrumb}
                   </Breadcrumbs>
@@ -911,7 +911,7 @@ const FolderLayout = () => {
                             : "rgb(249, 249, 249)",
                         }}
                       >
-                        <FolderIcon />
+                        <FolderIcon style={{color : '#6a431a'}}/>
                         <text style={{ paddingTop: "6px" }}>
                           Folders{" "}
                           <span className="notification">
@@ -931,7 +931,7 @@ const FolderLayout = () => {
                         onClick={() => setShowFolder(false)}
                         style={{ background: showFolder ? "white" : "#e0d7d7" }}
                       >
-                        <FileIcon style={{ color: "" }} />
+                        <FileIcon style={{color : '#6a431a'}} />
                         <text style={{ paddingTop: "6px" }}>
                           Resources{" "}
                           <span className="notification">

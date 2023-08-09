@@ -87,6 +87,8 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
           <div className="card-imgaa">
             {file?.mimeType?.includes("video") ? (
               <img src="https://drive-app.s3.amazonaws.com/c7c1feb8-a5b3-4acb-8d39-bdeae261ae7f.png" />
+            ) : file?.mimeType?.includes("pdf") ? (
+              <img src="https://drive-app.s3.amazonaws.com/28e55324-f5c7-462b-85d6-14216911ca06.png" />
             ) : (
               <img src={file?.file} />
             )}
@@ -214,8 +216,10 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
           </div>
 
           <div className="card-imgaa">
-            {file?.mimeType?.includes("video") ? (
+          {file?.mimeType?.includes("video") ? (
               <img src="https://drive-app.s3.amazonaws.com/c7c1feb8-a5b3-4acb-8d39-bdeae261ae7f.png" />
+            ) : file?.mimeType?.includes("pdf") ? (
+              <img src="https://drive-app.s3.amazonaws.com/28e55324-f5c7-462b-85d6-14216911ca06.png" />
             ) : (
               <img src={file?.file} />
             )}

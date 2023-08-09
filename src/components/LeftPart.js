@@ -84,9 +84,13 @@ export const LeftPart = forwardRef(({}, ref) => {
   const findData = async () => {
     if (params.id) {
       var fileData = null;
-      const data = await postRequest(BASE_URL + FIND_RESOURCE_BY_ID, {
-        id: params.id,
-      } , VIEW_RESOURCE_PERMISSION);
+      const data = await postRequest(
+        BASE_URL + FIND_RESOURCE_BY_ID,
+        {
+          id: params.id,
+        },
+        VIEW_RESOURCE_PERMISSION
+      );
       if (data) {
         if (data.status == SUCCESS) {
           if (!data.data.isFolder) {
@@ -170,7 +174,11 @@ export const LeftPart = forwardRef(({}, ref) => {
               userId: json._id,
               id: file._id,
             };
-            const data = await postRequest(BASE_URL + DELETE_RESOURCE, obj , DELETE_RESOURCE_PERMISSION);
+            const data = await postRequest(
+              BASE_URL + DELETE_RESOURCE,
+              obj,
+              DELETE_RESOURCE_PERMISSION
+            );
             if (data) {
               if (data.status == SUCCESS) {
                 swal(data.message, {
@@ -277,6 +285,17 @@ export const LeftPart = forwardRef(({}, ref) => {
             <div className="_container_8oa4ch">
               {file?.mimeType.includes("video") ? (
                 file?.file && <Player playsInline src={file?.file} />
+              ) : file?.mimeType.includes("pdf") ? (
+                <img
+                  className="detail-bg"
+                  src={"https://drive-app.s3.amazonaws.com/28e55324-f5c7-462b-85d6-14216911ca06.png"}
+                  alt={file?.name}
+                  style={{
+                    display: "block",
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                  }}
+                />
               ) : (
                 <img
                   className="detail-bg"

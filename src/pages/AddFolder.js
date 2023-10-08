@@ -1,12 +1,23 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Modal, Button } from "react-bootstrap";
 import {
+  checkResourcePermission,
+  getRequest,
   postAxios,
   postRequest,
   showError,
   showSuccess,
 } from "../service/commonService";
-import { ADD_FOLDER_PERMISSION, ADD_RESOURCE, ADD_RESOURCE_PERMISSION, BASE_URL, SUCCESS } from "../service/constants";
+import {
+  ADD_FOLDER_PERMISSION,
+  ADD_RESOURCE,
+  ADD_RESOURCE_PERMISSION,
+  ALL_PERMISSIONS,
+  BASE_URL,
+  GET_ALL,
+  SUCCESS,
+  UPDATE_RESOURCE_PERMISSION,
+} from "../service/constants";
 import { MainContext } from "../context/MainContext";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useDropzone } from "react-dropzone";
@@ -15,6 +26,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Multiselect from "multiselect-react-dropdown";
 
 const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
@@ -22,6 +34,9 @@ const AddFolder = ({ data }) => {
   const [reload, setReload] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [userList, setUserList] = useState([]);
+  const [oldUserList, setOldUserList] = useState([]);
+  const [permissionList, setPermissionList] = useState([]);
 
   const [folder, setFolder] = useState({
     userId: "",
@@ -55,6 +70,7 @@ const AddFolder = ({ data }) => {
     let user = getCurrentUser();
     if (user) {
       setFolder(user);
+      getUSers();
     }
   }, [reload]);
 
@@ -86,6 +102,8 @@ const AddFolder = ({ data }) => {
     setFolder({ ...folder, [e.target.name]: e.target.value });
   };
 
+  console.log("data :: ",data);
+
   const onClickAddFolder = async () => {
     setLoading(true);
     setIsLoading(true);
@@ -97,10 +115,25 @@ const AddFolder = ({ data }) => {
           return showError({ message: "Please select file!" });
         }
         formData.append("file", file);
+         if(!checkResourcePermission(ADD_RESOURCE_PERMISSION , params.folder ? params.folder : params.parent  , params.u )){
+         return showError({message : "Invalid Permission!"});
+         }
+      }else{
+        if(!checkResourcePermission(ADD_FOLDER_PERMISSION , params.folder ? params.folder : params.parent , params.u )){
+          return showError({message : "Invalid Permission!"});
+         }
       }
-      const data = await postAxios(BASE_URL + ADD_RESOURCE, formData ,file ? ADD_RESOURCE_PERMISSION :  ADD_FOLDER_PERMISSION);
+
+
+      const data = await postAxios(
+        BASE_URL + ADD_RESOURCE,
+        formData,
+        file ? ADD_RESOURCE_PERMISSION : ADD_FOLDER_PERMISSION
+      );
       if (data) {
         if (data.data.status == SUCCESS) {
+          let json = setRequestBodyPermission(data.data.resourceId);
+          await postRequest(BASE_URL + UPDATE_RESOURCE_PERMISSION, json);
           showSuccess(data.data).then((r) => window.location.reload());
         } else {
           showError(data.data);
@@ -159,7 +192,7 @@ const AddFolder = ({ data }) => {
       });
     }
 
-     setInterval(() => {
+    setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
           setIsLoading(false);
@@ -167,14 +200,79 @@ const AddFolder = ({ data }) => {
         } else {
           return prevProgress + 10;
         }
-
       });
-     
     }, 200);
 
     setFileName(file[0].name);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  function onSelect(selectedList, selectedItem) {
+    console.log("selectedList :: ", selectedList);
+    setOldUserList(selectedList);
+  }
+
+  function onRemove(selectedList, removedItem) {
+    setOldUserList(selectedList);
+  }
+
+  function onClickUserPermission(user, permission) {
+    let finalPermissions = permissionList;
+    let userPerm = permissionList.find((perm) => perm.email == user);
+    if (userPerm) {
+      let permissionExist = userPerm?.permissions?.find((p) => p == permission);
+      if (permissionExist) {
+        userPerm.permissions = userPerm.permissions.filter(
+          (m) => m != permission
+        );
+      } else {
+        userPerm.permissions.push(permission);
+      }
+
+      finalPermissions.map((final) => {
+        if (final.email == userPerm.email) {
+          final = userPerm;
+        }
+      });
+    } else {
+      finalPermissions.push({
+        email: user,
+        resourceId: "",
+        permissions: [permission],
+      });
+    }
+
+    setPermissionList(finalPermissions);
+    console.log("finalPermissions :: ", finalPermissions);
+  }
+
+  function setRequestBodyPermission(resourceId) {
+    let finals = permissionList.map((m) => {
+      m.resourceId = resourceId;
+      return m;
+    });
+    return finals;
+  }
+
+  const getUSers = async () => {
+    try {
+      const data = await getRequest(BASE_URL + GET_ALL);
+      if (data != null) {
+        if (data.status == SUCCESS) {
+          let userList = data.data.map((m) => {
+            return {
+              id: m.email,
+              name: m.email,
+            };
+          });
+          setUserList(userList);
+        }
+      }
+    } catch (error) {
+      showError();
+    }
+  };
 
   return (
     <div className="container">
@@ -210,6 +308,48 @@ const AddFolder = ({ data }) => {
                 onChange={(e) => onChange(e)}
               />
             </div>
+          </div>
+        </div>
+        <div className="col-12 my-3">
+          <div className="row ">
+            <text>
+              <strong> Assign Permissions: </strong>
+            </text>
+            <Multiselect
+              options={userList} // Options to display in the dropdown
+              selectedValues={oldUserList} // Preselected value to persist in dropdown
+              onSelect={onSelect} // Function will trigger on select event
+              onRemove={onRemove} // Function will trigger on remove event
+              displayValue="name" // Property name to display in the dropdown options
+            />
+          </div>
+
+          <div className="row">
+            {oldUserList.length
+              ? oldUserList.map((user) => (
+                  <div>
+                    <p className="mt-2 mb-0 ml-0">{user.name} : </p>
+                    <div className="row m-0">
+                      {ALL_PERMISSIONS.map((perm) => (
+                        <div className="col-6 form-check permission-div">
+                          {" "}
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            onClick={() => onClickUserPermission(user.id, perm)}
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexCheckDefault"
+                          >
+                            {perm}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              : ""}
           </div>
         </div>
         {data === false ? (

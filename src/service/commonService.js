@@ -11,7 +11,9 @@ export async function postRequest(url = "", data = {}, permission) {
       user = json;
     }
   }
-  const permissionExist = user?.permissions?.find((m) => m == permission || m == ALL_PERMISSION);
+  const permissionExist = user?.permissions?.find(
+    (m) => m == permission || m == ALL_PERMISSION
+  );
 
   if (permission) {
     if (permissionExist) {
@@ -51,7 +53,9 @@ export const postAxios = async (url, data, permission) => {
       }
     }
 
-    const permissionExist = user?.permissions?.find((m) => m == permission || m == ALL_PERMISSION);
+    const permissionExist = user?.permissions?.find(
+      (m) => m == permission || m == ALL_PERMISSION
+    );
 
     if (permission) {
       if (permissionExist) {
@@ -95,7 +99,9 @@ export function checkPermission(permission) {
     }
   }
 
-  const permissionExist = user?.permissions?.find((m) => m == permission || m == ALL_PERMISSION);
+  const permissionExist = user?.permissions?.find(
+    (m) => m == permission || m == ALL_PERMISSION
+  );
   if (permission) {
     if (permissionExist) {
       return true;
@@ -106,6 +112,52 @@ export function checkPermission(permission) {
     return false;
   }
 }
+
+export function checkResourcePermission(
+  permission,
+  resourceId,
+  email,
+  isRoot = false
+) {
+  let userLocal = localStorage.getItem("user");
+  let user = null;
+  if (userLocal) {
+    var json = JSON.parse(userLocal);
+    if (json) {
+      user = json;
+    }
+  }
+  let decEmail = atob(email);
+  if (decEmail == user.email) {
+    return true;
+  } else {
+    if (isRoot) {
+      return false;
+    }
+  }
+  var permissionExist = false;
+  user?.resourcePermissions?.map((userPerm) => {
+    if (userPerm.resourceId == resourceId) {
+      let specificPerm = userPerm.permissions.find((perm) => perm === permission);
+      let generalPerm = userPerm.permissions.find((perm) => perm === ALL_PERMISSION);
+      if (specificPerm || generalPerm) {
+        permissionExist = true;
+      }
+    }
+  });
+
+
+  if (permission) {
+    if (permissionExist) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
 export function showSuccess(response) {
   if (response) {
     return swal({ title: response.message, icon: "success", timer: 3000 });

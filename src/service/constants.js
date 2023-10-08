@@ -8,6 +8,7 @@ export const NOT_VERIFIED_USER = "user/get-unverified";
 export const GET_ALL = "user/get-all";
 export const FIND_BY_EMAIL = "user/find";
 export const UPDATE_PERMISSION = "user/updatePermission";
+export const UPDATE_RESOURCE_PERMISSION = "user/updateResourcePermission";
 export const DELETE_USER = "user/delete";
 export const APPROVE_USER = "user/approve";
 export const FIND_FOLDER = "folder/getResourceByUser";
@@ -33,6 +34,7 @@ export const DELETE_RESOURCE_PERMISSION = "DELETE_RESOURCE";
 export const DOWNLOAD_RESOURCE_PERMISSION = "DOWNLOAD_RESOURCE";
 export const ADD_FOLDER_PERMISSION = "ADD_FOLDER";
 export const ALL_PERMISSION = "ALL";
+export const UPDATE_RESOURCE_PERMISSIONS = "UPDATE_RESOURCE";
 
 export const ALL_PERMISSIONS = [
   "ADD_RESOURCE",
@@ -40,7 +42,8 @@ export const ALL_PERMISSIONS = [
   "DELETE_RESOURCE",
   "ADD_FOLDER",
   "DOWNLOAD_RESOURCE",
-  "ALL"
+  "ALL",
+  "UPDATE_RESOURCE"
 ];
 
 export const HOME_FOLDER_LIST = (onCLickFolder) => {
@@ -139,3 +142,4 @@ export const USER_ROLE = "user";
 export const ADMIN_ROLE = "admin";
 export const SUCCESS = "0000";
 export const ERROR = "9999";
+export const MY_SECRET_KEY = "myHiddenGem";

@@ -3,17 +3,33 @@ import { useHistory } from "react-router-dom";
 import "../assets/css/homepage.css";
 import { withRouter } from "react-router";
 import SearchIcon from "@mui/icons-material/Search";
-import { HOME_FOLDER_LIST } from "../service/constants";
+import { HOME_FOLDER_LIST, MY_SECRET_KEY } from "../service/constants";
+import CryptoJS from "crypto-js";
 
 const Homepage = () => {
   const router = useHistory();
   const [fileKeyword, setFileKeyword] = useState("");
+
   const onCLickFolder = (data) => {
-    console.log("data : ", data);
-    router.push("/folder?parent=" + data.id);
+    let email = getEncryptedEmail();
+    router.push("/folder?parent=" + data.id + "&u=" + email);
   };
 
- 
+  function getEncryptedEmail() {
+    let email = null;
+
+    let userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      var json = JSON.parse(userLocal);
+      if (json) {
+        let str = json.email;
+        email = btoa(str);
+        
+      }
+    }
+
+    return email;
+  }
 
   const onClickSearch = async () => {
     try {
@@ -28,6 +44,7 @@ const Homepage = () => {
       }
     } catch (error) {}
   };
+
   return (
     <div>
       <div

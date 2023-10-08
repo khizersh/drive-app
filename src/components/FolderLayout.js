@@ -37,6 +37,8 @@ import ListView from "@mui/icons-material/ViewStreamOutlined";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import CryptoJS from "crypto-js";
+
 import {
   checkPermission,
   checkUser,
@@ -58,6 +60,7 @@ import {
   GET_RESOURCSES_BY_KEYWORD,
   GET_RESOURCSES_BY_KEYWORD_ALL,
   HOME_FOLDER_LIST,
+  MY_SECRET_KEY,
   SUCCESS,
   VIEW_RESOURCE_PERMISSION,
 } from "../service/constants";
@@ -125,9 +128,7 @@ const FolderLayout = () => {
     setShow(true);
   };
 
-  const onClickBreadCrum = (data) => {
-    console.log("data crum :: ", data);
-  };
+  const onClickBreadCrum = (data) => {};
 
   useEffect(() => {
     const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
@@ -164,9 +165,16 @@ const FolderLayout = () => {
         }
       }
       // }
+ 
       setLoading(false);
       router.push(
-        "/folder?parent=" + params.parent + "&" + "folder=" + item._id
+        "/folder?parent=" +
+          params.parent +
+          "&" +
+          "folder=" +
+          item._id +
+          "&u=" +
+          params.u
       );
     } catch (error) {
       setLoading(false);
@@ -349,7 +357,10 @@ const FolderLayout = () => {
           const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
           if (perm) {
             setSidebar(json.email, params.parent);
-            setHomePage(json.email, params.parent);
+            let email = atob(params.u);
+            if (email) {
+              setHomePage(email, params.parent);
+            }
           }
         }
       }
@@ -892,7 +903,7 @@ const FolderLayout = () => {
                       color="inherit"
                       href={"/folder?parent=" + params.parent}
                     >
-                      <HomeIcon style={{color : '#6a431a'}} />
+                      <HomeIcon style={{ color: "#6a431a" }} />
                     </Link>
                     {breadcrumb}
                   </Breadcrumbs>
@@ -911,7 +922,7 @@ const FolderLayout = () => {
                             : "rgb(249, 249, 249)",
                         }}
                       >
-                        <FolderIcon style={{color : '#6a431a'}}/>
+                        <FolderIcon style={{ color: "#6a431a" }} />
                         <text style={{ paddingTop: "6px" }}>
                           Folders{" "}
                           <span className="notification">
@@ -931,7 +942,7 @@ const FolderLayout = () => {
                         onClick={() => setShowFolder(false)}
                         style={{ background: showFolder ? "white" : "#e0d7d7" }}
                       >
-                        <FileIcon style={{color : '#6a431a'}} />
+                        <FileIcon style={{ color: "#6a431a" }} />
                         <text style={{ paddingTop: "6px" }}>
                           Resources{" "}
                           <span className="notification">

@@ -98,6 +98,10 @@ input {
   font-weight: lighter;
 }
 
+.permission-div {
+  font-size: 10px;
+}
+
 /* sidebar css */
 
 /* body {

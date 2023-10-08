@@ -20,6 +20,7 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   checkPermission,
+  checkResourcePermission,
   postRequest,
   showError,
 } from "../service/commonService";
@@ -31,6 +32,8 @@ import {
   EDIT_RESOURCE,
   FIND_RESOURCE_BY_ID,
   SUCCESS,
+  UPDATE_RESOURCE_PERMISSION,
+  UPDATE_RESOURCE_PERMISSIONS,
   VIEW_RESOURCE_PERMISSION,
 } from "../service/constants";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -154,11 +157,14 @@ export const LeftPart = forwardRef(({}, ref) => {
   };
 
   const onClickShare = () => {
-    router.push("/resource-share?id=" + file?._id);
+    router.push("/resource-share?id=" + file?._id + "&u=" + params.u );
   };
 
   const onClickDelete = () => {
-    //  setShow(true)
+    let resoursePermission = checkResourcePermission(DELETE_RESOURCE_PERMISSION , file?._id  , params.u ); 
+    if(!resoursePermission){
+      return showError({message : "Invalid Permission!"});
+     }
     swal({
       title: "Are you sure?",
       icon: "warning",
@@ -194,6 +200,12 @@ export const LeftPart = forwardRef(({}, ref) => {
     });
   };
   const onClickDownload = () => {
+
+    let resoursePermission = checkResourcePermission(DOWNLOAD_RESOURCE_PERMISSION , file?._id  , params.u ); 
+    if(!resoursePermission){
+      return showError({message : "Invalid Permission!"});
+     }
+
     const permit = checkPermission(DOWNLOAD_RESOURCE_PERMISSION);
     if (permit) {
       if (file?.mimeType.includes("image")) {
@@ -217,6 +229,11 @@ export const LeftPart = forwardRef(({}, ref) => {
   const handleClose = () => setShow(false);
 
   const onEdit = async () => {
+
+    let resoursePermission = checkResourcePermission(UPDATE_RESOURCE_PERMISSIONS , file?._id  , params.u ); 
+    if(!resoursePermission){
+      return showError({message : "Invalid Permission!"});
+     }
     setCopyText("SAVING...");
     if (resource.name) {
       let userLocal = localStorage.getItem("user");

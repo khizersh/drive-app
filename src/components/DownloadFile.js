@@ -18,7 +18,6 @@ import Radio from "@mui/material/Radio";
 import Checkbox from "@mui/material/Checkbox";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
-import ConvertImage from "react-convert-image";
 import { saveAs } from "file-saver";
 import swal from "sweetalert";
 

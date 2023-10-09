@@ -4,7 +4,6 @@ import "../assets/css/homepage.css";
 import { withRouter } from "react-router";
 import SearchIcon from "@mui/icons-material/Search";
 import { HOME_FOLDER_LIST, MY_SECRET_KEY } from "../service/constants";
-import CryptoJS from "crypto-js";
 
 const Homepage = () => {
   const router = useHistory();

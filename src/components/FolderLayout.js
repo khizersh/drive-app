@@ -37,7 +37,6 @@ import ListView from "@mui/icons-material/ViewStreamOutlined";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
-import CryptoJS from "crypto-js";
 
 import {
   checkPermission,

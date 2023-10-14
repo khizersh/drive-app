@@ -9,6 +9,7 @@ export const GET_ALL = "user/get-all";
 export const FIND_BY_EMAIL = "user/find";
 export const UPDATE_PERMISSION = "user/updatePermission";
 export const UPDATE_RESOURCE_PERMISSION = "user/updateResourcePermission";
+export const UPDATE_RESOURCE_PERMISSION_ALL = "user/updateResourcePermissionAll";
 export const DELETE_USER = "user/delete";
 export const APPROVE_USER = "user/approve";
 export const FIND_FOLDER = "folder/getResourceByUser";

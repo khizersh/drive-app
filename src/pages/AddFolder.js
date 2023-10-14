@@ -17,6 +17,7 @@ import {
   GET_ALL,
   SUCCESS,
   UPDATE_RESOURCE_PERMISSION,
+  UPDATE_RESOURCE_PERMISSION_ALL,
 } from "../service/constants";
 import { MainContext } from "../context/MainContext";
 import { DropzoneArea } from "material-ui-dropzone";
@@ -27,6 +28,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Multiselect from "multiselect-react-dropdown";
+import Tab from "@mui/material/Tab";
+import TabContext from "@material-ui/lab/TabContext";
+import TabList from "@material-ui/lab/TabList";
+import TabPanel from "@material-ui/lab/TabPanel";
 
 const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
@@ -37,6 +42,12 @@ const AddFolder = ({ data }) => {
   const [userList, setUserList] = useState([]);
   const [oldUserList, setOldUserList] = useState([]);
   const [permissionList, setPermissionList] = useState([]);
+  const [value, setValue] = React.useState("1");
+  const [allUserPermission, setAllUserPermission] = React.useState({
+    resourceId: " ",
+    permissionList: [],
+    exceptList: [],
+  });
 
   const [folder, setFolder] = useState({
     userId: "",
@@ -102,8 +113,6 @@ const AddFolder = ({ data }) => {
     setFolder({ ...folder, [e.target.name]: e.target.value });
   };
 
-  console.log("data :: ",data);
-
   const onClickAddFolder = async () => {
     setLoading(true);
     setIsLoading(true);
@@ -115,28 +124,49 @@ const AddFolder = ({ data }) => {
           return showError({ message: "Please select file!" });
         }
         formData.append("file", file);
-         if(!checkResourcePermission(ADD_RESOURCE_PERMISSION , params.folder ? params.folder : params.parent  , params.u )){
-         return showError({message : "Invalid Permission!"});
-         }
-      }else{
-        if(!checkResourcePermission(ADD_FOLDER_PERMISSION , params.folder ? params.folder : params.parent , params.u )){
-          return showError({message : "Invalid Permission!"});
-         }
+        if (
+          !checkResourcePermission(
+            ADD_RESOURCE_PERMISSION,
+            params.folder ? params.folder : params.parent,
+            params.u
+          )
+        ) {
+          return showError({ message: "Invalid Permission!" });
+        }
+      } else {
+        if (
+          !checkResourcePermission(
+            ADD_FOLDER_PERMISSION,
+            params.folder ? params.folder : params.parent,
+            params.u
+          )
+        ) {
+          return showError({ message: "Invalid Permission!" });
+        }
       }
 
-
-      const data = await postAxios(
+      const response = await postAxios(
         BASE_URL + ADD_RESOURCE,
         formData,
         file ? ADD_RESOURCE_PERMISSION : ADD_FOLDER_PERMISSION
       );
-      if (data) {
-        if (data.data.status == SUCCESS) {
-          let json = setRequestBodyPermission(data.data.resourceId);
+      if (response) {
+        if (response.data.status == SUCCESS) {
+          let json = setRequestBodyPermission(response.data.resourceId);
+          if (allUserPermission.permissionList.length) {
+            let exceptList = json.map((m) => m.email);
+            let request = allUserPermission;
+            request.resourceId = response.data.resourceId;
+            request.exceptList = exceptList;
+            await postRequest(
+              BASE_URL + UPDATE_RESOURCE_PERMISSION_ALL,
+              request
+            );
+          }
           await postRequest(BASE_URL + UPDATE_RESOURCE_PERMISSION, json);
-          showSuccess(data.data).then((r) => window.location.reload());
+          showSuccess(response.data).then((r) => window.location.reload());
         } else {
-          showError(data.data);
+          showError(response.data);
         }
       }
       setLoading(false);
@@ -209,7 +239,6 @@ const AddFolder = ({ data }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   function onSelect(selectedList, selectedItem) {
-    console.log("selectedList :: ", selectedList);
     setOldUserList(selectedList);
   }
 
@@ -244,7 +273,23 @@ const AddFolder = ({ data }) => {
     }
 
     setPermissionList(finalPermissions);
-    console.log("finalPermissions :: ", finalPermissions);
+  }
+
+  function onClickAllUserPermission(permissions) {
+    let finalPermissions = allUserPermission;
+    let isExist = finalPermissions.permissionList.find(
+      (perm) => perm === permissions
+    );
+
+    if (isExist) {
+      finalPermissions.permissionList = finalPermissions.permissionList.filter(
+        (perm) => perm != permissions
+      );
+    } else {
+      finalPermissions.permissionList.push(permissions);
+    }
+
+    setAllUserPermission(finalPermissions);
   }
 
   function setRequestBodyPermission(resourceId) {
@@ -272,6 +317,9 @@ const AddFolder = ({ data }) => {
     } catch (error) {
       showError();
     }
+  };
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
   return (
@@ -310,10 +358,51 @@ const AddFolder = ({ data }) => {
             </div>
           </div>
         </div>
+        {/* <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                variant="fullWidth"
+              >
+                <Tab label="General Roles" value="1" className="mr-2" />
+                <Tab label="Specific Roles" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="2">
+              {" "}
+             
+            </TabPanel>
+            <TabPanel value="1">
+              {" "}
+            
+            </TabPanel>
+          </TabContext>
+        </Box> */}
+        GENERAL ROLE
+        <div className="col-12 my-3">
+          <div className="row m-0 mt-2">
+            {ALL_PERMISSIONS.map((perm) => (
+              <div className="col-6 form-check permission-div">
+                {" "}
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  onClick={() => onClickAllUserPermission(perm)}
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  {perm}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+        SPECIFIC ROLE
         <div className="col-12 my-3">
           <div className="row ">
             <text>
-              <strong> Assign Permissions: </strong>
+              <strong> Select User: </strong>
             </text>
             <Multiselect
               options={userList} // Options to display in the dropdown
@@ -410,7 +499,6 @@ const AddFolder = ({ data }) => {
         ) : (
           <></>
         )}
-
         <div className="col-12 text-right mt-2">
           <button
             className={`p-1 text-right login-btn weight-600 font-14 px-3   ${

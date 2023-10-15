@@ -44,7 +44,8 @@ const Folder = ({ data, onClick, viewType }) => {
 
   return (
     <>
-      {checkResourcePermission(VIEW_RESOURCE_PERMISSION, data._id, params.u) ? (
+      {/* {checkResourcePermission(VIEW_RESOURCE_PERMISSION, data._id, params.u) ? ( */}
+      {true ? (
         viewType == "list" ? (
           <a className="card folderLayputCard-col" onClick={onClickResource}>
             <div className="card-body">

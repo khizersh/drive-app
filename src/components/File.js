@@ -91,7 +91,8 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
 
   return (
     <>
-      {checkResourcePermission(VIEW_RESOURCE_PERMISSION, data._id, params.u) ? (
+      {/* {checkResourcePermission(VIEW_RESOURCE_PERMISSION, data._id, params.u) ? ( */}
+      {true ? (
         viewType == "list" ? (
           <div
             className="card folderLayputCardImage-col"

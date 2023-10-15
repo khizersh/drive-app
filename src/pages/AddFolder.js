@@ -39,6 +39,7 @@ const AddFolder = ({ data }) => {
   const [reload, setReload] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [allUser, setAllUser] = useState(false);
   const [userList, setUserList] = useState([]);
   const [oldUserList, setOldUserList] = useState([]);
   const [permissionList, setPermissionList] = useState([]);
@@ -152,19 +153,29 @@ const AddFolder = ({ data }) => {
       );
       if (response) {
         if (response.data.status == SUCCESS) {
-          let json = setRequestBodyPermission(response.data.resourceId);
-          if (allUserPermission.permissionList.length) {
-            let exceptList = json.map((m) => m.email);
+          if (allUser) {
             let request = allUserPermission;
             request.resourceId = response.data.resourceId;
-            request.exceptList = exceptList;
             await postRequest(
               BASE_URL + UPDATE_RESOURCE_PERMISSION_ALL,
               request
             );
           }
-          await postRequest(BASE_URL + UPDATE_RESOURCE_PERMISSION, json);
           showSuccess(response.data).then((r) => window.location.reload());
+
+          // let json = setRequestBodyPermission(response.data.resourceId);
+          // if (allUserPermission.permissionList.length) {
+          //   let exceptList = json.map((m) => m.email);
+          //   let request = allUserPermission;
+          //   request.resourceId = response.data.resourceId;
+          //   request.exceptList = exceptList;
+          //   await postRequest(
+          //     BASE_URL + UPDATE_RESOURCE_PERMISSION_ALL,
+          //     request
+          //   );
+          // }
+          // await postRequest(BASE_URL + UPDATE_RESOURCE_PERMISSION, json);
+          // showSuccess(response.data).then((r) => window.location.reload());
         } else {
           showError(response.data);
         }
@@ -380,25 +391,41 @@ const AddFolder = ({ data }) => {
             </TabPanel>
           </TabContext>
         </Box> */}
-        GENERAL ROLE
-        <div className="col-12 my-3">
-          <div className="row m-0 mt-2">
-            {ALL_PERMISSIONS.map((perm) => (
-              <div className="col-6 form-check permission-div">
-                {" "}
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  onClick={() => onClickAllUserPermission(perm)}
-                />
-                <label class="form-check-label" for="flexCheckDefault">
-                  {perm}
-                </label>
-              </div>
-            ))}
-          </div>
+        <div className="col-6 form-check permission-div">
+          {" "}
+          <input
+            className="form-check-input"
+            type="checkbox"
+            onClick={() => setAllUser(!allUser)}
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            ALL USER
+          </label>
         </div>
-        SPECIFIC ROLE
+        {allUser ? (
+          <div className="col-12 my-3">
+            <div className="row m-0 mt-2">
+              {ALL_PERMISSIONS.map((perm) => (
+                <div className="col-6 form-check permission-div">
+                  {" "}
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value={allUser}
+                    onClick={() => onClickAllUserPermission(perm)}
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {perm}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {/* SPECIFIC ROLE
         <div className="col-12 my-3">
           <div className="row ">
             <text>
@@ -440,7 +467,7 @@ const AddFolder = ({ data }) => {
                 ))
               : ""}
           </div>
-        </div>
+        </div> */}
         {data === false ? (
           <>
             <div

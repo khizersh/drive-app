@@ -20,6 +20,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import {
   checkPermission,
   checkResourcePermission,
+  showError,
 } from "../service/commonService";
 import {
   DOWNLOAD_RESOURCE_PERMISSION,
@@ -74,6 +75,17 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     router.push("/resource-share?id=" + file?._id + "&u=" + params.u );
   };
   const onClickDownload = () => {
+
+    let resoursePermission = checkResourcePermission(
+      DOWNLOAD_RESOURCE_PERMISSION,
+      file?._id,
+      params.u,
+      file
+    );
+    if (!resoursePermission) {
+      return showError({ message: "Invalid Permission!" });
+    }
+
     const permit = checkPermission(DOWNLOAD_RESOURCE_PERMISSION);
     if (permit) {
       if (file?.mimeType?.includes("image")) {

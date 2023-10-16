@@ -129,7 +129,8 @@ const AddFolder = ({ data }) => {
           !checkResourcePermission(
             ADD_RESOURCE_PERMISSION,
             params.folder ? params.folder : params.parent,
-            params.u
+            params.u,
+            folder
           )
         ) {
           return showError({ message: "Invalid Permission!" });
@@ -139,7 +140,8 @@ const AddFolder = ({ data }) => {
           !checkResourcePermission(
             ADD_FOLDER_PERMISSION,
             params.folder ? params.folder : params.parent,
-            params.u
+            params.u,
+            folder
           )
         ) {
           return showError({ message: "Invalid Permission!" });

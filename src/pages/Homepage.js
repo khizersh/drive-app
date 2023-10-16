@@ -12,24 +12,24 @@ const Homepage = () => {
   const [fileKeyword, setFileKeyword] = useState("");
 
   const onCLickFolder = (data) => {
-    let email = getEncryptedEmail();
-    router.push("/folder?parent=" + data.id + "&u=" + email);
+    let userId = getEncryptedUserId();
+    router.push("/folder?parent=" + data.id + "&u=" + userId);
   };
 
-  function getEncryptedEmail() {
-    let email = null;
+  function getEncryptedUserId() {
+    let userId = null;
 
     let userLocal = localStorage.getItem("user");
     if (userLocal) {
       var json = JSON.parse(userLocal);
       if (json) {
-        let str = json.email;
-        email = btoa(str);
+        let str = json._id;
+        userId = btoa(str);
         
       }
     }
 
-    return email;
+    return userId;
   }
 
   const onClickSearch = async () => {

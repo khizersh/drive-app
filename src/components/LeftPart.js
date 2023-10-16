@@ -157,14 +157,19 @@ export const LeftPart = forwardRef(({}, ref) => {
   };
 
   const onClickShare = () => {
-    router.push("/resource-share?id=" + file?._id + "&u=" + params.u );
+    router.push("/resource-share?id=" + file?._id + "&u=" + params.u);
   };
 
   const onClickDelete = () => {
-    let resoursePermission = checkResourcePermission(DELETE_RESOURCE_PERMISSION , file?._id  , params.u ); 
-    if(!resoursePermission){
-      return showError({message : "Invalid Permission!"});
-     }
+    let resoursePermission = checkResourcePermission(
+      DELETE_RESOURCE_PERMISSION,
+      file?._id,
+      params.u,
+      resource
+    );
+    if (!resoursePermission) {
+      return showError({ message: "Invalid Permission!" });
+    }
     swal({
       title: "Are you sure?",
       icon: "warning",
@@ -200,11 +205,16 @@ export const LeftPart = forwardRef(({}, ref) => {
     });
   };
   const onClickDownload = () => {
-
-    let resoursePermission = checkResourcePermission(DOWNLOAD_RESOURCE_PERMISSION , file?._id  , params.u ); 
-    if(!resoursePermission){
-      return showError({message : "Invalid Permission!"});
-     }
+    let resoursePermission = checkResourcePermission(
+      DOWNLOAD_RESOURCE_PERMISSION,
+      file?._id,
+      params.u,
+      resource
+    );
+    console.log("resoursePermission :: ", resoursePermission);
+    if (!resoursePermission) {
+      return showError({ message: "Invalid Permission!" });
+    }
 
     const permit = checkPermission(DOWNLOAD_RESOURCE_PERMISSION);
     if (permit) {
@@ -229,11 +239,15 @@ export const LeftPart = forwardRef(({}, ref) => {
   const handleClose = () => setShow(false);
 
   const onEdit = async () => {
-
-    let resoursePermission = checkResourcePermission(UPDATE_RESOURCE_PERMISSIONS , file?._id  , params.u ); 
-    if(!resoursePermission){
-      return showError({message : "Invalid Permission!"});
-     }
+    let resoursePermission = checkResourcePermission(
+      UPDATE_RESOURCE_PERMISSIONS,
+      file?._id,
+      params.u,
+      resource
+    );
+    if (!resoursePermission) {
+      return showError({ message: "Invalid Permission!" });
+    }
     setCopyText("SAVING...");
     if (resource.name) {
       let userLocal = localStorage.getItem("user");
@@ -305,7 +319,9 @@ export const LeftPart = forwardRef(({}, ref) => {
               ) : file?.mimeType.includes("pdf") ? (
                 <img
                   className="detail-bg"
-                  src={"https://drive-app.s3.amazonaws.com/28e55324-f5c7-462b-85d6-14216911ca06.png"}
+                  src={
+                    "https://drive-app.s3.amazonaws.com/28e55324-f5c7-462b-85d6-14216911ca06.png"
+                  }
                   alt={file?.name}
                   style={{
                     display: "block",

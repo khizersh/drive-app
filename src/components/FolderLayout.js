@@ -133,7 +133,7 @@ const FolderLayout = () => {
     const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
     if (perm) {
       setBreadCrumbFunc();
-      setSearchOpen(true);
+  
       onClickSearch(true);
     }
   }, [params.folder]);
@@ -153,6 +153,7 @@ const FolderLayout = () => {
       const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
         parentId: item._id,
       });
+      console.log("setting res  :: ", data);
       setLoading(false);
       if (data) {
         if (data.status == SUCCESS) {
@@ -280,7 +281,10 @@ const FolderLayout = () => {
           setShowFolder(false);
         }
         setActiveFolder(obj);
-        setResources(data.data);
+        let dataArray  = []
+        dataArray = data.data;
+        console.log("dataArray :: ",dataArray);
+        setResources(dataArray);
       }
     }
   };
@@ -402,9 +406,9 @@ const FolderLayout = () => {
                 setResources(array);
               }
             }
-          } else {
+          } else if(fileKeyword){
             // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
-            setSearchOpen(false);
+            setSearchOpen(true);
             let obj = {
               homeParentId: params.parent,
               email: json.email,
@@ -422,13 +426,13 @@ const FolderLayout = () => {
                     array.push(file);
                   }
                 });
-                console.log("array :: ", array);
+                console.log("array normal :: ", array);
                 setResources(array);
               }
             }
           }
 
-          console.log("array :: ", array);
+          // console.log("array :: ", array);
           setLoading(false);
         }
       }
@@ -1059,6 +1063,7 @@ const FolderLayout = () => {
             </div>
             <div className="container-fluid">
               <div className="row folderRow">
+                {console.log("resources :: ",resources)}
                 {filteredResources.length ? (
                   filteredResources.map((m) =>
                     m.isFolder

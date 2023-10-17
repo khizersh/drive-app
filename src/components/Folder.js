@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/layout.css";
 import "../assets/css/layout.scss";
 import Public from "@mui/icons-material/Public";
@@ -13,8 +13,14 @@ import { checkResourcePermission } from "../service/commonService";
 const Folder = ({ data, onClick, viewType }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [onHover, setOnHover] = React.useState(false);
+  const [resource, setResource] = React.useState(data);
   const open = Boolean(anchorEl);
   const [showDiv, setShowDiv] = useState(false);
+
+  // setResource(data);
+  // useEffect(() => {
+  //   setResource(data);
+  // }, []);
 
   const handleClick = (event) => {
     // setAnchorEl(event.currentTarget);
@@ -34,7 +40,7 @@ const Folder = ({ data, onClick, viewType }) => {
 
   const onClickResource = () => {
     if (!onHover) {
-      onClick("", data);
+      onClick("", resource);
     }
   };
 
@@ -79,24 +85,24 @@ const Folder = ({ data, onClick, viewType }) => {
 
               <div className="card-describation ms-2">
                 <div class="_truncate_ww5d6d">
-                  <span> {data.name}</span>
+                  <span> {resource.name}</span>
                 </div>
 
                 <div class="_countContainer_13ovesk">
                   <div class="_truncateMulti_3ywtd5">
                     <span>
-                      {data.folderCount || data.resourceCount ? (
+                      {resource.folderCount || resource.resourceCount ? (
                         <div className="_countContainer_13ovesk">
                           <div className="_truncateMulti_3ywtd5">
                             <span>
                               <i>
-                                {data.folderCount ? (
-                                  data.folderCount + " Sub-Folders"
+                                {resource.folderCount ? (
+                                  resource.folderCount + " Sub-Folders"
                                 ) : (
                                   <></>
                                 )}{" "}
-                                {data.resourcesCount ? (
-                                  " , " + data.resourcesCount + " Resources"
+                                {resource.resourcesCount ? (
+                                  " , " + resource.resourcesCount + " Resources"
                                 ) : (
                                   <></>
                                 )}
@@ -157,24 +163,24 @@ const Folder = ({ data, onClick, viewType }) => {
 
               <div className="card-describation">
                 <div class="_truncate_ww5d6d">
-                  <span> {data.name}</span>
+                  <span> {resource.name}</span>
                 </div>
 
                 <div class="_countContainer_13ovesk">
                   <div class="_truncateMulti_3ywtd5">
                     <span>
-                      {data.folderCount || data.resourceCount ? (
+                      {resource.folderCount || resource.resourceCount ? (
                         <div className="_countContainer_13ovesk">
                           <div className="_truncateMulti_3ywtd5">
                             <span>
                               <i>
-                                {data.folderCount ? (
-                                  data.folderCount + " Sub-Folders"
+                                {resource.folderCount ? (
+                                  resource.folderCount + " Sub-Folders"
                                 ) : (
                                   <></>
                                 )}{" "}
-                                {data.resourcesCount ? (
-                                  " , " + data.resourcesCount + " Resources"
+                                {resource.resourcesCount ? (
+                                  " , " + resource.resourcesCount + " Resources"
                                 ) : (
                                   <></>
                                 )}

@@ -121,7 +121,6 @@ const DownloadFile = () => {
                   },
                 ];
                 setDimensions(array);
-                console.log("array ::: ", array);
               });
 
               setFile(fileData);
@@ -186,7 +185,6 @@ const DownloadFile = () => {
           }
         );
 
-        console.log("base64 : ", base64);
         var a = document.createElement("a"); //Create <a>
         a.href = "data:image/png;base64," + base64.data;
         a.download = file?.name + "." + selectedValue; //File name Here

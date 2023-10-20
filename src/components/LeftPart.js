@@ -211,7 +211,6 @@ export const LeftPart = forwardRef(({}, ref) => {
       params.u,
       resource
     );
-    console.log("resoursePermission :: ", resoursePermission);
     if (!resoursePermission) {
       return showError({ message: "Invalid Permission!" });
     }

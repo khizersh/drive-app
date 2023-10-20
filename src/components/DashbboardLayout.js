@@ -13,7 +13,6 @@ const DashbboardLayout = (props) => {
       // router.push("/login");
     }
 
-    console.log("safasfa : ", user);
   }, []);
 
   return (

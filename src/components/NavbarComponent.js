@@ -92,7 +92,7 @@ const NavbarComponent = (props) => {
                       id="menu-656b1cddd806a5858c0e0d1989b44eaf"
                       href={`folder?parent=videos`}
                     >
-                      GLOBALLY APPROVED VIDEOS
+                      VIDEOS
                     </a>{" "}
                   </li>
                   <li class="menu-item ">
@@ -164,7 +164,7 @@ const NavbarComponent = (props) => {
                       id="menu-ccef29aadbb8bac6af92f80a35aa8bc4"
                       href={`folder?reference-document-forms`}
                     >
-                      FORMS
+                      REFERENCE DOCUMENTS & FORMS
                     </a>{" "}
                   </li>{" "}
                 </ul>

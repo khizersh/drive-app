@@ -214,9 +214,9 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
             <div className="hoverDiv">
               <div className="iconActive">
                 <div className="checkBox">
-                  <FormGroup>
+                  {/* <FormGroup>
                     <FormControlLabel control={<Checkbox />} />
-                  </FormGroup>
+                  </FormGroup> */}
                 </div>
                 <div className="iconMenus">
                   <FileDownloadIcon

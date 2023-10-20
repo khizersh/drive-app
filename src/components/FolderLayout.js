@@ -283,7 +283,6 @@ const FolderLayout = () => {
         setActiveFolder(obj);
         let dataArray  = []
         dataArray = data.data;
-        console.log("dataArray :: ",dataArray);
         setResources(dataArray);
       }
     }
@@ -1063,7 +1062,6 @@ const FolderLayout = () => {
             </div>
             <div className="container-fluid">
               <div className="row folderRow">
-                {console.log("resources :: ",resources)}
                 {filteredResources.length ? (
                   filteredResources.map((m) =>
                     m.isFolder

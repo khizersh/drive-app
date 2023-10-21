@@ -34,8 +34,8 @@ const NavbarComponent = (props) => {
             <li class="name">
               <Link to="/">
                 <img
-                  alt="CKE Digital Library Small Logo"
-                  title="Go to CKE Digital Library home page"
+                  alt="HR Digital Library Small Logo"
+                  title="Go to HR Digital Library home page"
                   // src="https://www.ckelibrary.com/uploads/05d4fd0517e6f7e1ee5ef12e9086f9e5/logo/small-logo-0fdcfdbb9af1834e7e18deae8039404c.png"
                   src={require("../assets/images/logo.png")}
                   id="ibFooterLogo"

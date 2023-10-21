@@ -44,10 +44,10 @@ const Register = () => {
         <div className="col-lg-6 offset-lg-3 col-12 ">
           <div className="card shadow py-3">
             <div className="mx-3 border-bottom-3 login-header text-yellow">
-              Welcome to CKE Digital Library
+              Welcome to HR Digital Library
             </div>
             <p className="mx-3 font-14">
-              Please complete the form below to request access to CKE Digital
+              Please complete the form below to request access to HR Digital
               Library.
             </p>
 

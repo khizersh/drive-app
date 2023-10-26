@@ -27,6 +27,7 @@ export const GET_COLLECTION = "collection/getAll";
 export const GET_COLLECTION_GROUP = "collection/getAllCollectionGroup";
 export const GET_ALL_BY_EMAIL = "collection/getAllByEmail";
 export const DELETE_RESOURCE = "folder/delete";
+export const DELETE_FOLDER_WITH_SUBFOLDER = "folder/deleteFolderAndSubResource";
 export const EDIT_RESOURCE = "folder/edit";
 
 export const ADD_RESOURCE_PERMISSION = "ADD_RESOURCE";

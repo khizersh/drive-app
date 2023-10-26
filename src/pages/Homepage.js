@@ -57,7 +57,7 @@ const Homepage = () => {
             <div class="searchTitle title">
               <div class="searchContainer">
                 <div class="titleContainer">
-                  Welcome to the CKE Digital Library
+                  Welcome to the HR Digital Library
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState , useContext} from "react";
 import { postRequest, showError } from "../service/commonService";
 import { BASE_URL, FIND_RESOURCE_BY_ID, SUCCESS } from "../service/constants";
-import { red } from "@mui/material/colors";
+import { yellow, red } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
@@ -121,9 +121,9 @@ const ShareFile = () => {
                     <Radio
                       {...controlProps(m.id)}
                       sx={{
-                        color: red[900],
+                        color: yellow[700],
                         "&.Mui-checked": {
-                          color: red[900],
+                          color: yellow[700],
                         },
                       }}
                     />{" "}

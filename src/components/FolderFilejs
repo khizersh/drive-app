@@ -48,7 +48,7 @@ const FolderFile = ({ data, onClick }) => {
               onMouseOver={() => setOnHover(true)}
               onClick={(e) => setOnHover(true)}
             >
-              <MoreVert style={{ color: " rgb(200, 16, 46)" }} />
+              <MoreVert style={{ color: " #6a431a" }} />
             </Button>
             {onHover ? (
               <div className="row   " onMouseLeave={() => setOnHover(false)}>

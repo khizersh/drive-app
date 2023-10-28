@@ -133,7 +133,7 @@ export const LeftPart = forwardRef(({}, ref) => {
                   <Link
                     underline="hover"
                     key={index}
-                    color="rgb(200, 16, 46)"
+                    color="#6a431a"
                     href={bread.href}
                     // onClick={bread.onClick}
                   >

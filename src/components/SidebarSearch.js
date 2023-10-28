@@ -88,7 +88,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                   className="_title_k7qvdu"
                   style={{
                     fontWeight: "bold",
-                    color: "rgb(200, 16, 46)",
+                    color: "#6a431a",
                   }}
                 >
                   <a
@@ -97,7 +97,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                     href="#"
                     style={{
                       fontWeight: "bold",
-                      color: "rgb(200, 16, 46)",
+                      color: "#6a431a",
                     }}
                   >
                     <div>

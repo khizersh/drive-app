@@ -122,7 +122,7 @@ const FileDetail = () => {
                   <Link
                     underline="hover"
                     key={index}
-                    color="rgb(200, 16, 46)"
+                    color="#e7a444"
                     href={bread.href}
                     // onClick={bread.onClick}
                   >
@@ -282,7 +282,7 @@ const FileDetail = () => {
                             className="css-1l3nyhq-b e1v97hwd6"
                           >
                             <div
-                              color="#737373"
+                              color="#e7a444"
                               className="css-1o7etbk-v e1v97hwd5"
                             >
                               Folder Path
@@ -301,7 +301,7 @@ const FileDetail = () => {
                                     }
                                   >
                                     <HomeIcon
-                                      style={{ color: "rgb(200, 16, 46)" }}
+                                      style={{ color: "#e7a444" }}
                                     />
                                   </Link>
                                   {breadcrumbs}

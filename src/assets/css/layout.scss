@@ -74,8 +74,9 @@ body {
   -webkit-box-align: center;
   align-items: center;
   min-width: 12px;
-  // background-color: rgb(200, 16, 46);
-  background-color: #6a431a;
+  // background-color: #6a431a;
+  // background-color: #6a431a;
+  background-color: black;
   width: 16px;
   height: 16px;
   font-size: 10px;
@@ -86,11 +87,15 @@ body {
   padding-top: 1px;
   padding-bottom: 1px;
   display: inline-block;
+
+  strong {
+    // color: #6a431a;
+  }
 }
 
 .folder-btn {
   border: 1px solid rgb(208, 208, 208);
-  color: rgb(200, 16, 46);
+  color: #6a431a;
   font-weight: 600;
   font-size: 15px;
   padding-left: 15px;
@@ -875,7 +880,7 @@ body {
   }
 
   .showDiv:hover {
-    background-color: rgb(200, 16, 46);
+    background-color: #6a431a;
     color: white;
   }
 
@@ -1512,11 +1517,11 @@ body {
   background-image: url("../images/checkered-background.png");
 }
 .text-red {
-  color: rgb(200, 16, 46);
+  color: #6a431a;
 }
 
 .bg-red {
-  background: rgb(200, 16, 46);
+  background: #6a431a;
 }
 
 .pill {
@@ -1525,12 +1530,12 @@ body {
 }
 
 .selected-pill {
-  background: rgb(200, 16, 46) !important;
+  background: #6a431a !important;
   color: white !important;
 }
 
 .pill:hover {
-  background: rgb(200, 16, 46) !important;
+  background: #6a431a !important;
   color: white !important;
 }
 
@@ -1546,12 +1551,12 @@ body {
 }
 
 .css-c6scz2-FolderLinkWrapper {
-  color: rgb(200, 16, 46);
+  color: #6a431a;
   font-weight: bold;
 }
 
 .text-red {
-  color: rgb(200, 16, 46);
+  color: #6a431a;
 }
 
 .css-1ffbns-StyledAssetInfoWrapper {
@@ -1674,7 +1679,7 @@ body {
   }
 
   .showDiv:hover {
-    background-color: rgb(200, 16, 46);
+    background-color: #6a431a;
     color: white;
   }
 

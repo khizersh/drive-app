@@ -85,7 +85,7 @@ const FileDetail = () => {
                   <Link
                     underline="hover"
                     key={index}
-                    color="rgb(200, 16, 46)"
+                    color="#6a431a"
                     href={bread.href}
                     // onClick={bread.onClick}
                   >
@@ -314,7 +314,7 @@ const FileDetail = () => {
                                     }
                                   >
                                     <HomeIcon
-                                      style={{ color: "rgb(200, 16, 46)" }}
+                                      style={{ color: "#6a431a" }}
                                     />
                                   </Link>
                                   {breadcrumbs}

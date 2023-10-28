@@ -43,7 +43,7 @@ function HomeFolderCard({ item }) {
                     className="_title_k7qvdu"
                     style={{
                       fontWeight: "bold",
-                      color: "rgb(200, 16, 46)",
+                      color: "#6a431a",
                     }}
                   >
                     <a
@@ -51,7 +51,7 @@ function HomeFolderCard({ item }) {
                       target="_blank"
                       style={{
                         fontWeight: "bold",
-                        color: "rgb(200, 16, 46)",
+                        color: "#6a431a",
                       }}
                     >
                       <div>

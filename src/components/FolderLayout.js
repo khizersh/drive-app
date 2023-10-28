@@ -153,7 +153,7 @@ const FolderLayout = () => {
       const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
         parentId: item._id,
       });
-      console.log("setting res  :: ", data);
+  
       setLoading(false);
       if (data) {
         if (data.status == SUCCESS) {
@@ -248,7 +248,6 @@ const FolderLayout = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   };
 
@@ -375,66 +374,74 @@ const FolderLayout = () => {
   };
   const onClickSearch = async (isSearch) => {
     try {
-      setLoading(true);
-      let userLocal = localStorage.getItem("user");
-      if (userLocal) {
-        var json = JSON.parse(userLocal);
-        if (json) {
-          if (isSearch && params.keyword) {
-            // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
-            setSearchOpen(true);
-            setShowFolder(false);
-            let obj = {
-              email: json.email,
-              keyword: params.keyword,
-            };
-            const data = await postRequest(
-              BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
-              obj
-            );
-            if (data) {
-              if (data.status == SUCCESS) {
-                let array = [];
-                data.data.map((file) => {
-                  if (file.isFolder === false) {
-                    array.push(file);
-                  }
-                });
-                setResultCount(data.data.length);
-                console.log("array :: ", array);
-                setResources(array);
+      if(params.keyword && searchOpen){
+        let url = window.location.origin + "/folder?keyword=" + fileKeyword;
+        window.location.href = url;
+      }else{
+        setLoading(true);
+        let userLocal = localStorage.getItem("user");
+        if (userLocal) {
+          var json = JSON.parse(userLocal);
+          if (json) {
+            if (isSearch && params.keyword) {
+              // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
+              setSearchOpen(true);
+              setShowFolder(false);
+              let obj = {
+                email: json.email,
+                keyword: params.keyword,
+              };
+              const data = await postRequest(
+                BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
+                obj
+              );
+              if (data) {
+                if (data.status == SUCCESS) {
+                  let array = [];
+                  data.data.map((file) => {
+                    if (file.isFolder === false) {
+                      array.push(file);
+                    }
+                  });
+                  setResultCount(array.length);
+                  setResources(array);
+                  // setFilteredResources(array)
+                }
+              }
+            } else if(fileKeyword){
+              // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
+              setSearchOpen(true);
+              setShowFolder(false);
+              let obj = {
+                homeParentId: params.parent,
+                email: json.email,
+                keyword: fileKeyword,
+              };
+              const data = await postRequest(
+                BASE_URL + GET_RESOURCSES_BY_KEYWORD,
+                obj
+              );
+              if (data) {
+                if (data.status == SUCCESS) {
+                  let array = [];
+                  data.data.map((file) => {
+                    if (file.isFolder === false) {
+                      array.push(file);
+                    }
+                  });
+                  setResultCount(array.length);
+                  // setFilteredResources(array)
+                  setResources(array);
+                }
               }
             }
-          } else if(fileKeyword){
-            // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
-            setSearchOpen(true);
-            let obj = {
-              homeParentId: params.parent,
-              email: json.email,
-              keyword: fileKeyword,
-            };
-            const data = await postRequest(
-              BASE_URL + GET_RESOURCSES_BY_KEYWORD,
-              obj
-            );
-            if (data) {
-              if (data.status == SUCCESS) {
-                let array = [];
-                data.data.map((file) => {
-                  if (file.isFolder === false) {
-                    array.push(file);
-                  }
-                });
-                console.log("array normal :: ", array);
-                setResources(array);
-              }
-            }
+  
+            // console.log("array :: ", array);
+            setLoading(false);
           }
-
-          // console.log("array :: ", array);
-          setLoading(false);
         }
       }
+     
     } catch (error) {
       setLoading(false);
     }
@@ -812,7 +819,7 @@ const FolderLayout = () => {
               <Sidebar items={items} />
             )}
 
-            {searchOpen ? (
+            {searchOpen && params.keyword ? (
               HOME_FOLDER_LIST(onClickHomeFolderList).map((m) => (
                 <HomeFolderCard item={m} />
               ))
@@ -831,7 +838,7 @@ const FolderLayout = () => {
 
             <div className="d-flex sideIcon">
               <div className="icon" onClick={toggleSidebar}>
-                <Menu style={{ color: "rgb(200, 16, 46)" }} />
+                <Menu style={{ color: "#6a431a" }} />
               </div>
               <div className="folder-name mx-2">{currentFolder?.name}</div>
             </div>
@@ -925,7 +932,7 @@ const FolderLayout = () => {
                         }}
                       >
                         <FolderIcon style={{ color: "#6a431a" }} />
-                        <text style={{ paddingTop: "6px" }}>
+                        <text style={{ paddingTop: "6px" , color: "#6a431a"}}>
                           Folders{" "}
                           <span className="notification">
                             <strong>{activeFolder.folderCount}</strong>{" "}
@@ -945,7 +952,7 @@ const FolderLayout = () => {
                         style={{ background: showFolder ? "white" : "#e0d7d7" }}
                       >
                         <FileIcon style={{ color: "#6a431a" }} />
-                        <text style={{ paddingTop: "6px" }}>
+                        <text style={{ paddingTop: "6px" , color: "#6a431a" }} >
                           Resources{" "}
                           <span className="notification">
                             <strong>{activeFolder.resourcesCount}</strong>{" "}
@@ -964,7 +971,7 @@ const FolderLayout = () => {
                         style={{ background: "#e0d7d7" }}
                       >
                         <FileIcon style={{ color: "" }} />
-                        <text style={{ paddingTop: "6px" }}>
+                        <text style={{ paddingTop: "6px" , color: "#6a431a"}}>
                           Results{" "}
                           <span className="notification">
                             <strong>{resultCount}</strong>{" "}
@@ -985,7 +992,7 @@ const FolderLayout = () => {
                       <div className="ml-2 ">
                         <SortIcon
                           style={{
-                            color: "rgb(200, 16, 46)",
+                            color: "#6a431a",
                             marginLeft: "10px",
                           }}
                         />
@@ -1015,7 +1022,7 @@ const FolderLayout = () => {
                       <span className="ml-3" onClick={() => setView("list")}>
                         <ListView
                           style={{
-                            color: view == "list" ? "rgb(200, 16, 46)" : "",
+                            color: view == "list" ? "#6a431a" : "",
                           }}
                         />
                       </span>
@@ -1026,7 +1033,7 @@ const FolderLayout = () => {
                       <span className="ml-3" onClick={() => setView("grid")}>
                         <GridViewIcon
                           style={{
-                            color: view == "grid" ? "rgb(200, 16, 46)" : "",
+                            color: view == "grid" ? "#6a431a" : "",
                           }}
                         />
                       </span>
@@ -1062,6 +1069,7 @@ const FolderLayout = () => {
             </div>
             <div className="container-fluid">
               <div className="row folderRow">
+                {console.log("filteredResources :: ",filteredResources)}
                 {filteredResources.length ? (
                   filteredResources.map((m) =>
                     m.isFolder

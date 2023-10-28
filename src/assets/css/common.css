@@ -88,6 +88,10 @@ input {
   float: right;
 }
 
+.swal-button--danger {
+  background-color: #e7a444 !important;
+}
+
 .cursor-pointer:hover {
   cursor: pointer;
 }
@@ -178,7 +182,7 @@ input {
   font-size: 15px;
   text-align: center;
   padding-bottom: 10px;
-  border-bottom: 4px solid rgb(200, 16, 46);
+  border-bottom: 4px solid #6a431a;
 }
 
 .link-here {

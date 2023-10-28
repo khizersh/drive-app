@@ -13,7 +13,7 @@ import {
   FIND_RESOURCE_BY_ID,
   SUCCESS,
 } from "../service/constants";
-import { red } from "@mui/material/colors";
+import { yellow, red } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
 import Checkbox from "@mui/material/Checkbox";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
@@ -284,9 +284,9 @@ const DownloadFile = () => {
                       <Radio
                         {...controlProps(m.id)}
                         sx={{
-                          color: red[900],
+                          color: yellow[700],
                           "&.Mui-checked": {
-                            color: red[900],
+                            color: yellow[700],
                           },
                         }}
                       />{" "}
@@ -320,9 +320,9 @@ const DownloadFile = () => {
                       <Checkbox
                         {...controlProps(m.id)}
                         sx={{
-                          color: red[900],
+                          color: yellow[700],
                           "&.Mui-checked": {
-                            color: red[900],
+                            color: yellow[700],
                           },
                         }}
                       />{" "}
@@ -345,9 +345,9 @@ const DownloadFile = () => {
                       <Checkbox
                         {...controlDimensionProps(m.id)}
                         sx={{
-                          color: red[900],
+                          color: yellow[700],
                           "&.Mui-checked": {
-                            color: red[900],
+                            color: yellow[700],
                           },
                         }}
                       />{" "}

@@ -101,11 +101,11 @@ const Folder = ({ data, onClick, viewType }) => {
             <div className="card-body">
               <div className="iconActive">
                 <ShareIcon
-                  style={{ color: " rgb(200, 16, 46)", marginRight: "10px" }}
+                  style={{ color: " #6a431a", marginRight: "10px" }}
                   onClick={() => onClickShare()}
                 />
                 <DeleteIcon
-                  style={{ color: " rgb(200, 16, 46)" }}
+                  style={{ color: " #6a431a" }}
                   onClick={() => onClickDelete()}
                 />
                 {/* <Button
@@ -116,7 +116,7 @@ const Folder = ({ data, onClick, viewType }) => {
                   onMouseOver={() => setOnHover(true)}
                   onClick={(e) => setOnHover(true)}
                 >
-                  <MoreVert style={{ color: " rgb(200, 16, 46)" }} />
+                  <MoreVert style={{ color: " #6a431a" }} />
                 </Button>
                 {onHover ? (
                   <div onMouseLeave={() => setOnHover(false)}>
@@ -192,7 +192,7 @@ const Folder = ({ data, onClick, viewType }) => {
                     onMouseOver={() => setOnHover(true)}
                     onClick={(e) => setOnHover(true)}
                   >
-                    <MoreVert style={{ color: " rgb(200, 16, 46)" }} />
+                    <MoreVert style={{ color: " #6a431a" }} />
                   </Button>
                   {onHover ? (
                     <div

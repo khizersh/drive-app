@@ -119,8 +119,8 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                     <div className="_truncateMulti_3ywtd5">
                       <span>
                         <i>
-                          {folderCount ? folderCount + " Sub-Folders" : <></>} {" "}
-                          {resourcesCount ? resourcesCount + " , Resources" : <></>}
+                          {folderCount ? folderCount + " Sub-Folder" : <></>} {" "}
+                          {resourcesCount ? " , " + resourcesCount + " Resource" : <></>}
                         </i>
                       </span>
                     </div>

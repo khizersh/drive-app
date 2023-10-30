@@ -373,78 +373,78 @@ const FolderLayout = () => {
     setFileKeyword(value);
   };
   const onClickSearch = async (isSearch) => {
-    try {
-      if(params.keyword && searchOpen){
-        let url = window.location.origin + "/folder?keyword=" + fileKeyword;
-        window.location.href = url;
-      }else{
-        setLoading(true);
-        let userLocal = localStorage.getItem("user");
-        if (userLocal) {
-          var json = JSON.parse(userLocal);
-          if (json) {
-            if (isSearch && params.keyword) {
-              // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
-              setSearchOpen(true);
-              setShowFolder(false);
-              let obj = {
-                email: json.email,
-                keyword: params.keyword,
-              };
-              const data = await postRequest(
-                BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
-                obj
-              );
-              if (data) {
-                if (data.status == SUCCESS) {
-                  let array = [];
-                  data.data.map((file) => {
-                    if (file.isFolder === false) {
-                      array.push(file);
-                    }
-                  });
-                  setResultCount(array.length);
-                  setResources(array);
-                  // setFilteredResources(array)
-                }
-              }
-            } else if(fileKeyword){
-              // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
-              setSearchOpen(true);
-              setShowFolder(false);
-              let obj = {
-                homeParentId: params.parent,
-                email: json.email,
-                keyword: fileKeyword,
-              };
-              const data = await postRequest(
-                BASE_URL + GET_RESOURCSES_BY_KEYWORD,
-                obj
-              );
-              if (data) {
-                if (data.status == SUCCESS) {
-                  let array = [];
-                  data.data.map((file) => {
-                    if (file.isFolder === false) {
-                      array.push(file);
-                    }
-                  });
-                  setResultCount(array.length);
-                  // setFilteredResources(array)
-                  setResources(array);
-                }
-              }
-            }
+    // try {
+    //   if(params.keyword && searchOpen){
+    //     let url = window.location.origin + "/folder?keyword=" + fileKeyword;
+    //     window.location.href = url;
+    //   }else{
+    //     setLoading(true);
+    //     let userLocal = localStorage.getItem("user");
+    //     if (userLocal) {
+    //       var json = JSON.parse(userLocal);
+    //       if (json) {
+    //         if (isSearch && params.keyword) {
+    //           // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
+    //           setSearchOpen(true);
+    //           setShowFolder(false);
+    //           let obj = {
+    //             email: json.email,
+    //             keyword: params.keyword,
+    //           };
+    //           const data = await postRequest(
+    //             BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
+    //             obj
+    //           );
+    //           if (data) {
+    //             if (data.status == SUCCESS) {
+    //               let array = [];
+    //               data.data.map((file) => {
+    //                 if (file.isFolder === false) {
+    //                   array.push(file);
+    //                 }
+    //               });
+    //               setResultCount(array.length);
+    //               setResources(array);
+    //               // setFilteredResources(array)
+    //             }
+    //           }
+    //         } else if(fileKeyword){
+    //           // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
+    //           setSearchOpen(true);
+    //           setShowFolder(false);
+    //           let obj = {
+    //             homeParentId: params.parent,
+    //             email: json.email,
+    //             keyword: fileKeyword,
+    //           };
+    //           const data = await postRequest(
+    //             BASE_URL + GET_RESOURCSES_BY_KEYWORD,
+    //             obj
+    //           );
+    //           if (data) {
+    //             if (data.status == SUCCESS) {
+    //               let array = [];
+    //               data.data.map((file) => {
+    //                 if (file.isFolder === false) {
+    //                   array.push(file);
+    //                 }
+    //               });
+    //               setResultCount(array.length);
+    //               // setFilteredResources(array)
+    //               setResources(array);
+    //             }
+    //           }
+    //         }
   
-            // console.log("array :: ", array);
-            setLoading(false);
-          }
-        }
-      }
+    //         // console.log("array :: ", array);
+    //         setLoading(false);
+    //       }
+    //     }
+    //   }
      
-    } catch (error) {
-      setLoading(false);
-    }
+    // } catch (error) {
+    //   setLoading(false);
+    // }
   };
 
   function compareNameAsc(a, b) {
@@ -1069,7 +1069,6 @@ const FolderLayout = () => {
             </div>
             <div className="container-fluid">
               <div className="row folderRow">
-                {console.log("filteredResources :: ",filteredResources)}
                 {filteredResources.length ? (
                   filteredResources.map((m) =>
                     m.isFolder

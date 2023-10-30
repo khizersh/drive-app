@@ -117,8 +117,10 @@ const AddFolder = ({ data }) => {
   const onClickAddFolder = async () => {
     setLoading(true);
     setIsLoading(true);
+
     try {
       var formData = new FormData();
+      folder.rootFolder =  params.folder ? false : true;
       formData.append("data", JSON.stringify(folder));
       if (!folder.isFolder) {
         if (!file) {

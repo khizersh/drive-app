@@ -116,7 +116,6 @@ export function checkPermission(permission) {
 export function checkResourcePermission(
   permission,
   resourceId,
-  userId,
   resourceObj
 ) {
   let userLocal = localStorage.getItem("user");
@@ -128,13 +127,10 @@ export function checkResourcePermission(
       user = json;
     }
   }
-
-  let decUserId = atob(userId);
   
   if (resourceObj.userId == user._id) {
     return true;
   }
-  console.log(" permissionsss :: ", user?.resourcePermissions);
 
   var permissionExist = false;
 

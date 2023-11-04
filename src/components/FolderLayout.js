@@ -51,6 +51,7 @@ import {
   BASE_URL,
   FIND_FOLDER,
   FIND_FOLDER_BY_HOME_PARENT,
+  FIND_FOLDER_FOR_SIDEBAR,
   FIND_RESOURCE_BY_ID,
   FIND_SUB_FOLDER,
   GET_COLLECTION,
@@ -153,7 +154,7 @@ const FolderLayout = () => {
       const data = await postRequest(BASE_URL + FIND_SUB_FOLDER, {
         parentId: item._id,
       });
-  
+
       setLoading(false);
       if (data) {
         if (data.status == SUCCESS) {
@@ -161,6 +162,7 @@ const FolderLayout = () => {
           if (!folderExist) {
             setShowFolder(false);
           }
+          setResources([]);
           setResources(data.data);
         }
       }
@@ -234,14 +236,16 @@ const FolderLayout = () => {
     try {
       setItems([]);
       setLoading(true);
-      const data = await postRequest(BASE_URL + FIND_FOLDER_BY_HOME_PARENT, {
+      const data = await postRequest(BASE_URL + FIND_FOLDER_FOR_SIDEBAR, {
         email: email,
         homeParentId: parentId,
         isFolder: true,
       });
       if (data) {
         if (data.status == SUCCESS) {
+          console.log("data menu  :: ",data);
           const itemArray = await renderMenu(data.data);
+          // console.log("itemArray :: ",itemArray);
           setItems(itemArray);
           setLoading(false);
         }
@@ -293,6 +297,7 @@ const FolderLayout = () => {
     try {
       while (menu.length > 0) {
         menu.forEach((menuItem) => {
+          console.log("menu :: ",menu);
           menuItem.children = [];
 
           if (!menuItem.parentId) {
@@ -331,6 +336,7 @@ const FolderLayout = () => {
 
   var array = [];
   const serachFather = (menuArray, father, menuItem, menu) => {
+    console.log("menuArray :: ",menuArray);
     menuArray.forEach((menuPainted) => {
       if (menuPainted._id === father) {
         menuItem.opacity = menuPainted.opacity + 1;
@@ -813,6 +819,7 @@ const FolderLayout = () => {
                   onClickType={onClickType}
                 />
               </div>
+
             ) : searchItemSidebar.length ? (
               <SidebarSearch items={searchItemSidebar} />
             ) : (

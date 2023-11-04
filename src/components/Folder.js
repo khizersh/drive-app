@@ -49,7 +49,6 @@ const Folder = ({ data, onClick, viewType }) => {
     let resoursePermission = checkResourcePermission(
       DELETE_RESOURCE_PERMISSION,
       resource?._id,
-      params.u,
       resource
     );
     if (!resoursePermission) {

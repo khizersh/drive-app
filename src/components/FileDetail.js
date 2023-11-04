@@ -51,6 +51,8 @@ const FileDetail = () => {
         if (newVal > toCollapseWidth && isCollapsed) {
           sidebarRef.current.expand();
         }
+
+        sidebarRef.current.fileData = file;
         return newVal;
       });
     },
@@ -181,6 +183,7 @@ const FileDetail = () => {
                   <div style={{ width: `${width}px` }}>
                     <LeftPart
                       ref={sidebarRef}
+                      fileData={file}
                       toggle={(isCollapsed) => {
                         if (isCollapsed) {
                           setWidth(collapsedWidth);
@@ -188,6 +191,7 @@ const FileDetail = () => {
                         }
                         setWidth(expandedWidth);
                       }}
+                    
                     />
                   </div>
 

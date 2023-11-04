@@ -80,7 +80,6 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     let resoursePermission = checkResourcePermission(
       DOWNLOAD_RESOURCE_PERMISSION,
       file?._id,
-      params.u,
       file
     );
     if (!resoursePermission) {

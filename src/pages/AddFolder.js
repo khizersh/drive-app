@@ -131,7 +131,6 @@ const AddFolder = ({ data }) => {
           !checkResourcePermission(
             ADD_RESOURCE_PERMISSION,
             params.folder ? params.folder : params.parent,
-            params.u,
             folder
           )
         ) {
@@ -142,7 +141,6 @@ const AddFolder = ({ data }) => {
           !checkResourcePermission(
             ADD_FOLDER_PERMISSION,
             params.folder ? params.folder : params.parent,
-            params.u,
             folder
           )
         ) {
@@ -158,14 +156,14 @@ const AddFolder = ({ data }) => {
       if (response) {
         if (response.data.status == SUCCESS) {
           if (allUser) {
-            let request = allUserPermission;
-            request.resourceId = response.data.resourceId;
+            let requestPermission = allUserPermission;
+            requestPermission.resourceId = response.data.resourceId;
             await postRequest(
               BASE_URL + UPDATE_RESOURCE_PERMISSION_ALL,
-              request
-            );
+              requestPermission
+            )
           }
-          showSuccess(response.data).then((r) => window.location.reload());
+          await showSuccess(response.data).then((r) => window.location.reload());
 
           // let json = setRequestBodyPermission(response.data.resourceId);
           // if (allUserPermission.permissionList.length) {

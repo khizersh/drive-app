@@ -16,6 +16,7 @@ export const FIND_FOLDER = "folder/getResourceByUser";
 export const DOWNLOAD_IMAGE = "folder/downloadImage";
 export const DOWNLOAD_IMAGE_WITH_SIZE = "folder/downloadImageWithSize";
 export const FIND_FOLDER_BY_HOME_PARENT = "folder/getResourcesByRootParent";
+export const FIND_FOLDER_FOR_SIDEBAR = "folder/getFoldersForSideBar";
 export const FIND_SUB_FOLDER = "folder/getResourceByFolder";
 export const FIND_RESOURCE_BY_ID = "folder/getResourceById";
 export const ADD_RESOURCE = "folder/upload";

@@ -48,6 +48,8 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
 export const LeftPart = forwardRef(({}, ref) => {
+
+  console.log("reffff :: ",ref);
   const router = useHistory();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [copyText, setCopyText] = useState("Edit");
@@ -110,7 +112,7 @@ export const LeftPart = forwardRef(({}, ref) => {
               };
             });
 
-            setResource({ id: fileData.name, name: fileData.name });
+            setResource({ id: fileData.name, name: fileData.name , userId : fileData.userId});
             setIsVideo(false);
             if (data?.mimeType?.includes("image")) {
               setIsVideo(false);
@@ -164,7 +166,6 @@ export const LeftPart = forwardRef(({}, ref) => {
     let resoursePermission = checkResourcePermission(
       DELETE_RESOURCE_PERMISSION,
       file?._id,
-      params.u,
       resource
     );
     if (!resoursePermission) {
@@ -208,8 +209,7 @@ export const LeftPart = forwardRef(({}, ref) => {
     let resoursePermission = checkResourcePermission(
       DOWNLOAD_RESOURCE_PERMISSION,
       file?._id,
-      params.u,
-      resource
+      file
     );
     if (!resoursePermission) {
       return showError({ message: "Invalid Permission!" });
@@ -241,7 +241,6 @@ export const LeftPart = forwardRef(({}, ref) => {
     let resoursePermission = checkResourcePermission(
       UPDATE_RESOURCE_PERMISSIONS,
       file?._id,
-      params.u,
       resource
     );
     if (!resoursePermission) {

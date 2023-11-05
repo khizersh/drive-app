@@ -49,7 +49,6 @@ import swal from "sweetalert";
 
 export const LeftPart = forwardRef(({}, ref) => {
 
-  console.log("reffff :: ",ref);
   const router = useHistory();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [copyText, setCopyText] = useState("Edit");
@@ -345,7 +344,7 @@ export const LeftPart = forwardRef(({}, ref) => {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add {isFolder ? "Folder" : "File"}</Modal.Title>
+          <Modal.Title>Edit</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container">

@@ -243,9 +243,7 @@ const FolderLayout = () => {
       });
       if (data) {
         if (data.status == SUCCESS) {
-          console.log("data menu  :: ",data);
           const itemArray = await renderMenu(data.data);
-          // console.log("itemArray :: ",itemArray);
           setItems(itemArray);
           setLoading(false);
         }
@@ -297,7 +295,6 @@ const FolderLayout = () => {
     try {
       while (menu.length > 0) {
         menu.forEach((menuItem) => {
-          console.log("menu :: ",menu);
           menuItem.children = [];
 
           if (!menuItem.parentId) {
@@ -336,7 +333,6 @@ const FolderLayout = () => {
 
   var array = [];
   const serachFather = (menuArray, father, menuItem, menu) => {
-    console.log("menuArray :: ",menuArray);
     menuArray.forEach((menuPainted) => {
       if (menuPainted._id === father) {
         menuItem.opacity = menuPainted.opacity + 1;

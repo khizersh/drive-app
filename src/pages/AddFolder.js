@@ -14,6 +14,7 @@ import {
   ADD_RESOURCE_PERMISSION,
   ALL_PERMISSIONS,
   BASE_URL,
+  FIND_RESOURCE_BY_ID,
   GET_ALL,
   SUCCESS,
   UPDATE_RESOURCE_PERMISSION,
@@ -36,6 +37,7 @@ import TabPanel from "@material-ui/lab/TabPanel";
 const AddFolder = ({ data }) => {
   const { setLoading } = useContext(MainContext);
   const [file, setFile] = useState(null);
+  const [currentFolder, setCurrentFolder] = useState(null);
   const [reload, setReload] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -84,6 +86,7 @@ const AddFolder = ({ data }) => {
       setFolder(user);
       getUSers();
     }
+    getCurrentFolder();
   }, [reload]);
 
   function getCurrentUser() {
@@ -104,6 +107,19 @@ const AddFolder = ({ data }) => {
     return null;
   }
 
+  const getCurrentFolder = async () => {
+    if (params.folder) {
+      const data = await postRequest(BASE_URL + FIND_RESOURCE_BY_ID, {
+        id: params.folder,
+      });
+      if (data) {
+        if (data.status == SUCCESS) {
+          setCurrentFolder(data.data);
+        }
+      }
+    }
+  };
+
   const onChange = (e) => {
     if (e.target.name == "name") {
       localStorage.setItem("name", e.target.value);
@@ -120,30 +136,28 @@ const AddFolder = ({ data }) => {
 
     try {
       var formData = new FormData();
-      folder.rootFolder =  params.folder ? false : true;
+      folder.rootFolder = params.folder ? false : true;
       formData.append("data", JSON.stringify(folder));
       if (!folder.isFolder) {
         if (!file) {
           return showError({ message: "Please select file!" });
         }
         formData.append("file", file);
-        if (
-          !checkResourcePermission(
-            ADD_RESOURCE_PERMISSION,
-            params.folder ? params.folder : params.parent,
-            folder
-          )
-        ) {
+        let permExist = checkResourcePermission(
+          ADD_RESOURCE_PERMISSION,
+          params.folder ? params.folder : params.parent,
+          currentFolder ? currentFolder : folder
+        );
+        if (!permExist) {
           return showError({ message: "Invalid Permission!" });
         }
       } else {
-        if (
-          !checkResourcePermission(
-            ADD_FOLDER_PERMISSION,
-            params.folder ? params.folder : params.parent,
-            folder
-          )
-        ) {
+        let permExist = checkResourcePermission(
+          ADD_FOLDER_PERMISSION,
+          params.folder ? params.folder : params.parent,
+          currentFolder ? currentFolder : folder
+        );
+        if (!permExist) {
           return showError({ message: "Invalid Permission!" });
         }
       }
@@ -153,17 +167,20 @@ const AddFolder = ({ data }) => {
         formData,
         file ? ADD_RESOURCE_PERMISSION : ADD_FOLDER_PERMISSION
       );
+
       if (response) {
         if (response.data.status == SUCCESS) {
-          if (allUser) {
+          if (allUserPermission.permissionList.length) {
             let requestPermission = allUserPermission;
             requestPermission.resourceId = response.data.resourceId;
             await postRequest(
               BASE_URL + UPDATE_RESOURCE_PERMISSION_ALL,
               requestPermission
-            )
+            );
           }
           await showSuccess(response.data).then((r) => window.location.reload());
+
+
 
           // let json = setRequestBodyPermission(response.data.resourceId);
           // if (allUserPermission.permissionList.length) {

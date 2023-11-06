@@ -149,6 +149,8 @@ const AddFolder = ({ data }) => {
           currentFolder ? currentFolder : folder
         );
         if (!permExist) {
+          setLoading(false);
+          setIsLoading(false);
           return showError({ message: "Invalid Permission!" });
         }
       } else {
@@ -158,6 +160,8 @@ const AddFolder = ({ data }) => {
           currentFolder ? currentFolder : folder
         );
         if (!permExist) {
+          setLoading(false);
+          setIsLoading(false);
           return showError({ message: "Invalid Permission!" });
         }
       }
@@ -180,21 +184,6 @@ const AddFolder = ({ data }) => {
           }
           await showSuccess(response.data).then((r) => window.location.reload());
 
-
-
-          // let json = setRequestBodyPermission(response.data.resourceId);
-          // if (allUserPermission.permissionList.length) {
-          //   let exceptList = json.map((m) => m.email);
-          //   let request = allUserPermission;
-          //   request.resourceId = response.data.resourceId;
-          //   request.exceptList = exceptList;
-          //   await postRequest(
-          //     BASE_URL + UPDATE_RESOURCE_PERMISSION_ALL,
-          //     request
-          //   );
-          // }
-          // await postRequest(BASE_URL + UPDATE_RESOURCE_PERMISSION, json);
-          // showSuccess(response.data).then((r) => window.location.reload());
         } else {
           showError(response.data);
         }

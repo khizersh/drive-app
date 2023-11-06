@@ -107,32 +107,6 @@ const Folder = ({ data, onClick, viewType }) => {
                   style={{ color: " #6a431a" }}
                   onClick={() => onClickDelete()}
                 />
-                {/* <Button
-                  id="basic-button"
-                  aria-controls={onHover ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={onHover ? "true" : undefined}
-                  onMouseOver={() => setOnHover(true)}
-                  onClick={(e) => setOnHover(true)}
-                >
-                  <MoreVert style={{ color: " #6a431a" }} />
-                </Button>
-                {onHover ? (
-                  <div onMouseLeave={() => setOnHover(false)}>
-                    <div className="card shadow showDiv" onClick={() => onClickShare()}>
-                      <p className="text-left mb-0 " >
-                        <ShareIcon /> Share{" "}
-                      </p>
-                    </div>
-                    <div className="card shadow showDiv" onClick={() => onClickShare()}>
-                      <p className="text-left mb-0 " >
-                        <ShareIcon /> Share{" "}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )} */}
               </div>
 
               <div className="" onClick={onClickResource}>
@@ -144,10 +118,29 @@ const Folder = ({ data, onClick, viewType }) => {
                   <span> {resource.name}</span>
                 </div>
 
+
                 <div class="_countContainer_13ovesk">
                   <div class="_truncateMulti_3ywtd5">
                     <span>
-                      {resource.folderCount || resource.resourceCount ? (
+                    <div className="_countContainer_13ovesk">
+                          <div className="_truncateMulti_3ywtd5">
+                            <span>
+                              <i>
+                                {resource.folderCount ? (
+                                  resource.folderCount + " Sub-Folders"
+                                ) : (
+                                  <></>
+                                )}{" "}
+                                {resource.resourcesCount ? (
+                                  " , " + resource.resourcesCount + " Resources"
+                                ) : (
+                                  <></>
+                                )}
+                              </i>
+                            </span>
+                          </div>
+                        </div>
+                      {/* {resource.folderCount || resource.resourceCount ? (
                         <div className="_countContainer_13ovesk">
                           <div className="_truncateMulti_3ywtd5">
                             <span>
@@ -168,7 +161,7 @@ const Folder = ({ data, onClick, viewType }) => {
                         </div>
                       ) : (
                         <></>
-                      )}
+                      )} */}
                     </span>
                   </div>
                 </div>
@@ -233,11 +226,12 @@ const Folder = ({ data, onClick, viewType }) => {
                   <span> {resource.name}</span>
                 </div>
 
+
+             
                 <div class="_countContainer_13ovesk">
                   <div class="_truncateMulti_3ywtd5">
                     <span>
-                      {resource.folderCount || resource.resourceCount ? (
-                        <div className="_countContainer_13ovesk">
+                    <div className="_countContainer_13ovesk">
                           <div className="_truncateMulti_3ywtd5">
                             <span>
                               <i>
@@ -255,9 +249,8 @@ const Folder = ({ data, onClick, viewType }) => {
                             </span>
                           </div>
                         </div>
-                      ) : (
-                        <></>
-                      )}
+
+                     
                     </span>
                   </div>
                 </div>

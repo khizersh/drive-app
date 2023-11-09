@@ -505,6 +505,7 @@ const FolderLayout = () => {
     setResources(sorted);
     setSortedEvent(true);
   };
+  
   const handleSortDate = () => {
     let res = resources;
     let sortedArray = [];

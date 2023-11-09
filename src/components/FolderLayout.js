@@ -79,7 +79,6 @@ import SendIcon from "@mui/icons-material/Send";
 import ClearIcon from "@mui/icons-material/Clear";
 import FilterComponent from "./FilterComponent";
 import HomeFolderCard from "./HomeFolderCard";
-import e from "cors";
 
 const FolderLayout = () => {
   const { mainState, setLoading } = useContext(MainContext);
@@ -505,7 +504,7 @@ const FolderLayout = () => {
     setResources(sorted);
     setSortedEvent(true);
   };
-  
+
   const handleSortDate = () => {
     let res = resources;
     let sortedArray = [];

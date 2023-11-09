@@ -79,6 +79,7 @@ import SendIcon from "@mui/icons-material/Send";
 import ClearIcon from "@mui/icons-material/Clear";
 import FilterComponent from "./FilterComponent";
 import HomeFolderCard from "./HomeFolderCard";
+import e from "cors";
 
 const FolderLayout = () => {
   const { mainState, setLoading } = useContext(MainContext);
@@ -112,6 +113,8 @@ const FolderLayout = () => {
   const [scopeSelected, setScopeSelected] = useState("all");
   const [typeSelected, setTypeSelected] = useState("all");
   const [newCollection, setNewCollection] = useState("");
+  const [sortDate, setSortDate] = useState("asc");
+  const [sortedEvent, setSortedEvent] = useState(null);
 
   const toggleSidebar = (event) => {
     setLeftOpen(!leftOpen);
@@ -134,7 +137,7 @@ const FolderLayout = () => {
     const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
     if (perm) {
       setBreadCrumbFunc();
-  
+
       onClickSearch(true);
     }
   }, [params.folder]);
@@ -167,7 +170,7 @@ const FolderLayout = () => {
         }
       }
       // }
- 
+
       setLoading(false);
       router.push(
         "/folder?parent=" +
@@ -282,7 +285,7 @@ const FolderLayout = () => {
           setShowFolder(false);
         }
         setActiveFolder(obj);
-        let dataArray  = []
+        let dataArray = [];
         dataArray = data.data;
         setResources(dataArray);
       }
@@ -349,20 +352,22 @@ const FolderLayout = () => {
   };
 
   const reload = () => {
-    let user = checkUser();
-    if (!user && !params.parent) {
-      router.push("/login");
-    } else {
-      let userLocal = localStorage.getItem("user");
-      if (userLocal) {
-        var json = JSON.parse(userLocal);
-        if (json) {
-          const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
-          if (perm) {
-            setSidebar(json.email, params.parent);
-            let email = atob(params.u);
-            if (email) {
-              setHomePage(email, params.parent);
+    if (!sortedEvent) {
+      let user = checkUser();
+      if (!user && !params.parent) {
+        router.push("/login");
+      } else {
+        let userLocal = localStorage.getItem("user");
+        if (userLocal) {
+          var json = JSON.parse(userLocal);
+          if (json) {
+            const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
+            if (perm) {
+              setSidebar(json.email, params.parent);
+              let email = atob(params.u);
+              if (email) {
+                setHomePage(email, params.parent);
+              }
             }
           }
         }
@@ -375,96 +380,93 @@ const FolderLayout = () => {
     setFileKeyword(value);
   };
   const onClickSearch = async (isSearch) => {
-    // try {
-    //   if(params.keyword && searchOpen){
-    //     let url = window.location.origin + "/folder?keyword=" + fileKeyword;
-    //     window.location.href = url;
-    //   }else{
-    //     setLoading(true);
-    //     let userLocal = localStorage.getItem("user");
-    //     if (userLocal) {
-    //       var json = JSON.parse(userLocal);
-    //       if (json) {
-    //         if (isSearch && params.keyword) {
-    //           // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
-    //           setSearchOpen(true);
-    //           setShowFolder(false);
-    //           let obj = {
-    //             email: json.email,
-    //             keyword: params.keyword,
-    //           };
-    //           const data = await postRequest(
-    //             BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
-    //             obj
-    //           );
-    //           if (data) {
-    //             if (data.status == SUCCESS) {
-    //               let array = [];
-    //               data.data.map((file) => {
-    //                 if (file.isFolder === false) {
-    //                   array.push(file);
-    //                 }
-    //               });
-    //               setResultCount(array.length);
-    //               setResources(array);
-    //               // setFilteredResources(array)
-    //             }
-    //           }
-    //         } else if(fileKeyword){
-    //           // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
-    //           setSearchOpen(true);
-    //           setShowFolder(false);
-    //           let obj = {
-    //             homeParentId: params.parent,
-    //             email: json.email,
-    //             keyword: fileKeyword,
-    //           };
-    //           const data = await postRequest(
-    //             BASE_URL + GET_RESOURCSES_BY_KEYWORD,
-    //             obj
-    //           );
-    //           if (data) {
-    //             if (data.status == SUCCESS) {
-    //               let array = [];
-    //               data.data.map((file) => {
-    //                 if (file.isFolder === false) {
-    //                   array.push(file);
-    //                 }
-    //               });
-    //               setResultCount(array.length);
-    //               // setFilteredResources(array)
-    //               setResources(array);
-    //             }
-    //           }
-    //         }
-  
-    //         // console.log("array :: ", array);
-    //         setLoading(false);
-    //       }
-    //     }
-    //   }
-     
-    // } catch (error) {
-    //   setLoading(false);
-    // }
+    try {
+      if (params.keyword && searchOpen) {
+        let url = window.location.origin + "/folder?keyword=" + fileKeyword;
+        window.location.href = url;
+      } else {
+        setLoading(true);
+        let userLocal = localStorage.getItem("user");
+        if (userLocal) {
+          var json = JSON.parse(userLocal);
+          if (json) {
+            if (isSearch && params.keyword) {
+              // ::::::::::::::::: SEARCH LAYOUT ::::::::::::::::::::::::::::
+              setSearchOpen(true);
+              setShowFolder(false);
+              let obj = {
+                email: json.email,
+                keyword: params.keyword,
+              };
+              const data = await postRequest(
+                BASE_URL + GET_RESOURCSES_BY_KEYWORD_ALL,
+                obj
+              );
+              if (data) {
+                if (data.status == SUCCESS) {
+                  let array = [];
+                  data.data.map((file) => {
+                    if (file.isFolder === false) {
+                      array.push(file);
+                    }
+                  });
+                  setResultCount(array.length);
+                  setResources(array);
+                  // setFilteredResources(array)
+                }
+              }
+            } else if (fileKeyword) {
+              // :::::::::::::::::::::::: NORMAL LAYOUT ::::::::::::::::
+              setSearchOpen(true);
+              setShowFolder(false);
+              let obj = {
+                homeParentId: params.parent,
+                email: json.email,
+                keyword: fileKeyword,
+              };
+              const data = await postRequest(
+                BASE_URL + GET_RESOURCSES_BY_KEYWORD,
+                obj
+              );
+              if (data) {
+                if (data.status == SUCCESS) {
+                  let array = [];
+                  data.data.map((file) => {
+                    if (file.isFolder === false) {
+                      array.push(file);
+                    }
+                  });
+                  setResultCount(array.length);
+                  // setFilteredResources(array)
+                  setResources(array);
+                }
+              }
+            }
+            // console.log("array :: ", array);
+            setLoading(false);
+          }
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
-  function compareNameAsc(a, b) {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
-  }
-
-  function compareByDate(a, b) {
+  function compareByDateDesc(a, b) {
     if (a.createdDate < b.createdDate) {
       return 1;
     }
-    if (a.name > b.name) {
+    if (a.createdDate > b.createdDate) {
       return -1;
+    }
+    return 0;
+  }
+  function compareByDateAsc(a, b) {
+    if (a.createdDate < b.createdDate) {
+      return -1;
+    }
+    if (a.createdDate > b.createdDate) {
+      return 1;
     }
     return 0;
   }
@@ -478,22 +480,43 @@ const FolderLayout = () => {
     return 0;
   }
 
+  function compareNameAsc(a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      console.log("1");
+      return 1;
+    }
+    console.log("0");
+    return 0;
+  }
+
   const handleSortAlphabetical = () => {
     let res = resources;
+    let sorted = [];
     if (sort == "asc") {
       setSort("desc");
-      res.sort(compareNameDesc);
-      setResources(res);
+      sorted = res.sort(compareNameDesc);
     } else {
-      res.sort(compareNameAsc);
+      sorted = res.sort(compareNameAsc);
       setSort("asc");
-      setResources(res);
     }
+    setResources(sorted);
+    setSortedEvent(true);
   };
   const handleSortDate = () => {
     let res = resources;
-    res.sort(compareByDate);
+    let sortedArray = [];
+    if (sortDate == "asc") {
+      sortedArray = res.sort(compareByDateDesc);
+      setSortDate("desc")
+    } else {
+      sortedArray = res.sort(compareByDateAsc);
+      setSortDate("asc")
+    }
     setResources(res);
+    setSortedEvent(true);
   };
 
   const onChangeSearchSidebar = (e) => {
@@ -815,7 +838,6 @@ const FolderLayout = () => {
                   onClickType={onClickType}
                 />
               </div>
-
             ) : searchItemSidebar.length ? (
               <SidebarSearch items={searchItemSidebar} />
             ) : (
@@ -935,7 +957,7 @@ const FolderLayout = () => {
                         }}
                       >
                         <FolderIcon style={{ color: "#6a431a" }} />
-                        <text style={{ paddingTop: "6px" , color: "#6a431a"}}>
+                        <text style={{ paddingTop: "6px", color: "#6a431a" }}>
                           Folders{" "}
                           <span className="notification">
                             <strong>{activeFolder.folderCount}</strong>{" "}
@@ -955,7 +977,7 @@ const FolderLayout = () => {
                         style={{ background: showFolder ? "white" : "#e0d7d7" }}
                       >
                         <FileIcon style={{ color: "#6a431a" }} />
-                        <text style={{ paddingTop: "6px" , color: "#6a431a" }} >
+                        <text style={{ paddingTop: "6px", color: "#6a431a" }}>
                           Resources{" "}
                           <span className="notification">
                             <strong>{activeFolder.resourcesCount}</strong>{" "}
@@ -974,7 +996,7 @@ const FolderLayout = () => {
                         style={{ background: "#e0d7d7" }}
                       >
                         <FileIcon style={{ color: "" }} />
-                        <text style={{ paddingTop: "6px" , color: "#6a431a"}}>
+                        <text style={{ paddingTop: "6px", color: "#6a431a" }}>
                           Results{" "}
                           <span className="notification">
                             <strong>{resultCount}</strong>{" "}
@@ -1065,7 +1087,10 @@ const FolderLayout = () => {
                 >
                   <UploadFileIcon /> Add File
                 </button>
-                <button className="btn-folder mx-2" onClick={() => reload()}>
+                <button
+                  className="btn-folder mx-2"
+                  onClick={() => window.location.reload()}
+                >
                   <ReplayIcon /> Reload
                 </button>
               </div>

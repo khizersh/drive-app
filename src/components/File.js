@@ -45,7 +45,6 @@ const File = ({ data, onClick, viewType, onOpenPopup, onClickAdd }) => {
     } else {
       setFile(data);
     }
-    console.log("data File :: " , data.file ,  " format :: " , data.mimeType);
   }, [data]);
 
   const [onHover, setOnHover] = React.useState(false);

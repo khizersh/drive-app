@@ -28,7 +28,7 @@ const Folder = ({ data, onClick, viewType }) => {
   const router = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [onHover, setOnHover] = React.useState(false);
-  const [resource, setResource] = React.useState(data);
+  const [resource, setResource] = React.useState("");
   const open = Boolean(anchorEl);
   const [showDiv, setShowDiv] = useState(false);
 
@@ -37,6 +37,11 @@ const Folder = ({ data, onClick, viewType }) => {
       onClick("", resource);
     }
   };
+
+  useEffect(() => {
+    setResource(data);
+  }, [data])
+  
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -90,6 +95,10 @@ const Folder = ({ data, onClick, viewType }) => {
       }
     });
   };
+
+
+  
+
 
   return (
     <>

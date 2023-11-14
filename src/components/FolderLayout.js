@@ -243,6 +243,8 @@ const FolderLayout = () => {
         homeParentId: parentId,
         isFolder: true,
       });
+
+      console.log("data :: ",data);
       if (data) {
         if (data.status == SUCCESS) {
           const itemArray = await renderMenu(data.data);
@@ -251,6 +253,7 @@ const FolderLayout = () => {
         }
       }
     } catch (error) {
+      console.log("sidebar error :: ",error);
       setLoading(false);
     }
   };
@@ -351,26 +354,30 @@ const FolderLayout = () => {
   };
 
   const reload = () => {
-    if (!sortedEvent) {
-      let user = checkUser();
-      if (!user && !params.parent) {
-        router.push("/login");
-      } else {
-        let userLocal = localStorage.getItem("user");
-        if (userLocal) {
-          var json = JSON.parse(userLocal);
-          if (json) {
-            const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
-            if (perm) {
-              setSidebar(json.email, params.parent);
-              let email = atob(params.u);
-              if (email) {
-                setHomePage(email, params.parent);
+    try {
+      if (!sortedEvent) {
+        let user = checkUser();
+        if (!user && !params.parent) {
+          router.push("/login");
+        } else {
+          let userLocal = localStorage.getItem("user");
+          if (userLocal) {
+            var json = JSON.parse(userLocal);
+            if (json) {
+              const perm = checkPermission(VIEW_RESOURCE_PERMISSION);
+              if (perm) {
+                setSidebar(json.email, params.parent);
+                setHomePage(json.email, params.parent);
+                // let email = atob(params.u);
+                // if (email) {
+                // }
               }
             }
           }
         }
       }
+    } catch (e) {
+      console.log("error on reload :: ", e);
     }
   };
 
@@ -510,10 +517,10 @@ const FolderLayout = () => {
     let sortedArray = [];
     if (sortDate == "asc") {
       sortedArray = res.sort(compareByDateDesc);
-      setSortDate("desc")
+      setSortDate("desc");
     } else {
       sortedArray = res.sort(compareByDateAsc);
-      setSortDate("asc")
+      setSortDate("asc");
     }
     setResources(res);
     setSortedEvent(true);
@@ -754,6 +761,7 @@ const FolderLayout = () => {
   const menuClass = `dropdown-menu${sortOpen ? " show" : ""}`;
   return (
     <>
+      {console.log("render")}
       <div className="">
         <TailSpin
           height="100"
